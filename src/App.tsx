@@ -169,7 +169,12 @@ export default function App() {
       const key = c.cat.toLowerCase().trim();
       if (!seen.has(key)) seen.set(key, c.cat.trim());
     }
-    return ['all', ...Array.from(seen.keys())];
+    const keys = Array.from(seen.keys()).sort((a, b) => {
+      if (a === 'others') return 1;
+      if (b === 'others') return -1;
+      return 0;
+    });
+    return ['all', ...keys];
   }, [certs]);
 
   const certCategoryLabels: Record<string, string> = useMemo(() => {
