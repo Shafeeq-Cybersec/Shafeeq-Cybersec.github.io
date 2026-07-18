@@ -163,6 +163,24 @@ export default function App() {
 
   const certs = certificates;
 
+  const certCategories = useMemo(() => {
+    const seen = new Map<string, string>();
+    for (const c of certs) {
+      const key = c.cat.toLowerCase().trim();
+      if (!seen.has(key)) seen.set(key, c.cat.trim());
+    }
+    return ['all', ...Array.from(seen.keys())];
+  }, [certs]);
+
+  const certCategoryLabels: Record<string, string> = useMemo(() => {
+    const labels: Record<string, string> = { all: 'All' };
+    for (const c of certs) {
+      const key = c.cat.toLowerCase().trim();
+      if (!labels[key]) labels[key] = c.cat.trim();
+    }
+    return labels;
+  }, [certs]);
+
   const BLOGS_PER_PAGE = 3;
   const totalBlogPages = Math.ceil(blogs.length / BLOGS_PER_PAGE);
 
@@ -673,13 +691,13 @@ export default function App() {
         >
           <h2 className="section-title">My <span>Certifications</span></h2>
           <div className="filter-btns">
-            {['all', 'coursera', 'cisco', 'letsdefend', 'forage', 'tryhackme', 'others'].map(cat => (
-              <button 
-                key={cat} 
+            {certCategories.map(cat => (
+              <button
+                key={cat}
                 className={`filter-btn ${certFilter === cat ? 'active' : ''}`}
                 onClick={() => setCertFilter(cat)}
               >
-                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                {certCategoryLabels[cat]}
               </button>
             ))}
           </div>
@@ -688,15 +706,7 @@ export default function App() {
               {certs.filter(c => {
                 const currentFilter = certFilter.toLowerCase();
                 if (currentFilter === 'all') return true;
-                
-                const cat = c.cat.toLowerCase().trim();
-                const mainCats = ['coursera', 'cisco', 'letsdefend', 'forage', 'tryhackme'];
-                
-                if (currentFilter === 'others') {
-                  return !mainCats.includes(cat);
-                }
-                
-                return cat === currentFilter;
+                return c.cat.toLowerCase().trim() === currentFilter;
               }).map((c, i) => {
                 const absoluteIndex = certs.findIndex(cert => cert === c);
                 return (
@@ -966,10 +976,20 @@ export default function App() {
               className="relative max-w-[95vw] max-h-[95vh] w-auto h-auto flex flex-col items-center justify-center"
             >
               <div className="bg-white p-0.5 md:p-1 rounded shadow-2xl relative overflow-hidden flex items-center justify-center">
-                {(certs[selectedCertIndex] as any).image ? (
-                  <img 
-                    src={(certs[selectedCertIndex] as any).image} 
-                    alt={certs[selectedCertIndex].title} 
+                {(certs[selectedCertIndex] as any).image?.toLowerCase().endsWith('.pdf') ? (
+                  <a
+                    href={(certs[selectedCertIndex] as any).image}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-[600px] max-w-[80vw] h-[400px] bg-gray-100 flex flex-col gap-3 items-center justify-center text-gray-500 hover:text-blue-600 transition"
+                  >
+                    <FileText size={48} />
+                    <span className="text-sm font-mono uppercase tracking-wider">Open PDF Certificate</span>
+                  </a>
+                ) : (certs[selectedCertIndex] as any).image ? (
+                  <img
+                    src={(certs[selectedCertIndex] as any).image}
+                    alt={certs[selectedCertIndex].title}
                     className="max-h-[85vh] md:max-h-[92vh] max-w-[92vw] w-auto h-auto object-contain"
                     referrerPolicy="no-referrer"
                   />

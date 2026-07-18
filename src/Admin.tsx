@@ -125,6 +125,72 @@ function TextField({
   );
 }
 
+const NEW_CATEGORY = '__new__';
+
+function CategoryPicker({
+  label,
+  value,
+  onChange,
+  existingCategories,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  existingCategories: string[];
+}) {
+  const isKnown = value === '' || existingCategories.some((c) => c.toLowerCase() === value.toLowerCase());
+  const [adding, setAdding] = useState(!isKnown);
+
+  return (
+    <label className="block mb-3">
+      <span className="block text-xs text-[#888] mb-1">{label}</span>
+      {adding ? (
+        <div className="flex gap-2">
+          <input
+            autoFocus
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder="New category name"
+            className="w-full px-3 py-2 rounded bg-[#0a0a0a] border border-[#333] text-sm outline-none focus:border-[#3d6fd4]"
+          />
+          {existingCategories.length > 0 && (
+            <button
+              type="button"
+              onClick={() => {
+                setAdding(false);
+                onChange(existingCategories[0]);
+              }}
+              className="px-2 text-xs text-[#888] hover:text-white shrink-0"
+            >
+              Cancel
+            </button>
+          )}
+        </div>
+      ) : (
+        <select
+          value={value}
+          onChange={(e) => {
+            if (e.target.value === NEW_CATEGORY) {
+              setAdding(true);
+              onChange('');
+            } else {
+              onChange(e.target.value);
+            }
+          }}
+          className="w-full px-3 py-2 rounded bg-[#0a0a0a] border border-[#333] text-sm outline-none"
+        >
+          {existingCategories.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+          <option value={NEW_CATEGORY}>+ Add new category…</option>
+        </select>
+      )}
+    </label>
+  );
+}
+
 function CertificatesPanel({ token }: { token: string }) {
   const [items, setItems] = useState<Certificate[] | null>(null);
   const [sha, setSha] = useState<string | undefined>();
@@ -135,13 +201,16 @@ function CertificatesPanel({ token }: { token: string }) {
 
   const load = async () => {
     const file = await getFile(token, 'src/data/certificates.json');
-    if (file) {
-      setItems(JSON.parse(file.content));
-      setSha(file.sha);
-    } else {
-      setItems([]);
+    const loaded: Certificate[] = file ? JSON.parse(file.content) : [];
+    setItems(loaded);
+    setSha(file?.sha);
+    if (loaded.length) {
+      const cats = Array.from(new Set(loaded.map((c) => c.cat).filter(Boolean)));
+      setForm((f) => (f.cat ? f : { ...f, cat: cats[0] }));
     }
   };
+
+  const existingCategories = Array.from(new Set((items ?? []).map((c) => c.cat).filter(Boolean))).sort();
 
   useEffect(() => {
     load();
@@ -181,7 +250,7 @@ function CertificatesPanel({ token }: { token: string }) {
         latest?.sha
       );
       setStatus({ type: 'ok', msg: 'Certificate added. It will appear after the site rebuilds (~1 min).' });
-      setForm({ cat: '', title: '', sub: '', pdf: '', icon: 'shield' });
+      setForm({ cat: form.cat, title: '', sub: '', pdf: '', icon: 'shield' });
       setImageFile(null);
       await load();
     } catch (e) {
@@ -215,7 +284,12 @@ function CertificatesPanel({ token }: { token: string }) {
     <div className="grid md:grid-cols-2 gap-8">
       <div>
         <h2 className="text-lg font-semibold text-white mb-4">Add Certificate</h2>
-        <TextField label="Category (e.g. Cisco, Coursera, Letsdefend)" value={form.cat} onChange={(v) => setForm({ ...form, cat: v })} />
+        <CategoryPicker
+          label="Category (shown as a filter tab on the site)"
+          value={form.cat}
+          onChange={(v) => setForm({ ...form, cat: v })}
+          existingCategories={existingCategories}
+        />
         <TextField label="Title" value={form.title} onChange={(v) => setForm({ ...form, title: v })} />
         <TextField label="Subtitle / Issuer" value={form.sub} onChange={(v) => setForm({ ...form, sub: v })} />
         <TextField label="PDF link (optional)" value={form.pdf} onChange={(v) => setForm({ ...form, pdf: v })} />
@@ -232,10 +306,10 @@ function CertificatesPanel({ token }: { token: string }) {
           </select>
         </label>
         <label className="block mb-4">
-          <span className="block text-xs text-[#888] mb-1">Certificate image</span>
+          <span className="block text-xs text-[#888] mb-1">Certificate image or PDF</span>
           <input
             type="file"
-            accept="image/*"
+            accept="image/*,.pdf"
             onChange={(e) => setImageFile(e.target.files?.[0] ?? null)}
             className="text-sm text-[#888]"
           />
@@ -292,8 +366,15 @@ function BlogsPanel({ token }: { token: string }) {
 
   const load = async () => {
     const file = await getFile(token, 'src/data/blogs.json');
-    setItems(file ? JSON.parse(file.content) : []);
+    const loaded: Blog[] = file ? JSON.parse(file.content) : [];
+    setItems(loaded);
+    if (loaded.length) {
+      const cats = Array.from(new Set(loaded.map((b) => b.cat).filter(Boolean)));
+      setForm((f) => (f.cat ? f : { ...f, cat: cats[0] }));
+    }
   };
+
+  const existingCategories = Array.from(new Set((items ?? []).map((b) => b.cat).filter(Boolean))).sort();
 
   useEffect(() => {
     load();
@@ -337,7 +418,7 @@ function BlogsPanel({ token }: { token: string }) {
         latest?.sha
       );
       setStatus({ type: 'ok', msg: 'Blog added. It will appear after the site rebuilds (~1 min).' });
-      setForm({ title: '', date: '', author: 'Shafeeq S', cat: '', desc: '', link: '', content: '' });
+      setForm({ title: '', date: '', author: 'Shafeeq S', cat: form.cat, desc: '', link: '', content: '' });
       setImageFile(null);
       await load();
     } catch (e) {
@@ -373,7 +454,12 @@ function BlogsPanel({ token }: { token: string }) {
         <TextField label="Title" value={form.title} onChange={(v) => setForm({ ...form, title: v })} />
         <TextField label="Date (e.g. 18 Jul, 2026)" value={form.date} onChange={(v) => setForm({ ...form, date: v })} />
         <TextField label="Author" value={form.author} onChange={(v) => setForm({ ...form, author: v })} />
-        <TextField label="Category" value={form.cat} onChange={(v) => setForm({ ...form, cat: v })} />
+        <CategoryPicker
+          label="Category"
+          value={form.cat}
+          onChange={(v) => setForm({ ...form, cat: v })}
+          existingCategories={existingCategories}
+        />
         <TextField label="Short description" value={form.desc} onChange={(v) => setForm({ ...form, desc: v })} textarea />
         <TextField label="External link (optional)" value={form.link} onChange={(v) => setForm({ ...form, link: v })} />
         <TextField label="Content (Markdown)" value={form.content} onChange={(v) => setForm({ ...form, content: v })} textarea />
