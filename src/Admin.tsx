@@ -135,6 +135,52 @@ function TextField({
   );
 }
 
+function FileInput({
+  label,
+  file,
+  onChange,
+  accept,
+}: {
+  label: string;
+  file: File | null;
+  onChange: (f: File | null) => void;
+  accept: string;
+}) {
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!file || !file.type.startsWith('image/')) {
+      setPreviewUrl(null);
+      return;
+    }
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+    return () => URL.revokeObjectURL(url);
+  }, [file]);
+
+  return (
+    <label className="block mb-4">
+      <span className="block text-xs text-[#888] mb-1">{label}</span>
+      <div className="flex items-center gap-3">
+        {previewUrl ? (
+          <img src={previewUrl} alt="" className="w-14 h-14 rounded object-cover border border-[#333] shrink-0" />
+        ) : file ? (
+          <div className="w-14 h-14 rounded border border-[#333] bg-[#0a0a0a] flex items-center justify-center shrink-0">
+            <FileText size={20} className="text-[#555]" />
+          </div>
+        ) : null}
+        <input
+          type="file"
+          accept={accept}
+          onChange={(e) => onChange(e.target.files?.[0] ?? null)}
+          className="text-sm text-[#888]"
+        />
+      </div>
+      {file && <p className="text-xs text-[#555] mt-1">{file.name} · {(file.size / 1024).toFixed(0)} KB</p>}
+    </label>
+  );
+}
+
 const NEW_CATEGORY = '__new__';
 
 function CategoryPicker({
@@ -315,15 +361,7 @@ function CertificatesPanel({ token }: { token: string }) {
             <option value="trophy">Trophy</option>
           </select>
         </label>
-        <label className="block mb-4">
-          <span className="block text-xs text-[#888] mb-1">Certificate image or PDF</span>
-          <input
-            type="file"
-            accept="image/*,.pdf"
-            onChange={(e) => setImageFile(e.target.files?.[0] ?? null)}
-            className="text-sm text-[#888]"
-          />
-        </label>
+        <FileInput label="Certificate image or PDF" file={imageFile} onChange={setImageFile} accept="image/*,.pdf" />
         <button
           onClick={addCertificate}
           disabled={status.type === 'busy'}
@@ -480,15 +518,7 @@ function BlogsPanel({ token }: { token: string }) {
         <TextField label="Short description" value={form.desc} onChange={(v) => setForm({ ...form, desc: v })} textarea />
         <TextField label="External link (optional)" value={form.link} onChange={(v) => setForm({ ...form, link: v })} />
         <TextField label="Content (Markdown)" value={form.content} onChange={(v) => setForm({ ...form, content: v })} textarea />
-        <label className="block mb-4">
-          <span className="block text-xs text-[#888] mb-1">Thumbnail image</span>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImageFile(e.target.files?.[0] ?? null)}
-            className="text-sm text-[#888]"
-          />
-        </label>
+        <FileInput label="Thumbnail image" file={imageFile} onChange={setImageFile} accept="image/*" />
         <button
           onClick={addBlog}
           disabled={status.type === 'busy'}
