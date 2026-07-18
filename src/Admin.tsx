@@ -469,7 +469,7 @@ export default function Admin() {
         </div>
       </header>
 
-      <nav className="flex gap-2 px-6 pt-4">
+      <div className="flex gap-2 px-6 pt-4">
         {(['certs', 'blogs'] as const).map((t) => (
           <button
             key={t}
@@ -481,7 +481,7 @@ export default function Admin() {
             {t === 'certs' ? 'Certificates' : 'Blogs'}
           </button>
         ))}
-      </nav>
+      </div>
 
       <main className="p-6">{tab === 'certs' ? <CertificatesPanel token={token} /> : <BlogsPanel token={token} />}</main>
     </div>
