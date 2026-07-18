@@ -134,5 +134,13 @@
     "image": "/certificates/network-protocol-ii.png",
     "pdf": "",
     "icon": "shield"
+  },
+  {
+    "cat": "Coursera",
+    "title": "Supervised Machine Learning: Regression and Classification",
+    "sub": "Stanford,DeepLearning.AI",
+    "image": "/certificates/supervisedmachinelearning-coursera-page-0001-1784346981022.jpg",
+    "pdf": "",
+    "icon": "shield"
   }
 ]
