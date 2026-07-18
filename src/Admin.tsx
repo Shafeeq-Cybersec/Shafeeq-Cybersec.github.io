@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FileText, Image as ImageIcon } from 'lucide-react';
 import {
   getFile,
   putFile,
@@ -339,8 +340,15 @@ function CertificatesPanel({ token }: { token: string }) {
         <h2 className="text-lg font-semibold text-white mb-4">Existing Certificates ({items?.length ?? '…'})</h2>
         <div className="space-y-2 max-h-[600px] overflow-y-auto pr-1">
           {items?.map((c, i) => (
-            <div key={`${c.title}-${i}`} className="flex items-center justify-between gap-3 border border-[#222] bg-[#111] rounded px-3 py-2">
-              <div className="min-w-0">
+            <div key={`${c.title}-${i}`} className="flex items-center gap-3 border border-[#222] bg-[#111] rounded px-3 py-2">
+              <div className="w-12 h-12 rounded bg-[#0a0a0a] border border-[#222] shrink-0 overflow-hidden flex items-center justify-center">
+                {c.image && !c.image.toLowerCase().endsWith('.pdf') ? (
+                  <img src={c.image} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  <FileText size={18} className="text-[#555]" />
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
                 <div className="text-sm text-white truncate">{c.title}</div>
                 <div className="text-xs text-[#888]">{c.cat} · {c.sub}</div>
               </div>
@@ -497,8 +505,15 @@ function BlogsPanel({ token }: { token: string }) {
         <h2 className="text-lg font-semibold text-white mb-4">Existing Blog Posts ({items?.length ?? '…'})</h2>
         <div className="space-y-2 max-h-[600px] overflow-y-auto pr-1">
           {items?.map((b) => (
-            <div key={b.id} className="flex items-center justify-between gap-3 border border-[#222] bg-[#111] rounded px-3 py-2">
-              <div className="min-w-0">
+            <div key={b.id} className="flex items-center gap-3 border border-[#222] bg-[#111] rounded px-3 py-2">
+              <div className="w-12 h-12 rounded bg-[#0a0a0a] border border-[#222] shrink-0 overflow-hidden flex items-center justify-center">
+                {b.image ? (
+                  <img src={b.image} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  <ImageIcon size={18} className="text-[#555]" />
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
                 <div className="text-sm text-white truncate">{b.title}</div>
                 <div className="text-xs text-[#888]">{b.date} · {b.cat}</div>
               </div>
