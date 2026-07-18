@@ -1,0 +1,138 @@
+[
+  {
+    "cat": "Coursera",
+    "title": "Google Cybersecurity Professional",
+    "sub": "Coursera",
+    "image": "/certificates/foundations-of-cybersecurity.png",
+    "pdf": "",
+    "icon": "shield"
+  },
+  {
+    "cat": "Letsdefend",
+    "title": "Introduction to Cryptology",
+    "sub": "Letsdefend",
+    "image": "/certificates/cryptology.png",
+    "pdf": "",
+    "icon": "shield"
+  },
+  {
+    "cat": "Others",
+    "title": "TCS iON Career Edge - Young Professional",
+    "sub": "TCS iON",
+    "image": "/certificates/tcs-ion-careeredge.png",
+    "pdf": "",
+    "icon": "award"
+  },
+  {
+    "cat": "Others",
+    "title": "Awarded for Excellence in TANSAM Internship",
+    "sub": "TANSAM Internship",
+    "image": "/certificates/tansam-internship-cert.jpg",
+    "pdf": "",
+    "icon": "trophy"
+  },
+  {
+    "cat": "Others",
+    "title": "1st Place - Rhetoric Rumble (Debate)",
+    "sub": "RMD Engineering College",
+    "image": "/certificates/rhetoric-rumble-debate.jpeg",
+    "pdf": "",
+    "icon": "trophy"
+  },
+  {
+    "cat": "Coursera",
+    "title": "IBM Data Analytics",
+    "sub": "Coursera",
+    "image": "/certificates/ibm-data-analytics-coursera.png",
+    "pdf": "",
+    "icon": "shield"
+  },
+  {
+    "cat": "Cisco",
+    "title": "Introduction to Cybersecurity",
+    "sub": "Cisco",
+    "image": "/certificates/cisco-intro-to-cybersecurity.png",
+    "pdf": "",
+    "icon": "shield"
+  },
+  {
+    "cat": "Letsdefend",
+    "title": "How to Investigate SIEM Alerts",
+    "sub": "Letsdefend",
+    "image": "/certificates/how-to-investigate-siem-alert.png",
+    "pdf": "",
+    "icon": "shield"
+  },
+  {
+    "cat": "Cisco",
+    "title": "Endpoint Security",
+    "sub": "Cisco",
+    "image": "/certificates/cisco-endpoint-security.png",
+    "pdf": "",
+    "icon": "shield"
+  },
+  {
+    "cat": "Forage",
+    "title": "Cybersecurity Analyst Job Simulation",
+    "sub": "TATA(Forage)",
+    "image": "/certificates/tcs-forage-certificate.png",
+    "pdf": "",
+    "icon": "shield"
+  },
+  {
+    "cat": "Letsdefend",
+    "title": "Linux for Cybersecurity",
+    "sub": "Letsdefend",
+    "image": "/certificates/linux-fundamentals.png",
+    "pdf": "",
+    "icon": "shield"
+  },
+  {
+    "cat": "Letsdefend",
+    "title": "Malware Analysis Fundamentals",
+    "sub": "Letsdefend",
+    "image": "/certificates/malware-analysis-fundamentals.png",
+    "pdf": "",
+    "icon": "shield"
+  },
+  {
+    "cat": "Letsdefend",
+    "title": "Packet-Level Malware Detection with Wireshark",
+    "sub": "Letsdefend",
+    "image": "/certificates/malware-traffic-analysis-wireshark.png",
+    "pdf": "",
+    "icon": "shield"
+  },
+  {
+    "cat": "Letsdefend",
+    "title": "Network Fundamentals",
+    "sub": "Letsdefend",
+    "image": "/certificates/network-fundamentals.png",
+    "pdf": "",
+    "icon": "shield"
+  },
+  {
+    "cat": "Letsdefend",
+    "title": "Network Fundamentals II",
+    "sub": "Letsdefend",
+    "image": "/certificates/network-fundamentals-ii.png",
+    "pdf": "",
+    "icon": "shield"
+  },
+  {
+    "cat": "Letsdefend",
+    "title": "Network Protocol",
+    "sub": "Protocol Engineer",
+    "image": "/certificates/network-protocol.png",
+    "pdf": "",
+    "icon": "shield"
+  },
+  {
+    "cat": "Letsdefend",
+    "title": "Network Protocol - 2",
+    "sub": "Protocol Handler",
+    "image": "/certificates/network-protocol-ii.png",
+    "pdf": "",
+    "icon": "shield"
+  }
+]
