@@ -6,5 +6,13 @@
     "tech": "Python · JavaScript · HTML & CSS · Zxcvbn · GitHub",
     "link": "https://shafeeq-cybersec.github.io/password-security-analyzer/",
     "icon": "lock"
+  },
+  {
+    "title": "ThreatLens - Reconstruct the invisible",
+    "period": "2026",
+    "desc": "A browser-based SOC dashboard that reconstructs cyber attacks by mapping security events across the Cyber Kill Chain and the MITRE ATT&CK framework. It analyzes raw security logs using a client-side rule engine, automatically identifies attack stages, enriches events with ATT&CK techniques, and calculates dynamic risk scores to help analysts understand attacker behavior. Designed as a lightweight, privacy-friendly platform with no backend or AI API dependencies.",
+    "tech": "TypeScript · Vite · Tailwind CSS · JavaScript · HTML · CSS",
+    "link": "https://shafeeq-cybersec.github.io/threatlens/",
+    "icon": "search"
   }
 ]
