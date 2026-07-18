@@ -1,0 +1,18 @@
+[
+  {
+    "title": "AI KAVACH – NEXT-GEN CYBER DEFENSE",
+    "period": "2024",
+    "desc": "AI-powered intrusion detection system that achieved high detection accuracy during testing. Designed for proactive threat identification and incident response simulations.",
+    "tech": "Python · ML · Incident Response · Dashboard Design",
+    "link": "",
+    "icon": "shield"
+  },
+  {
+    "title": "Password Security Analyzer",
+    "period": "2026",
+    "desc": "A real-time password strength analysis tool that evaluates password security using entropy calculation, pattern detection, and common password checks. It provides instant feedback, estimated crack time, and actionable suggestions to improve password strength. Built with a privacy-first approach where all analysis happens locally in the browser.",
+    "tech": "Python · JavaScript · HTML & CSS · Zxcvbn · GitHub",
+    "link": "https://shafeeq-cybersec.github.io/password-security-analyzer/",
+    "icon": "lock"
+  }
+]

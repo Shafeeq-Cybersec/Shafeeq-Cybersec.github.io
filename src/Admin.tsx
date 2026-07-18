@@ -33,6 +33,15 @@ interface Blog {
   content: string;
 }
 
+interface Project {
+  title: string;
+  period: string;
+  desc: string;
+  tech: string;
+  link: string;
+  icon: string;
+}
+
 function useStatus() {
   const [status, setStatus] = useState<{ type: 'idle' | 'busy' | 'ok' | 'err'; msg: string }>({
     type: 'idle',
@@ -504,10 +513,130 @@ function BlogsPanel({ token }: { token: string }) {
   );
 }
 
+const PROJECT_ICONS = ['shield', 'lock', 'code', 'bug', 'target', 'monitor', 'search', 'radio'];
+
+function ProjectsPanel({ token }: { token: string }) {
+  const [items, setItems] = useState<Project[] | null>(null);
+  const { status, setStatus } = useStatus();
+
+  const [form, setForm] = useState({ title: '', period: '', desc: '', tech: '', link: '', icon: 'shield' });
+
+  const load = async () => {
+    const file = await getFile(token, 'src/data/projects.json');
+    setItems(file ? JSON.parse(file.content) : []);
+  };
+
+  useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const addProject = async () => {
+    if (!form.title.trim()) {
+      setStatus({ type: 'err', msg: 'Title is required.' });
+      return;
+    }
+    setStatus({ type: 'busy', msg: 'Updating projects.json…' });
+    try {
+      const latest = await getFile(token, 'src/data/projects.json');
+      const current: Project[] = latest ? JSON.parse(latest.content) : [];
+      const next = [...current, { ...form }];
+      await putFile(
+        token,
+        'src/data/projects.json',
+        utf8ToBase64(JSON.stringify(next, null, 2)),
+        `Add project: ${form.title}`,
+        latest?.sha
+      );
+      setStatus({ type: 'ok', msg: 'Project added. It will appear after the site rebuilds (~1 min).' });
+      setForm({ title: '', period: '', desc: '', tech: '', link: '', icon: 'shield' });
+      await load();
+    } catch (e) {
+      setStatus({ type: 'err', msg: e instanceof Error ? e.message : 'Failed to add project.' });
+    }
+  };
+
+  const removeProject = async (index: number) => {
+    if (!items) return;
+    if (!confirm(`Delete "${items[index].title}"?`)) return;
+    setStatus({ type: 'busy', msg: 'Deleting…' });
+    try {
+      const latest = await getFile(token, 'src/data/projects.json');
+      const current: Project[] = latest ? JSON.parse(latest.content) : [];
+      const next = current.filter((_, i) => i !== index);
+      await putFile(
+        token,
+        'src/data/projects.json',
+        utf8ToBase64(JSON.stringify(next, null, 2)),
+        `Remove project: ${current[index]?.title ?? ''}`,
+        latest?.sha
+      );
+      setStatus({ type: 'ok', msg: 'Project removed.' });
+      await load();
+    } catch (e) {
+      setStatus({ type: 'err', msg: e instanceof Error ? e.message : 'Failed to delete project.' });
+    }
+  };
+
+  return (
+    <div className="grid md:grid-cols-2 gap-8">
+      <div>
+        <h2 className="text-lg font-semibold text-white mb-4">Add Project</h2>
+        <TextField label="Title" value={form.title} onChange={(v) => setForm({ ...form, title: v })} />
+        <TextField label="Period (e.g. 2026)" value={form.period} onChange={(v) => setForm({ ...form, period: v })} />
+        <TextField label="Description" value={form.desc} onChange={(v) => setForm({ ...form, desc: v })} textarea />
+        <TextField label="Tech stack (e.g. Python · React · GitHub)" value={form.tech} onChange={(v) => setForm({ ...form, tech: v })} />
+        <TextField label="Project link (optional)" value={form.link} onChange={(v) => setForm({ ...form, link: v })} />
+        <label className="block mb-4">
+          <span className="block text-xs text-[#888] mb-1">Icon</span>
+          <select
+            value={form.icon}
+            onChange={(e) => setForm({ ...form, icon: e.target.value })}
+            className="w-full px-3 py-2 rounded bg-[#0a0a0a] border border-[#333] text-sm outline-none"
+          >
+            {PROJECT_ICONS.map((i) => (
+              <option key={i} value={i}>
+                {i.charAt(0).toUpperCase() + i.slice(1)}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button
+          onClick={addProject}
+          disabled={status.type === 'busy'}
+          className="px-4 py-2 rounded bg-[#3d6fd4] hover:bg-[#5a8dee] disabled:opacity-50 text-white text-sm font-medium transition"
+        >
+          {status.type === 'busy' ? 'Working…' : 'Add Project'}
+        </button>
+        {status.msg && (
+          <p className={`text-xs mt-3 ${status.type === 'err' ? 'text-red-400' : 'text-green-400'}`}>{status.msg}</p>
+        )}
+      </div>
+
+      <div>
+        <h2 className="text-lg font-semibold text-white mb-4">Existing Projects ({items?.length ?? '…'})</h2>
+        <div className="space-y-2 max-h-[600px] overflow-y-auto pr-1">
+          {items?.map((p, i) => (
+            <div key={`${p.title}-${i}`} className="flex items-center justify-between gap-3 border border-[#222] bg-[#111] rounded px-3 py-2">
+              <div className="min-w-0">
+                <div className="text-sm text-white truncate">{p.title}</div>
+                <div className="text-xs text-[#888]">{p.period}</div>
+              </div>
+              <button onClick={() => removeProject(i)} className="text-xs text-red-400 hover:text-red-300 shrink-0">
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Admin() {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem(TOKEN_KEY));
   const [login, setLogin] = useState<string | null>(null);
-  const [tab, setTab] = useState<'certs' | 'blogs'>('certs');
+  const [tab, setTab] = useState<'certs' | 'blogs' | 'projects'>('certs');
 
   useEffect(() => {
     if (token && !login) {
@@ -556,7 +685,7 @@ export default function Admin() {
       </header>
 
       <div className="flex gap-2 px-6 pt-4">
-        {(['certs', 'blogs'] as const).map((t) => (
+        {(['certs', 'blogs', 'projects'] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -564,12 +693,14 @@ export default function Admin() {
               tab === t ? 'bg-[#3d6fd4] text-white' : 'bg-[#141414] text-[#888] border border-[#222]'
             }`}
           >
-            {t === 'certs' ? 'Certificates' : 'Blogs'}
+            {t === 'certs' ? 'Certificates' : t === 'blogs' ? 'Blogs' : 'Projects'}
           </button>
         ))}
       </div>
 
-      <main className="p-6">{tab === 'certs' ? <CertificatesPanel token={token} /> : <BlogsPanel token={token} />}</main>
+      <main className="p-6">
+        {tab === 'certs' ? <CertificatesPanel token={token} /> : tab === 'blogs' ? <BlogsPanel token={token} /> : <ProjectsPanel token={token} />}
+      </main>
     </div>
   );
 }

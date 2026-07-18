@@ -42,7 +42,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import Markdown from 'react-markdown';
 
-import { certificates, blogs, roles } from './data';
+import { certificates, blogs, roles, projects } from './data';
 import CyberShield from './components/CyberShield';
 import DataDebris from './components/DataDebris';
 
@@ -626,44 +626,32 @@ export default function App() {
             }}
             className="projects-grid"
           >
-            <motion.div 
-              variants={{
-                hidden: { opacity: 0, y: 30, scale: 0.95 },
-                visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.33, 1, 0.68, 1] } }
-              }}
-              whileHover={{ y: -10, scale: 1.02, transition: { duration: 0.4, ease: "easeOut" } }}
-              className="proj-card group"
-            >
-            <div className="proj-icon-wrap">
-              <Shield size={22} />
-            </div>
-            <div className="proj-title">AI KAVACH – NEXT-GEN CYBER DEFENSE</div>
-            <div className="proj-period">2024</div>
-            <p className="proj-desc">AI-powered intrusion detection system that achieved high detection accuracy during testing. Designed for proactive threat identification and incident response simulations.</p>
-            <div className="proj-tech">Python · ML · Incident Response · Dashboard Design</div>
-          </motion.div>
-          
-          <motion.div 
-            variants={{
-              hidden: { opacity: 0, y: 30, scale: 0.95 },
-              visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.33, 1, 0.68, 1] } }
-            }}
-            whileHover={{ y: -10, scale: 1.02, transition: { duration: 0.4, ease: "easeOut" } }}
-            className="proj-card group"
-          >
-            <div className="proj-icon-wrap">
-              <Lock size={22} />
-            </div>
-            <div className="proj-title">Password Security Analyzer</div>
-            <div className="proj-period">2026</div>
-            <p className="proj-desc">A real-time password strength analysis tool that evaluates password security using entropy calculation, pattern detection, and common password checks. It provides instant feedback, estimated crack time, and actionable suggestions to improve password strength. Built with a privacy-first approach where all analysis happens locally in the browser.</p>
-            <div className="proj-tech">Python · JavaScript · HTML & CSS · Zxcvbn · GitHub</div>
-            <a href="https://shafeeq-cybersec.github.io/password-security-analyzer/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-mono transition-colors">
-              <ExternalLink size={14} /> View Project
-            </a>
-          </motion.div>
+            {projects.map((p, i) => (
+              <motion.div
+                key={`${p.title}-${i}`}
+                variants={{
+                  hidden: { opacity: 0, y: 30, scale: 0.95 },
+                  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.33, 1, 0.68, 1] } }
+                }}
+                whileHover={{ y: -10, scale: 1.02, transition: { duration: 0.4, ease: "easeOut" } }}
+                className="proj-card group"
+              >
+                <div className="proj-icon-wrap">
+                  {p.icon}
+                </div>
+                <div className="proj-title">{p.title}</div>
+                <div className="proj-period">{p.period}</div>
+                <p className="proj-desc">{p.desc}</p>
+                <div className="proj-tech">{p.tech}</div>
+                {p.link && (
+                  <a href={p.link} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-mono transition-colors">
+                    <ExternalLink size={14} /> View Project
+                  </a>
+                )}
+              </motion.div>
+            ))}
 
-          <motion.div 
+            <motion.div
             variants={{
               hidden: { opacity: 0, y: 30, scale: 0.95 },
               visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.33, 1, 0.68, 1] } }
