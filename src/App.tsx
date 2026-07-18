@@ -186,6 +186,16 @@ export default function App() {
     return labels;
   }, [certs]);
 
+  const filteredCerts = useMemo(() => {
+    const currentFilter = certFilter.toLowerCase();
+    if (currentFilter === 'all') return certs;
+    return certs.filter(c => c.cat.toLowerCase().trim() === currentFilter);
+  }, [certs, certFilter]);
+
+  useEffect(() => {
+    setSelectedCertIndex(null);
+  }, [certFilter]);
+
   const BLOGS_PER_PAGE = 3;
   const totalBlogPages = Math.ceil(blogs.length / BLOGS_PER_PAGE);
 
@@ -696,33 +706,26 @@ export default function App() {
           </div>
           <div className="certs-grid">
             <AnimatePresence mode="popLayout">
-              {certs.filter(c => {
-                const currentFilter = certFilter.toLowerCase();
-                if (currentFilter === 'all') return true;
-                return c.cat.toLowerCase().trim() === currentFilter;
-              }).map((c, i) => {
-                const absoluteIndex = certs.findIndex(cert => cert === c);
-                return (
-                  <motion.div
-                    key={`${c.title}-${absoluteIndex}`}
-                    layout
-                    initial={{ opacity: 0, scale: 0.9, y: 30, filter: 'blur(5px)' }}
-                    animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
-                    exit={{ opacity: 0, scale: 0.9, y: 30, filter: 'blur(5px)' }}
-                    transition={{ 
-                      duration: 0.6, 
-                      delay: i * 0.03,
-                      ease: [0.33, 1, 0.68, 1] 
-                    }}
-                  >
-                    <CertCard 
-                      cert={c} 
-                      index={absoluteIndex} 
-                      onOpen={(idx) => setSelectedCertIndex(idx)} 
-                    />
-                  </motion.div>
-                );
-              })}
+              {filteredCerts.map((c, i) => (
+                <motion.div
+                  key={`${c.title}-${i}`}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9, y: 30, filter: 'blur(5px)' }}
+                  animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, scale: 0.9, y: 30, filter: 'blur(5px)' }}
+                  transition={{
+                    duration: 0.6,
+                    delay: i * 0.03,
+                    ease: [0.33, 1, 0.68, 1]
+                  }}
+                >
+                  <CertCard
+                    cert={c}
+                    index={i}
+                    onOpen={(idx) => setSelectedCertIndex(idx)}
+                  />
+                </motion.div>
+              ))}
             </AnimatePresence>
           </div>
         </motion.div>
@@ -954,14 +957,14 @@ export default function App() {
               <X size={32} />
             </button>
 
-            <button 
+            <button
               className="absolute left-4 md:left-10 text-white/50 hover:text-white transition-colors z-[1010] lightbox-nav-btn"
-              onClick={() => setSelectedCertIndex((prev) => (prev! - 1 + certs.length) % certs.length)}
+              onClick={() => setSelectedCertIndex((prev) => (prev! - 1 + filteredCerts.length) % filteredCerts.length)}
             >
               <ChevronLeft size={48} className="w-8 h-8 md:w-12 md:h-12" />
             </button>
 
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.8, opacity: 0, filter: 'blur(15px)' }}
               animate={{ scale: 1, opacity: 1, filter: 'blur(0px)' }}
               exit={{ scale: 0.8, opacity: 0, filter: 'blur(15px)' }}
@@ -969,9 +972,9 @@ export default function App() {
               className="relative max-w-[95vw] max-h-[95vh] w-auto h-auto flex flex-col items-center justify-center"
             >
               <div className="bg-white p-0.5 md:p-1 rounded shadow-2xl relative overflow-hidden flex items-center justify-center">
-                {(certs[selectedCertIndex] as any).image?.toLowerCase().endsWith('.pdf') ? (
+                {(filteredCerts[selectedCertIndex] as any).image?.toLowerCase().endsWith('.pdf') ? (
                   <a
-                    href={(certs[selectedCertIndex] as any).image}
+                    href={(filteredCerts[selectedCertIndex] as any).image}
                     target="_blank"
                     rel="noreferrer"
                     className="w-[600px] max-w-[80vw] h-[400px] bg-gray-100 flex flex-col gap-3 items-center justify-center text-gray-500 hover:text-blue-600 transition"
@@ -979,31 +982,31 @@ export default function App() {
                     <FileText size={48} />
                     <span className="text-sm font-mono uppercase tracking-wider">Open PDF Certificate</span>
                   </a>
-                ) : (certs[selectedCertIndex] as any).image ? (
+                ) : (filteredCerts[selectedCertIndex] as any).image ? (
                   <img
-                    src={(certs[selectedCertIndex] as any).image}
-                    alt={certs[selectedCertIndex].title}
+                    src={(filteredCerts[selectedCertIndex] as any).image}
+                    alt={filteredCerts[selectedCertIndex].title}
                     className="max-h-[85vh] md:max-h-[92vh] max-w-[92vw] w-auto h-auto object-contain"
                     referrerPolicy="no-referrer"
                   />
                 ) : (
                   <div className="w-[600px] h-[400px] bg-gray-100 flex items-center justify-center text-gray-400">
-                    {certs[selectedCertIndex].icon}
+                    {filteredCerts[selectedCertIndex].icon}
                   </div>
                 )}
               </div>
               <div className="mt-6 text-center">
-                <h3 className="text-white text-xl font-semibold mb-1">{certs[selectedCertIndex].title}</h3>
-                <p className="text-blue-400 font-mono text-sm uppercase tracking-wider">{certs[selectedCertIndex].sub}</p>
+                <h3 className="text-white text-xl font-semibold mb-1">{filteredCerts[selectedCertIndex].title}</h3>
+                <p className="text-blue-400 font-mono text-sm uppercase tracking-wider">{filteredCerts[selectedCertIndex].sub}</p>
                 <div className="mt-4 text-white/40 text-xs font-mono">
-                  {selectedCertIndex + 1} of {certs.length}
+                  {selectedCertIndex + 1} of {filteredCerts.length}
                 </div>
               </div>
             </motion.div>
 
-            <button 
+            <button
               className="absolute right-4 md:right-10 text-white/50 hover:text-white transition-colors z-[1010] lightbox-nav-btn"
-              onClick={() => setSelectedCertIndex((prev) => (prev! + 1) % certs.length)}
+              onClick={() => setSelectedCertIndex((prev) => (prev! + 1) % filteredCerts.length)}
             >
               <ChevronRight size={48} className="w-8 h-8 md:w-12 md:h-12" />
             </button>
