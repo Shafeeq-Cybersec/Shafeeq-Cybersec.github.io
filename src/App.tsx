@@ -111,6 +111,7 @@ export default function App() {
   const [selectedCertIndex, setSelectedCertIndex] = useState<number | null>(null);
   const [selectedBlogIndex, setSelectedBlogIndex] = useState<number | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isBlogHovered, setIsBlogHovered] = useState(false);
 
   // Typing effect logic
   useEffect(() => {
@@ -199,15 +200,15 @@ export default function App() {
   const BLOGS_PER_PAGE = 3;
   const totalBlogPages = Math.ceil(blogs.length / BLOGS_PER_PAGE);
 
-  // Auto-move blog pages
+  // Auto-move blog pages (pauses on hover for comfortable reading)
   useEffect(() => {
-    if (totalBlogPages <= 1) return;
+    if (totalBlogPages <= 1 || isBlogHovered) return;
     const interval = setInterval(() => {
       setDirection(1);
       setBlogPage((prev) => (prev + 1) % totalBlogPages);
-    }, 7000);
+    }, 8000);
     return () => clearInterval(interval);
-  }, [totalBlogPages]);
+  }, [totalBlogPages, isBlogHovered]);
 
   const paginate = (newDirection: number) => {
     setDirection(newDirection);
@@ -740,17 +741,21 @@ export default function App() {
            transition={{ duration: 1, ease: [0.33, 1, 0.68, 1] }}
         >
           <h2 className="section-title">My <span>Experience & Blogs</span></h2>
-          <div className="relative overflow-hidden group">
-          <AnimatePresence initial={false} custom={direction} mode="wait">
+          <div 
+            className="relative overflow-hidden group"
+            onMouseEnter={() => setIsBlogHovered(true)}
+            onMouseLeave={() => setIsBlogHovered(false)}
+          >
+          <AnimatePresence initial={false} custom={direction} mode="popLayout">
             <motion.div 
               key={blogPage}
               custom={direction}
               variants={{
                 enter: (direction: number) => ({
-                  x: direction > 0 ? 1000 : -1000,
+                  x: direction > 0 ? 60 : -60,
                   opacity: 0,
-                  scale: 0.95,
-                  filter: 'blur(10px)'
+                  scale: 0.98,
+                  filter: 'blur(4px)'
                 }),
                 center: {
                   zIndex: 1,
@@ -761,19 +766,18 @@ export default function App() {
                 },
                 exit: (direction: number) => ({
                   zIndex: 0,
-                  x: direction < 0 ? 1000 : -1000,
+                  x: direction < 0 ? 60 : -60,
                   opacity: 0,
-                  scale: 0.95,
-                  filter: 'blur(10px)'
+                  scale: 0.98,
+                  filter: 'blur(4px)'
                 })
               }}
               initial="enter"
               animate="center"
               exit="exit"
               transition={{
-                x: { type: "spring", stiffness: 300, damping: 35 },
-                opacity: { duration: 0.4 },
-                filter: { duration: 0.3 }
+                duration: 0.6,
+                ease: [0.22, 1, 0.36, 1]
               }}
               className="blogs-grid"
             >
