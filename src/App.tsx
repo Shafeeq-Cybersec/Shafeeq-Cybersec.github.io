@@ -349,7 +349,7 @@ export default function App() {
                 hidden: { opacity: 0, y: 30, filter: 'blur(10px)' },
                 visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 1, ease: [0.23, 1, 0.32, 1] } }
               }}
-              className="text-white text-[clamp(2.5rem,8vw,4.5rem)] font-[800] leading-[1.1] tracking-[1px] mb-4 whitespace-nowrap"
+              className="text-white text-[clamp(2.2rem,8vw,4.5rem)] font-[800] leading-[1.1] tracking-[1px] mb-4 sm:whitespace-nowrap"
             >
               SHAFEEQ S
             </motion.h1>
@@ -359,7 +359,7 @@ export default function App() {
                 hidden: { opacity: 0 },
                 visible: { opacity: 1, transition: { duration: 0.8 } }
               }}
-              className="text-[20px] sm:text-[22px] md:text-[26px] mb-8"
+              className="text-[18px] sm:text-[22px] md:text-[26px] mb-8"
             >
               <span className="text-[#9CA3AF]">I am a </span>
               <span className="text-[#3B82F6] font-semibold">{typedText}</span>
@@ -371,17 +371,17 @@ export default function App() {
                 hidden: { opacity: 0, x: -30 },
                 visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } }
               }}
-              className="space-y-4 mb-8 text-[#D1D5DB] text-[16px] md:text-[18px] leading-relaxed max-w-[550px] mx-auto lg:mx-0"
+              className="space-y-3.5 mb-8 text-[#D1D5DB] text-[15px] sm:text-[16px] md:text-[18px] leading-relaxed max-w-[550px] mx-auto lg:mx-0 text-left"
             >
-              <div className="flex items-center gap-4 group">
+              <div className="flex items-center gap-3.5 group">
                 <ShieldCheck size={20} className="text-[#3B82F6] shrink-0" />
                 <span className="tracking-wide">5+ SOC Incident Reports</span>
               </div>
-              <div className="flex items-center gap-4 group">
+              <div className="flex items-center gap-3.5 group">
                 <ShieldCheck size={20} className="text-[#3B82F6] shrink-0" />
                 <span className="tracking-wide">Hands-on Labs (LetsDefend)</span>
               </div>
-              <div className="flex items-center gap-4 group">
+              <div className="flex items-center gap-3.5 group">
                 <ShieldCheck size={20} className="text-[#3B82F6] shrink-0" />
                 <span className="tracking-wide">Malware Analysis & Threat Hunting</span>
               </div>
@@ -392,19 +392,19 @@ export default function App() {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.23, 1, 0.32, 1] } }
               }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-6"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6"
             >
-              <a href="#projects" className="btn-primary">
+              <a href="#projects" className="btn-primary w-full sm:w-auto text-center">
                 View Projects
               </a>
-              <a href="#blogs" className="btn-secondary">
+              <a href="#blogs" className="btn-secondary w-full sm:w-auto text-center">
                 View Reports
               </a>
             </motion.div>
           </motion.div>
 
-          {/* RIGHT SIDE (ANIMATION AREA) */}
-          <div className="relative flex items-center justify-center lg:justify-end min-h-[400px] lg:min-h-0">
+          {/* RIGHT SIDE (ANIMATION AREA) - Hidden on Mobile for clean UX & fast loading */}
+          <div className="hidden lg:flex relative items-center justify-end lg:min-h-0">
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.7 }}
