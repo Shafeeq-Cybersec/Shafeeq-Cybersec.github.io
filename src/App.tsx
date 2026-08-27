@@ -36,6 +36,7 @@ import {
   ChevronRight,
   ChevronUp,
   ExternalLink,
+  Globe,
   Phone,
   X
 } from 'lucide-react';
@@ -741,6 +742,18 @@ export default function App() {
            transition={{ duration: 1, ease: [0.33, 1, 0.68, 1] }}
         >
           <h2 className="section-title">My <span>Experience & Blogs</span></h2>
+          <div className="flex justify-center mb-8">
+            <a 
+              href="https://shafeeqblogs-fiphx59vc-shafeeqtechkies-projects.vercel.app/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/30 text-blue-400 font-medium text-sm transition-all duration-300 shadow-[0_0_20px_rgba(59,130,246,0.15)] hover:shadow-[0_0_25px_rgba(59,130,246,0.3)] hover:scale-105"
+            >
+              <Globe size={16} className="text-blue-400" />
+              <span>Visit My Full Blog Platform</span>
+              <ExternalLink size={14} className="text-blue-400" />
+            </a>
+          </div>
           <div 
             className="relative overflow-hidden group"
             onMouseEnter={() => setIsBlogHovered(true)}
@@ -892,6 +905,14 @@ export default function App() {
               </div>
               <div className="contact-item-val">
                 <a href="https://github.com/Shafeeq-Cybersec" target="_blank">Reach Me Out On GitHub <ExternalLink size={10} className="inline ml-1" /></a>
+              </div>
+            </div>
+            <div className="contact-item">
+              <div className="contact-item-label">
+                <Globe className="icon" /> Blog Website
+              </div>
+              <div className="contact-item-val">
+                <a href="https://shafeeqblogs-fiphx59vc-shafeeqtechkies-projects.vercel.app/" target="_blank" rel="noopener noreferrer">Shafeeq's Blog Platform <ExternalLink size={10} className="inline ml-1" /></a>
               </div>
             </div>
           </div>
@@ -1083,19 +1104,30 @@ export default function App() {
                   >
                     <ChevronLeft size={20} /> Back to Blogs
                   </button>
-                  { (blogs[selectedBlogIndex] as any).link && (
+                  <div className="flex items-center gap-3 flex-wrap">
+                    { (blogs[selectedBlogIndex] as any).link && (
+                      <a 
+                        href={(blogs[selectedBlogIndex] as any).link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn-primary flex items-center gap-2 text-xs md:text-sm"
+                      >
+                        View Report on LinkedIn <ExternalLink size={14} />
+                      </a>
+                    )}
                     <a 
-                      href={(blogs[selectedBlogIndex] as any).link} 
+                      href="https://shafeeqblogs-fiphx59vc-shafeeqtechkies-projects.vercel.app/" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="btn-primary flex items-center gap-2"
+                      className="btn-secondary flex items-center gap-2 text-xs md:text-sm"
                     >
-                      View Full Report on LinkedIn <ExternalLink size={16} />
+                      <Globe size={15} /> Visit Blog Platform <ExternalLink size={14} />
                     </a>
-                  )}
+                  </div>
                   <div className="flex gap-4">
-                    <a href="https://www.linkedin.com/in/shafeeq-cybersec/" target="_blank" className="text-gray-500 hover:text-blue-400 transition-colors"><Linkedin size={18} /></a>
-                    <a href="https://github.com/Shafeeq-Cybersec" target="_blank" className="text-gray-500 hover:text-blue-400 transition-colors"><Github size={18} /></a>
+                    <a href="https://shafeeqblogs-fiphx59vc-shafeeqtechkies-projects.vercel.app/" target="_blank" rel="noopener noreferrer" title="Blog Website" className="text-gray-500 hover:text-blue-400 transition-colors"><Globe size={18} /></a>
+                    <a href="https://www.linkedin.com/in/shafeeq-cybersec/" target="_blank" rel="noopener noreferrer" title="LinkedIn" className="text-gray-500 hover:text-blue-400 transition-colors"><Linkedin size={18} /></a>
+                    <a href="https://github.com/Shafeeq-Cybersec" target="_blank" rel="noopener noreferrer" title="GitHub" className="text-gray-500 hover:text-blue-400 transition-colors"><Github size={18} /></a>
                   </div>
                 </div>
               </div>
