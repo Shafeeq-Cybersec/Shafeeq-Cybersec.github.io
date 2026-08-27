@@ -369,7 +369,7 @@ export default function App() {
                 hidden: { opacity: 0, x: -30 },
                 visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } }
               }}
-              className="space-y-4 mb-32 text-[#D1D5DB] text-[16px] md:text-[18px] leading-relaxed max-w-[550px] mx-auto lg:mx-0"
+              className="space-y-4 mb-8 text-[#D1D5DB] text-[16px] md:text-[18px] leading-relaxed max-w-[550px] mx-auto lg:mx-0"
             >
               <div className="flex items-center gap-4 group">
                 <ShieldCheck size={20} className="text-[#3B82F6] shrink-0" />
