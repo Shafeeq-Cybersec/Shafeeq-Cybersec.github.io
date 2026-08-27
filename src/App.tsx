@@ -311,11 +311,11 @@ export default function App() {
       </AnimatePresence>
 
       {/* HOME */}
-      <section id="home" className="p-0 overflow-hidden bg-[#0B0F19] relative min-h-screen flex items-center justify-center">
+      <section id="home" className="p-0 overflow-hidden bg-[#0B0F19] relative lg:min-h-screen flex items-start lg:items-center justify-center">
         {/* Gradient Overlay for Text Legibility */}
         <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-r from-[#0B0F19] via-[#0B0F19]/80 to-transparent w-[50%] hidden lg:block"></div>
         
-        <div className="max-w-[1280px] w-full mx-auto pl-6 md:pl-12 lg:pl-20 pr-6 md:pr-12 lg:pr-20 grid grid-cols-1 lg:grid-cols-[55%_45%] items-center min-h-[100vh] relative z-20">
+        <div className="max-w-[1280px] w-full mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-[55%_45%] items-start lg:items-center lg:min-h-[100vh] relative z-20">
           
           {/* LEFT SIDE (TEXT BLOCK) */}
           <motion.div 
@@ -332,7 +332,7 @@ export default function App() {
                 }
               }
             }}
-            className="flex flex-col justify-center text-center lg:text-left py-20 lg:py-0 lg:pl-[20px]"
+            className="flex flex-col justify-start lg:justify-center text-center lg:text-left pt-24 pb-12 lg:py-0 lg:pl-[20px]"
           >
             <motion.p 
               variants={{
