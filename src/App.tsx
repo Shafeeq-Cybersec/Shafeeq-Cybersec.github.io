@@ -744,7 +744,7 @@ export default function App() {
           <h2 className="section-title">My <span>Experience & Blogs</span></h2>
           <div className="flex justify-center mb-8">
             <a 
-              href="https://shafeeqblogs-fiphx59vc-shafeeqtechkies-projects.vercel.app/" 
+              href="https://shafeeq-cybersecblogs.vercel.app/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/30 text-blue-400 font-medium text-sm transition-all duration-300 shadow-[0_0_20px_rgba(59,130,246,0.15)] hover:shadow-[0_0_25px_rgba(59,130,246,0.3)] hover:scale-105"
@@ -912,7 +912,7 @@ export default function App() {
                 <Globe className="icon" /> Blog Website
               </div>
               <div className="contact-item-val">
-                <a href="https://shafeeqblogs-fiphx59vc-shafeeqtechkies-projects.vercel.app/" target="_blank" rel="noopener noreferrer">Shafeeq's Blog Platform <ExternalLink size={10} className="inline ml-1" /></a>
+                <a href="https://shafeeq-cybersecblogs.vercel.app/" target="_blank" rel="noopener noreferrer">Shafeeq's Blog Platform <ExternalLink size={10} className="inline ml-1" /></a>
               </div>
             </div>
           </div>
@@ -1116,7 +1116,7 @@ export default function App() {
                       </a>
                     )}
                     <a 
-                      href="https://shafeeqblogs-fiphx59vc-shafeeqtechkies-projects.vercel.app/" 
+                      href="https://shafeeq-cybersecblogs.vercel.app/" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="btn-secondary flex items-center gap-2 text-xs md:text-sm"
@@ -1125,7 +1125,7 @@ export default function App() {
                     </a>
                   </div>
                   <div className="flex gap-4">
-                    <a href="https://shafeeqblogs-fiphx59vc-shafeeqtechkies-projects.vercel.app/" target="_blank" rel="noopener noreferrer" title="Blog Website" className="text-gray-500 hover:text-blue-400 transition-colors"><Globe size={18} /></a>
+                    <a href="https://shafeeq-cybersecblogs.vercel.app/" target="_blank" rel="noopener noreferrer" title="Blog Website" className="text-gray-500 hover:text-blue-400 transition-colors"><Globe size={18} /></a>
                     <a href="https://www.linkedin.com/in/shafeeq-cybersec/" target="_blank" rel="noopener noreferrer" title="LinkedIn" className="text-gray-500 hover:text-blue-400 transition-colors"><Linkedin size={18} /></a>
                     <a href="https://github.com/Shafeeq-Cybersec" target="_blank" rel="noopener noreferrer" title="GitHub" className="text-gray-500 hover:text-blue-400 transition-colors"><Github size={18} /></a>
                   </div>
