@@ -1,5 +1,16 @@
 [
   {
+    "id": 7,
+    "date": "27 Aug, 2026",
+    "author": "Shafeeq S",
+    "title": "SOC Investigation - SQL Injection",
+    "desc": "Investigated a SQL Injection alert by analyzing web logs, decoding suspicious payloads, checking threat intelligence, and determining whether exploitation was successful.",
+    "cat": "Investigation",
+    "image": "/blogs/sql-injection-thumbnail-1787987994587.jpeg",
+    "link": "",
+    "content": "## Case Overview\n\nInvestigated a SQL Injection alert involving an external source targeting a web application's search parameter.\n\n### Investigation\n\n- Reviewed alert details and identified source and destination IPs.\n- Analyzed six related web events.\n- Decoded URL-encoded SQL Injection payloads.\n- Identified boolean-based and `ORDER BY` SQL Injection attempts.\n- Analyzed HTTP responses and found repeated `500 Internal Server Error` responses.\n- Checked the source IP using threat-intelligence sources.\n- Reviewed the target endpoint for suspicious command execution.\n- Found no evidence of successful exploitation or post-exploitation activity.\n\n### Key Indicators\n\n- **Source IP:** `167.99.169.17`\n- **Target:** `172.16.17.18`\n- **Parameter:** `q`\n- **Technique:** MITRE ATT&CK `T1190 - Exploit Public-Facing Application`\n\n### Conclusion\n\nThe alert was classified as a **True Positive**, but the SQL Injection attempts were unsuccessful. No evidence of compromise or post-exploitation activity was identified.\n\n### Key Takeaway\n\nThe investigation demonstrated the importance of correlating web requests, decoded payloads, HTTP responses, threat intelligence, and endpoint evidence before determining the impact of an alert.\n\n[View Full Investigation →](https://shafeeq-cybersecblogs.vercel.app/articles/soc165-sql-injection-payload-detected-unsuccessful)"
+  },
+  {
     "id": 6,
     "date": "03 Aug, 2026",
     "author": "Shafeeq S",
