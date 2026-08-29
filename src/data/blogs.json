@@ -1,5 +1,16 @@
 [
   {
+    "id": 7,
+    "date": "27 Aug, 2026",
+    "author": "Shafeeq S",
+    "title": "SOC Investigation - SQL Injection",
+    "desc": "Investigated a SQL Injection alert by analyzing web logs, decoding suspicious payloads, checking threat intelligence, and determining whether exploitation was successful.",
+    "cat": "Investigation",
+    "image": "/blogs/sql-injection-thumbnail-1787988559899.jpeg",
+    "link": "",
+    "content": "# SOC Investigation — SQL Injection\n\n## Case Overview\n\nInvestigated a SQL Injection alert involving an external source targeting a web application's search parameter.\n\nThe objective was to analyze the suspicious requests, validate the SQL Injection payloads, determine whether exploitation was successful, and check for evidence of further compromise.\n\n---\n\n## Investigation\n\n### 1. Alert Analysis\n\nReviewed the alert details and identified the source IP, destination IP, requested URL, and target parameter.\n\n### 2. Log Analysis\n\nAnalyzed six related web events and reviewed the HTTP responses associated with the suspicious requests.\n\n### 3. Payload Analysis\n\nDecoded URL-encoded requests and identified boolean-based and `ORDER BY` SQL Injection payloads.\n\n### 4. Exploitation Assessment\n\nThe SQL Injection attempts repeatedly returned `500 Internal Server Error` responses.\n\nNo evidence of successful SQL Injection exploitation was identified.\n\n### 5. Threat Intelligence\n\nChecked the source IP using threat-intelligence sources to identify previous malicious activity.\n\n### 6. Endpoint Investigation\n\nReviewed the target endpoint for suspicious command execution or post-exploitation activity.\n\nNo evidence of further compromise was identified.\n\n### 7. MITRE ATT&CK\n\n**T1190 — Exploit Public-Facing Application**\n\n**Tactic:** Initial Access\n\n---\n\n## Result\n\nThe investigation confirmed a **True Positive SQL Injection attempt**, but the exploitation was unsuccessful.\n\nNo evidence of compromise or post-exploitation activity was identified.\n\n**Source IP:** `167.99.169.17`\n\n**Target:** `172.16.17.18`\n\n**Parameter:** `q`\n\n**Response:** `500 Internal Server Error`\n\n---\n\n## Key Takeaway\n\nThe investigation demonstrated the importance of correlating web requests, decoded payloads, HTTP responses, threat intelligence, and endpoint evidence before determining the impact of an alert.\n\n**Tools:** Web Log Analysis · URL Decoding · Threat Intelligence\n\n[View Full Investigation →](https://shafeeq-cybersecblogs.vercel.app/articles/soc165-sql-injection-payload-detected-unsuccessful)"
+  },
+  {
     "id": 6,
     "date": "03 Aug, 2026",
     "author": "Shafeeq S",
