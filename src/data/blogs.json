@@ -1,5 +1,16 @@
 [
   {
+    "id": 6,
+    "date": "03 Aug, 2026",
+    "author": "Shafeeq S",
+    "title": "SOC Investigation - SSH Brute-Force Attack",
+    "desc": "Investigation of a simulated SSH brute-force attack against a CentOS Stream 9 server, including authentication log analysis, timeline reconstruction, MITRE ATT&CK mapping, detection logic, and SSH hardening.",
+    "cat": "Investigation",
+    "image": "/blogs/ssh-brute-force-thumnail-1787986971024.png",
+    "link": "https://shafeeq-cybersecblogs.vercel.app/articles/ssh-brute-force-investigation",
+    "content": "# SOC Investigation — SSH Brute-Force Attack\n\n## Case Overview\n\nInvestigated a simulated SSH brute-force attack against a CentOS Stream 9 server from a Kali Linux attacker machine.\n\nThe objective was to reconstruct the attack using Linux authentication logs, confirm whether the attack resulted in credential compromise, and develop detection and hardening recommendations.\n\n---\n\n## Investigation\n\n### 1. Attack Simulation\n\nSimulated an SSH password-guessing attack using Hydra against the lab server.\n\n### 2. Log Analysis\n\nAnalyzed SSH authentication events using `journalctl` and `/var/log/secure` to identify repeated failed logins, invalid usernames, and successful authentication.\n\n### 3. Compromise Confirmation\n\nConfirmed that the brute-force activity resulted in a successful login to the test account.\n\n### 4. Timeline Reconstruction\n\nReconstructed the attack sequence from the target's authentication logs and accounted for clock differences between the lab systems.\n\n### 5. MITRE ATT&CK\n\n**T1110.001 — Password Guessing**\n\n**Tactic:** Credential Access\n\n### 6. Detection Engineering\n\nDeveloped detection logic to identify repeated SSH authentication failures followed by a successful login from the same source.\n\nCreated a Sigma rule for the detection scenario.\n\n### 7. Defensive Recommendations\n\n- Use SSH key-based authentication\n- Disable password authentication where appropriate\n- Enforce strong, unique credentials\n- Restrict SSH access using firewall rules or VPN\n- Forward SSH logs to a SIEM\n- Monitor for repeated authentication failures\n- Maintain synchronized system clocks\n\n---\n\n## Result\n\nThe investigation confirmed a successful simulated SSH brute-force attack and demonstrated the complete workflow from attack simulation and log analysis to detection and remediation.\n\n**Tools:** Hydra · journalctl · grep · awk · Sigma\n\n**Environment:** Kali Linux · CentOS Stream 9 · VirtualBox\n\n[View Full Investigation →](https://shafeeq-cybersecblogs.vercel.app/articles/ssh-brute-force-investigation)"
+  },
+  {
     "id": 1,
     "date": "17 Apr, 2026",
     "author": "Shafeeq S",
