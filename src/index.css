@@ -264,7 +264,7 @@ section { padding: 80px 8%; }
 .about-item .label { color: var(--text-dim); white-space: nowrap; }
 .about-item .value { color: var(--text); font-weight: 500; }
 
-.resume-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+.resume-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 900px; margin: 0 auto; }
 .resume-col-title { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
 .resume-col-title .icon { color: var(--blue-light); }
 .timeline { position: relative; padding-left: 1.5rem; }
