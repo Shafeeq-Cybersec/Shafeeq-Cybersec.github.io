@@ -102,7 +102,7 @@ export default function App() {
   const [typedText, setTypedText] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [certFilter, setCertFilter] = useState('all');
+  const [certFilter, setCertFilter] = useState('');
   const [blogPage, setBlogPage] = useState(0);
   const [direction, setDirection] = useState(0);
   const [selectedCertIndex, setSelectedCertIndex] = useState<number | null>(null);
@@ -181,11 +181,11 @@ export default function App() {
       if (b === 'others') return -1;
       return 0;
     });
-    return ['all', ...keys];
+    return keys;
   }, [certs]);
 
   const certCategoryLabels: Record<string, string> = useMemo(() => {
-    const labels: Record<string, string> = { all: 'All' };
+    const labels: Record<string, string> = {};
     for (const c of certs) {
       const key = c.cat.toLowerCase().trim();
       if (!labels[key]) labels[key] = c.cat.trim();
@@ -194,10 +194,9 @@ export default function App() {
   }, [certs]);
 
   const filteredCerts = useMemo(() => {
-    const currentFilter = certFilter.toLowerCase();
-    if (currentFilter === 'all') return certs;
-    return certs.filter(c => c.cat.toLowerCase().trim() === currentFilter);
-  }, [certs, certFilter]);
+    const activeFilter = certFilter || certCategories[0] || '';
+    return certs.filter(c => c.cat.toLowerCase().trim() === activeFilter.toLowerCase());
+  }, [certs, certFilter, certCategories]);
 
   useEffect(() => {
     setSelectedCertIndex(null);
@@ -859,7 +858,7 @@ export default function App() {
             {certCategories.map(cat => (
               <button
                 key={cat}
-                className={`filter-btn ${certFilter === cat ? 'active' : ''}`}
+                className={`filter-btn ${(certFilter || certCategories[0]) === cat ? 'active' : ''}`}
                 onClick={() => setCertFilter(cat)}
               >
                 {certCategoryLabels[cat]}
