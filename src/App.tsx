@@ -527,7 +527,7 @@ export default function App() {
           transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
         >
           <h2 className="section-title">My <span>Resume</span></h2>
-          <div className="flex justify-center mb-24 mt-4">
+          <div className="flex justify-center mb-8 mt-4">
             <a
               href="/Shafeeq-Resume.pdf"
               download="Shafeeq_S_Cybersecurity_Resume.pdf"
@@ -577,11 +577,11 @@ export default function App() {
                 <div className="tl-title">Cybersecurity Intern</div>
                 <div className="tl-org">TANSAM (Govt. of Tamil Nadu)</div>
                 <ul className="tl-list">
-                  <li>Conducted reconnaissance using advanced OSINT tools.</li>
-                  <li>Practiced steganography techniques using Kali Linux to hide data.</li>
-                  <li>Explored IoT vulnerabilities and implemented countermeasures.</li>
-                  <li>Studied global frameworks including NIST RMF, CSF, and ISO 27005.</li>
-                  <li>Strengthened hands-on knowledge in risk management & incident response.</li>
+                  <li>Performed OSINT reconnaissance to gather and analyse open-source intelligence.</li>
+                  <li>Carried out security exercises on Kali Linux, including steganography and basic exploitation techniques.</li>
+                  <li>Identified IoT security risks and explored practical mitigations.</li>
+                  <li>Studied NIST RMF, NIST CSF, and ISO 27005 frameworks and how they apply to risk management.</li>
+                  <li>Gained hands-on exposure to incident response processes and security documentation.</li>
                 </ul>
               </div>
             </div>
