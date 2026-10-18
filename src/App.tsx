@@ -7,7 +7,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { 
   User, 
   Shield, 
-  ShieldCheck,
   GraduationCap, 
   School, 
   BarChart2, 
@@ -16,9 +15,7 @@ import {
   Search, 
   Briefcase, 
   Code, 
-  Recycle, 
   FileText, 
-  Microscope, 
   Trophy, 
   Settings, 
   Award, 
@@ -27,8 +24,6 @@ import {
   Target, 
   Monitor, 
   Bug, 
-  Fish, 
-  AlertTriangle,
   Calendar,
   Linkedin,
   Github,
@@ -38,6 +33,7 @@ import {
   ExternalLink,
   Globe,
   Phone,
+  BookOpen,
   X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -334,16 +330,20 @@ export default function App() {
             }}
             className="flex flex-col justify-start lg:justify-center text-center lg:text-left pt-24 pb-12 lg:py-0 lg:pl-[20px]"
           >
-            <motion.p 
+            {/* Availability pill */}
+            <motion.div
               variants={{
                 hidden: { opacity: 0, y: 15 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.23, 1, 0.32, 1] } }
               }}
-              className="text-[#6B7280] text-[13px] sm:text-[14px] font-mono tracking-[0.2em] uppercase mb-1"
+              className="flex justify-center lg:justify-start mb-4"
             >
-              Cybersecurity Portfolio
-            </motion.p>
-            
+              <span className="availability-pill">
+                <span className="availability-dot" />
+                B.Tech CSBS '28 · Open to Research/Internships
+              </span>
+            </motion.div>
+
             <motion.h1 
               variants={{
                 hidden: { opacity: 0, y: 30, filter: 'blur(10px)' },
@@ -365,25 +365,59 @@ export default function App() {
               <span className="text-[#3B82F6] font-semibold">{typedText}</span>
               <span className="inline-block w-[2px] h-[1.1em] bg-[#3B82F6] ml-1 align-middle animate-pulse"></span>
             </motion.div>
-            
-            <motion.div 
+
+            {/* Stats card — replaces the three ShieldCheck bullets */}
+            <motion.div
               variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } }
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.23, 1, 0.32, 1] } }
               }}
-              className="space-y-3.5 mb-8 text-[#D1D5DB] text-[15px] sm:text-[16px] md:text-[18px] leading-relaxed max-w-[550px] mx-auto lg:mx-0 text-left"
+              className="stats-card mb-8 max-w-[520px] mx-auto lg:mx-0"
             >
-              <div className="flex items-center gap-3.5 group">
-                <ShieldCheck size={20} className="text-[#3B82F6] shrink-0" />
-                <span className="tracking-wide">5+ SOC Incident Reports</span>
+              {/* Three stats */}
+              <div className="stats-row">
+                <div className="stat-item">
+                  <span className="stat-number">11+</span>
+                  <span className="stat-label">Incident Reports</span>
+                </div>
+                <div className="stat-divider" />
+                <div className="stat-item">
+                  <span className="stat-number">20+</span>
+                  <span className="stat-label">Certifications</span>
+                </div>
+                <div className="stat-divider" />
+                <div className="stat-item">
+                  <BookOpen size={18} className="stat-icon" />
+                  <span className="stat-label">Hands-on Labs<br /><span className="stat-sublabel">LetsDefend</span></span>
+                </div>
               </div>
-              <div className="flex items-center gap-3.5 group">
-                <ShieldCheck size={20} className="text-[#3B82F6] shrink-0" />
-                <span className="tracking-wide">Hands-on Labs (LetsDefend)</span>
+
+              {/* Category breakdown */}
+              <div className="stats-breakdown">
+                <span>SOC&nbsp;6</span>
+                <span className="breakdown-dot">·</span>
+                <span>Malware Analysis&nbsp;4</span>
+                <span className="breakdown-dot">·</span>
+                <span>Linux&nbsp;1</span>
               </div>
-              <div className="flex items-center gap-3.5 group">
-                <ShieldCheck size={20} className="text-[#3B82F6] shrink-0" />
-                <span className="tracking-wide">Malware Analysis & Threat Hunting</span>
+
+              {/* Location + socials */}
+              <div className="stats-footer">
+                <span className="stats-location">
+                  <MapPin size={13} />
+                  Chennai, India
+                </span>
+                <div className="stats-socials">
+                  <a href="https://www.linkedin.com/in/shafeeq-cybersec/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <Linkedin size={15} />
+                  </a>
+                  <a href="https://github.com/Shafeeq-Cybersec" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <Github size={15} />
+                  </a>
+                  <a href="https://shafeeq-cybersecblogs.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Blog">
+                    <Globe size={15} />
+                  </a>
+                </div>
               </div>
             </motion.div>
             
