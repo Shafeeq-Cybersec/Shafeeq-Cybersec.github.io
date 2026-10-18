@@ -349,7 +349,7 @@ export default function App() {
             >
               <span className="availability-pill">
                 <span className="availability-dot" />
-                B.Tech CSBS '28 · Open to Research/Internships
+                B.Tech CSBS '28 · Open to Internships
               </span>
             </motion.div>
 
