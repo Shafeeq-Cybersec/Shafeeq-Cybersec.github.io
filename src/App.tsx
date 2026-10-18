@@ -480,8 +480,8 @@ export default function App() {
         >
           <h2 className="section-title">I Am <span>Shafeeq</span></h2>
           <div className="about-text">
-            <p>A Computer Science and Business Systems student with a growing focus on cybersecurity, particularly malware analysis and digital forensics. I enjoy working with tools like Wireshark and Procmon to understand real-world threats and system behavior.</p>
-            <p>I'm passionate about building practical skills through hands-on labs and continuously improving my knowledge in security and software development. My journey in cybersecurity is driven by curiosity, persistence, and a commitment to making digital systems safer.</p>
+            <p>I'm a Computer Science and Business Systems student at Panimalar Engineering College, interested in cybersecurity, especially SOC investigations, malware analysis, and digital forensics.</p>
+            <p>I enjoy investigating security alerts, exploring suspicious files, and using tools like Wireshark and Procmon to understand what's happening on a system. I also build security projects and write about the investigations and techniques I work on.</p>
           </div>
           <div className="about-grid">
             <div className="about-item">
@@ -497,7 +497,7 @@ export default function App() {
             <div className="about-item">
               <BarChart2 className="icon" />
               <span className="label">CGPA:&nbsp;</span>
-              <span className="value">8.1 / 10</span>
+              <span className="value">8.17 / 10</span>
             </div>
             <div className="about-item">
               <MapPin className="icon" />
@@ -548,7 +548,7 @@ export default function App() {
                 <div className="tl-period">2024 – 2028</div>
                 <div className="tl-title">B.Tech — CS & Business Systems</div>
                 <div className="tl-org">Panimalar Engineering College</div>
-                <div className="tl-desc">CGPA: 8.0 / 10</div>
+                <div className="tl-desc">CGPA: 8.17 / 10</div>
               </div>
               <div className="tl-item">
                 <div className="tl-dot"></div>
@@ -647,7 +647,7 @@ export default function App() {
               <li>LetsDefend – SOC Analyst Training (Ongoing)</li>
               <li>IEEE Conference Presenter – PECTEAM 2K25</li>
               <li>Certificate of Appreciation & Excellence – Cybersecurity Quiz</li>
-              <li>B.Tech Computer Science & Business Systems (CGPA 8.1)</li>
+              <li>B.Tech Computer Science & Business Systems (CGPA 8.17)</li>
             </ul>
           </motion.div>
         </div>
