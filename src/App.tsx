@@ -529,11 +529,14 @@ export default function App() {
           {/* ── A. Profile Header ─────────────────────────────────── */}
           <div className="cp-header">
             <div className="cp-header-text">
-              <h2 className="section-title" style={{textAlign:'left', transform:'none', left:'auto'}}>
+              <h2 className="cp-section-title">
                 Career <span>Profile</span>
               </h2>
               <p className="cp-intro">
-                Cybersecurity student focused on Blue Team operations — SOC investigations, malware analysis, threat detection, and building practical security tools. Currently deepening skills through hands-on LetsDefend labs, independent research projects, and formal internship experience with the Government of Tamil Nadu.
+                Cybersecurity student focused on Blue Team operations — SOC investigations,
+                malware analysis, threat detection, and building practical security tools.
+                Deepening skills through hands-on LetsDefend labs, independent research
+                projects, and formal internship experience with the Government of Tamil Nadu.
               </p>
               <div className="cp-header-actions">
                 <a
@@ -541,27 +544,35 @@ export default function App() {
                   download="Shafeeq_S_Cybersecurity_Resume.pdf"
                   className="btn-primary flex items-center gap-2"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                   Download Resume
                 </a>
                 <a href="#projects" className="btn-secondary flex items-center gap-2">
-                  <Code size={16} /> View Projects
+                  <Code size={16} aria-hidden="true" /> View Projects
                 </a>
                 <div className="cp-social-links">
-                  <a href="https://www.linkedin.com/in/shafeeq-cybersec/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="cp-social-btn">
-                    <Linkedin size={16} />
+                  <a href="https://www.linkedin.com/in/shafeeq-cybersec/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" className="cp-social-btn">
+                    <Linkedin size={16} aria-hidden="true" />
                   </a>
-                  <a href="https://github.com/Shafeeq-Cybersec" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="cp-social-btn">
-                    <Github size={16} />
+                  <a href="https://github.com/Shafeeq-Cybersec" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" className="cp-social-btn">
+                    <Github size={16} aria-hidden="true" />
                   </a>
                 </div>
               </div>
             </div>
-            <div className="cp-header-badge">
+
+            {/* Badge — compact, intentional, not decorative */}
+            <div className="cp-header-badge" aria-hidden="true">
               <div className="cp-badge-inner">
-                <Shield size={32} className="cp-badge-icon" />
+                <div className="cp-badge-icon-wrap">
+                  <Shield size={26} />
+                </div>
                 <div className="cp-badge-label">Blue Team</div>
-                <div className="cp-badge-sublabel">SOC · Malware · Forensics</div>
+                <div className="cp-badge-pills">
+                  <span>SOC</span>
+                  <span>Malware</span>
+                  <span>Forensics</span>
+                </div>
               </div>
             </div>
           </div>

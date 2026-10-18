@@ -877,52 +877,77 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
 
 #career { background: var(--bg2); }
 
+/* ── Section heading (left-aligned, matches site style) ──────── */
+.cp-section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+.cp-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: var(--blue-light);
+  border-radius: 2px;
+}
+.cp-section-title span { color: var(--blue-light); }
+
 /* ── Shared block wrapper ─────────────────────────────────────── */
 .cp-block {
   max-width: 900px;
-  margin: 0 auto 3.5rem;
+  margin: 0 auto 2.75rem;
 }
+
+/* First block after hero gets a bit more breathing room */
+.cp-block:first-of-type { margin-top: 0; }
 
 .cp-block-title {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  font-size: 0.8rem;
+  gap: 0.55rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-dim);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-family: var(--font-mono);
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.75rem;
+  letter-spacing: 0.13em;
+  font-family: var(--font-sans);   /* sans, not mono — labels, not code */
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.65rem;
   border-bottom: 1px solid var(--border);
 }
 
 .cp-block-icon {
   color: var(--blue-light);
   flex-shrink: 0;
+  opacity: 0.85;
 }
 
 /* ── A. Profile Header ────────────────────────────────────────── */
 .cp-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 3rem;
   max-width: 900px;
   margin: 0 auto 3.5rem;
 }
 
 .cp-header-text {
-  flex: 1;
   min-width: 0;
 }
 
 .cp-intro {
-  font-size: 0.87rem;
+  font-size: 0.88rem;
   color: var(--text-dim);
-  line-height: 1.85;
-  max-width: 580px;
+  line-height: 1.8;
+  max-width: 56ch;       /* ~560px — comfortable reading width */
+  margin-top: 1.25rem;   /* space below the underline on heading */
   margin-bottom: 1.75rem;
 }
 
@@ -930,132 +955,168 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
 }
 
+/* Visual separator between buttons and social icons */
 .cp-social-links {
   display: flex;
-  gap: 0.5rem;
-  margin-left: 0.25rem;
+  gap: 0.45rem;
+  padding-left: 0.65rem;
+  border-left: 1px solid var(--border);
+  margin-left: 0.1rem;
 }
 
 .cp-social-btn {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--border);
   color: var(--text-dim);
   border-radius: 6px;
-  transition: all 0.2s var(--ease-in-out);
+  transition: border-color 0.2s var(--ease-in-out),
+              color        0.2s var(--ease-in-out),
+              background   0.2s var(--ease-in-out);
 }
-
 .cp-social-btn:hover {
   border-color: var(--blue-light);
   color: var(--blue-light);
   background: var(--blue-dim);
 }
+.cp-social-btn:focus-visible {
+  outline: 2px solid var(--blue-light);
+  outline-offset: 2px;
+}
 
+/* ── Badge (refined, compact) ─────────────────────────────────── */
 .cp-header-badge {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  align-self: center;
 }
 
 .cp-badge-inner {
-  width: 130px;
-  height: 130px;
-  border: 1px solid rgba(61, 111, 212, 0.25);
+  width: 112px;
+  height: 112px;
+  border: 1px solid rgba(61, 111, 212, 0.22);
   border-radius: 50%;
-  background: rgba(61, 111, 212, 0.05);
+  background: rgba(61, 111, 212, 0.04);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.3rem;
-  backdrop-filter: blur(8px);
+  gap: 0.25rem;
+  position: relative;
 }
 
-.cp-badge-icon {
+/* Subtle outer ring */
+.cp-badge-inner::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(61, 111, 212, 0.1);
+  pointer-events: none;
+}
+
+.cp-badge-icon-wrap {
   color: var(--blue-light);
-  opacity: 0.85;
+  opacity: 0.8;
+  margin-bottom: 0.15rem;
 }
 
 .cp-badge-label {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--white);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.cp-badge-sublabel {
-  font-size: 0.58rem;
-  color: var(--text-dim);
+.cp-badge-pills {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-top: 0.2rem;
+}
+
+.cp-badge-pills span {
+  font-size: 0.56rem;
   font-family: var(--font-mono);
-  text-align: center;
+  color: var(--text-muted);
   letter-spacing: 0.04em;
 }
 
 /* ── B. Skills Dashboard ──────────────────────────────────────── */
 .cp-skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
 }
 
 .cp-skill-cat {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 1.1rem 1.2rem;
-  transition: border-color 0.3s var(--ease-in-out);
+  padding: 1.1rem 1.15rem 1.15rem;
+  transition: border-color 0.25s var(--ease-in-out),
+              box-shadow   0.25s var(--ease-in-out);
 }
-
 .cp-skill-cat:hover {
-  border-color: rgba(61, 111, 212, 0.35);
+  border-color: rgba(61, 111, 212, 0.32);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
 
+/* Category heading: sans-serif, not mono — cleaner at this size */
 .cp-skill-cat-name {
-  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.73rem;
   font-weight: 600;
-  color: var(--blue-light);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  color: var(--text);            /* white-ish, readable */
   margin-bottom: 0.85rem;
-  font-family: var(--font-mono);
+  line-height: 1.3;
+}
+
+.cp-skill-cat-icon {
+  color: var(--blue-light);
+  flex-shrink: 0;
+  opacity: 0.8;
 }
 
 .cp-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.38rem;
 }
 
 .cp-tag {
-  font-size: 0.7rem;
-  padding: 0.22rem 0.6rem;
-  background: rgba(61, 111, 212, 0.08);
-  border: 1px solid rgba(61, 111, 212, 0.2);
+  font-size: 0.69rem;
+  padding: 0.2rem 0.58rem;
+  background: rgba(61, 111, 212, 0.07);
+  border: 1px solid rgba(61, 111, 212, 0.18);
   color: var(--text-dim);
   border-radius: 3px;
-  font-family: var(--font-mono);
-  white-space: nowrap;
-  transition: all 0.2s var(--ease-in-out);
+  /* No white-space: nowrap — let longer phrases wrap naturally */
+  line-height: 1.4;
+  transition: background 0.18s var(--ease-in-out),
+              border-color 0.18s var(--ease-in-out),
+              color 0.18s var(--ease-in-out);
 }
-
 .cp-tag:hover {
-  background: rgba(61, 111, 212, 0.15);
-  border-color: rgba(61, 111, 212, 0.4);
+  background: rgba(61, 111, 212, 0.14);
+  border-color: rgba(61, 111, 212, 0.36);
   color: var(--text);
 }
 
 /* ── C. Experience Timeline ───────────────────────────────────── */
 .cp-exp-item {
   display: flex;
-  gap: 1.25rem;
-  margin-bottom: 2rem;
+  gap: 1.1rem;
+  margin-bottom: 1.5rem;
   position: relative;
 }
 
@@ -1063,10 +1124,10 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
   content: '';
   position: absolute;
   left: 5px;
-  top: 20px;
-  bottom: -2rem;
+  top: 18px;
+  bottom: -1.5rem;
   width: 1px;
-  background: linear-gradient(180deg, var(--border), transparent);
+  background: linear-gradient(180deg, var(--border) 60%, transparent);
 }
 
 .cp-exp-dot {
@@ -1074,21 +1135,19 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
   height: 11px;
   border-radius: 50%;
   flex-shrink: 0;
-  margin-top: 5px;
+  margin-top: 6px;
   position: relative;
   z-index: 1;
 }
-
 .cp-exp-dot--formal {
   background: var(--blue);
   border: 2px solid var(--bg2);
-  box-shadow: 0 0 0 3px rgba(61, 111, 212, 0.25);
+  box-shadow: 0 0 0 3px rgba(61, 111, 212, 0.22);
 }
-
 .cp-exp-dot--lab {
   background: transparent;
   border: 2px solid var(--blue);
-  box-shadow: 0 0 0 3px rgba(61, 111, 212, 0.12);
+  box-shadow: 0 0 0 3px rgba(61, 111, 212, 0.1);
 }
 
 .cp-exp-body {
@@ -1097,32 +1156,29 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 1.2rem 1.4rem;
-  transition: border-color 0.3s var(--ease-in-out);
+  padding: 1.15rem 1.35rem;
+  transition: border-color 0.25s var(--ease-in-out);
 }
-
-.cp-exp-body:hover {
-  border-color: rgba(61, 111, 212, 0.3);
-}
+.cp-exp-body:hover { border-color: rgba(61, 111, 212, 0.28); }
 
 .cp-exp-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.85rem;
   flex-wrap: wrap;
 }
 
 .cp-exp-role {
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--white);
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.18rem;
+  line-height: 1.3;
 }
-
 .cp-exp-org {
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   color: var(--blue-light);
   font-weight: 500;
 }
@@ -1131,53 +1187,48 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.4rem;
+  gap: 0.35rem;
   flex-shrink: 0;
 }
-
 .cp-exp-period {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--blue-light);
+  font-size: 0.68rem;
+  color: var(--text-dim);
   white-space: nowrap;
 }
-
 .cp-exp-badge {
-  font-size: 0.6rem;
-  font-family: var(--font-mono);
+  font-size: 0.59rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.18rem 0.55rem;
+  letter-spacing: 0.07em;
+  padding: 0.17rem 0.55rem;
   border-radius: 3px;
   white-space: nowrap;
 }
-
 .cp-exp-badge--formal {
-  background: rgba(61, 111, 212, 0.15);
-  border: 1px solid rgba(61, 111, 212, 0.3);
+  background: rgba(61, 111, 212, 0.12);
+  border: 1px solid rgba(61, 111, 212, 0.28);
   color: var(--blue-light);
 }
-
 .cp-exp-badge--lab {
-  background: rgba(34, 197, 94, 0.08);
-  border: 1px solid rgba(34, 197, 94, 0.25);
+  background: rgba(34, 197, 94, 0.07);
+  border: 1px solid rgba(34, 197, 94, 0.22);
   color: #4ade80;
 }
 
 .cp-exp-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.4rem;
 }
-
 .cp-exp-list li {
-  font-size: 0.79rem;
+  font-size: 0.8rem;
   color: var(--text-dim);
-  padding: 0.25rem 0 0.25rem 1rem;
+  padding: 0.22rem 0 0.22rem 1rem;
   position: relative;
   line-height: 1.65;
 }
-
 .cp-exp-list li::before {
   content: '›';
   position: absolute;
@@ -1187,22 +1238,23 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
 }
 
 .cp-exp-achievement {
-  margin-top: 0.85rem;
-  padding: 0.5rem 0.75rem;
-  background: rgba(234, 179, 8, 0.06);
-  border: 1px solid rgba(234, 179, 8, 0.2);
+  margin-top: 0.8rem;
+  padding: 0.48rem 0.75rem;
+  background: rgba(234, 179, 8, 0.05);
+  border: 1px solid rgba(234, 179, 8, 0.18);
   border-radius: 4px;
-  font-size: 0.72rem;
+  font-size: 0.71rem;
   color: #fbbf24;
-  font-family: var(--font-mono);
   display: flex;
   align-items: center;
+  gap: 0.4rem;
+  line-height: 1.4;
 }
 
 /* ── D. Education Cards ───────────────────────────────────────── */
 .cp-edu-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1.6fr 1fr 1fr;
   gap: 1rem;
 }
 
@@ -1210,41 +1262,33 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 1.2rem 1.3rem;
-  transition: border-color 0.3s var(--ease-in-out);
+  padding: 1.15rem 1.25rem;
+  transition: border-color 0.25s var(--ease-in-out);
 }
-
-.cp-edu-card:hover {
-  border-color: rgba(61, 111, 212, 0.3);
-}
-
-.cp-edu-card--primary {
-  border-left: 3px solid var(--blue);
-}
+.cp-edu-card:hover { border-color: rgba(61, 111, 212, 0.28); }
+.cp-edu-card--primary { border-left: 2px solid var(--blue); }
 
 .cp-edu-period {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   color: var(--blue-light);
   margin-bottom: 0.4rem;
+  letter-spacing: 0.03em;
 }
-
 .cp-edu-degree {
-  font-size: 0.84rem;
+  font-size: 0.83rem;
   font-weight: 600;
   color: var(--white);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.28rem;
   line-height: 1.35;
 }
-
 .cp-edu-org {
-  font-size: 0.73rem;
-  color: var(--text-dim);
-  margin-bottom: 0.5rem;
-}
-
-.cp-edu-score {
   font-size: 0.72rem;
+  color: var(--text-dim);
+  margin-bottom: 0.45rem;
+}
+.cp-edu-score {
+  font-size: 0.7rem;
   font-family: var(--font-mono);
   color: var(--blue-light);
   font-weight: 500;
@@ -1253,30 +1297,23 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
 /* ── E. Achievements ──────────────────────────────────────────── */
 .cp-achievements {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
 .cp-achievement-card {
   display: flex;
   align-items: flex-start;
-  gap: 0.85rem;
+  gap: 0.8rem;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 1rem 1.1rem;
-  transition: border-color 0.3s var(--ease-in-out);
+  transition: border-color 0.25s var(--ease-in-out);
 }
+.cp-achievement-card:hover { border-color: rgba(61, 111, 212, 0.28); }
 
-.cp-achievement-card:hover {
-  border-color: rgba(61, 111, 212, 0.3);
-}
-
-.cp-achievement-icon {
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
+.cp-achievement-icon { flex-shrink: 0; margin-top: 1px; }
 .cp-achievement-icon--gold { color: #f59e0b; }
 .cp-achievement-icon--blue { color: var(--blue-light); }
 
@@ -1284,12 +1321,11 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--white);
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.18rem;
   line-height: 1.35;
 }
-
 .cp-achievement-sub {
-  font-size: 0.7rem;
+  font-size: 0.69rem;
   color: var(--text-dim);
   line-height: 1.4;
 }
@@ -1299,51 +1335,76 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
   max-width: 900px;
   margin: 0 auto;
   text-align: center;
-  padding: 2.5rem 2rem;
+  padding: 2.25rem 2rem;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: rgba(61, 111, 212, 0.03);
+  background: rgba(61, 111, 212, 0.025);
 }
-
 .cp-cta-text {
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--white);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
-
 .cp-cta-sub {
-  font-size: 0.82rem;
+  font-size: 0.81rem;
   color: var(--text-dim);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.4rem;
 }
-
 .cp-cta-links {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.7rem;
+}
+
+/* ── Focus-visible for all interactive CP elements ───────────── */
+.cp-social-btn:focus-visible,
+.cp-cta-links a:focus-visible {
+  outline: 2px solid var(--blue-light);
+  outline-offset: 2px;
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */
+
+/* 1024px — narrow desktop: skills go 2 col */
+@media (max-width: 1024px) {
+  .cp-skills-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* 768px — tablet */
 @media (max-width: 768px) {
-  .cp-header { flex-direction: column; }
-  .cp-header-badge { display: none; }
-  .cp-edu-grid { grid-template-columns: 1fr; }
-  .cp-exp-header { flex-direction: column; gap: 0.5rem; }
-  .cp-exp-right { align-items: flex-start; }
+  .cp-header {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .cp-header-badge { display: none; }  /* hidden on mobile — saves space */
+  .cp-intro { max-width: 100%; }
   .cp-skills-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 640px) {
+  .cp-edu-grid { grid-template-columns: 1fr; }
+  .cp-exp-header { flex-direction: column; gap: 0.4rem; }
+  .cp-exp-right { align-items: flex-start; flex-direction: row; gap: 0.6rem; flex-wrap: wrap; }
   .cp-achievements { grid-template-columns: 1fr; }
-  .cp-cta { padding: 1.75rem 1.25rem; }
-  .cp-cta-text { font-size: 0.92rem; }
 }
 
+/* 390px — mobile */
+@media (max-width: 480px) {
+  .cp-section-title { font-size: 1.5rem; }
+  .cp-header-actions { flex-direction: column; align-items: flex-start; }
+  .cp-social-links { padding-left: 0; border-left: none; margin-left: 0; }
+  .cp-cta { padding: 1.6rem 1.1rem; }
+  .cp-cta-text { font-size: 0.9rem; }
+  .cp-tag { white-space: normal; }  /* allow wrap on smallest screens */
+}
+
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .cp-skill-cat, .cp-exp-body, .cp-edu-card,
-  .cp-achievement-card, .cp-tag, .cp-social-btn {
+  .cp-skill-cat,
+  .cp-exp-body,
+  .cp-edu-card,
+  .cp-achievement-card,
+  .cp-tag,
+  .cp-social-btn {
     transition: none !important;
   }
 }
