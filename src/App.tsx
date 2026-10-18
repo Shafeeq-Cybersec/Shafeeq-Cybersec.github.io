@@ -109,6 +109,15 @@ export default function App() {
   const [selectedBlogIndex, setSelectedBlogIndex] = useState<number | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isBlogHovered, setIsBlogHovered] = useState(false);
+  const [repoCount, setRepoCount] = useState<number | null>(null);
+
+  // Fetch public repository count — reads only public_repos, no token required
+  useEffect(() => {
+    fetch('https://api.github.com/users/Shafeeq-Cybersec')
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then((data: { public_repos: number }) => setRepoCount(data.public_repos))
+      .catch(() => setRepoCount(null));
+  }, []);
 
   // Typing effect logic
   useEffect(() => {
@@ -383,9 +392,11 @@ export default function App() {
                 </div>
                 <div className="stat-divider" />
                 <div className="stat-item">
-                  <span className="stat-number">20+</span>
-                  <span className="stat-label">Certifications</span>
-                  <span className="stat-label">Earned</span>
+                  <span className="stat-number">
+                    {repoCount !== null ? repoCount : '11+'}
+                  </span>
+                  <span className="stat-label">GitHub</span>
+                  <span className="stat-label">Repos</span>
                 </div>
                 <div className="stat-divider" />
                 <div className="stat-item">
