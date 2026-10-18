@@ -838,25 +838,6 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
   margin: 0 4px;
 }
 
-/* Breakdown row */
-.stats-breakdown {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 9px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  font-size: 0.72rem;
-  color: #9ca3af;
-  font-family: var(--font-mono);
-  flex-wrap: wrap;
-}
-
-.breakdown-dot {
-  color: #374151;
-}
-
 /* Footer: location + socials */
 .stats-footer {
   display: flex;

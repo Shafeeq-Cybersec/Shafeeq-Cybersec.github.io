@@ -378,27 +378,21 @@ export default function App() {
               <div className="stats-row">
                 <div className="stat-item">
                   <span className="stat-number">11+</span>
-                  <span className="stat-label">Incident Reports</span>
+                  <span className="stat-label">Incident</span>
+                  <span className="stat-label">Reports</span>
                 </div>
                 <div className="stat-divider" />
                 <div className="stat-item">
                   <span className="stat-number">20+</span>
                   <span className="stat-label">Certifications</span>
+                  <span className="stat-label">Earned</span>
                 </div>
                 <div className="stat-divider" />
                 <div className="stat-item">
                   <BookOpen size={18} className="stat-icon" />
-                  <span className="stat-label">Hands-on Labs<br /><span className="stat-sublabel">LetsDefend</span></span>
+                  <span className="stat-label">Hands-on Labs</span>
+                  <span className="stat-sublabel">LetsDefend</span>
                 </div>
-              </div>
-
-              {/* Category breakdown */}
-              <div className="stats-breakdown">
-                <span>SOC&nbsp;6</span>
-                <span className="breakdown-dot">·</span>
-                <span>Malware Analysis&nbsp;4</span>
-                <span className="breakdown-dot">·</span>
-                <span>Linux&nbsp;1</span>
               </div>
 
               {/* Location + socials */}
