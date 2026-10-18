@@ -279,10 +279,10 @@ export default function App() {
           <span className="nav-logo-text">Shafeeq S</span>
         </div>
         <ul className="nav-links">
-          {['home', 'about', 'resume', 'qualification', 'projects', 'certifications', 'blogs', 'contact'].map(item => (
+          {['home', 'about', 'career', 'projects', 'certifications', 'blogs', 'contact'].map(item => (
             <li key={item}>
               <a href={`#${item}`} className={activeSection === item ? 'active' : ''}>
-                {item.charAt(0).toUpperCase() + item.slice(1)}
+                {item === 'career' ? 'Career Profile' : item.charAt(0).toUpperCase() + item.slice(1)}
               </a>
             </li>
           ))}
@@ -301,14 +301,14 @@ export default function App() {
             exit={{ opacity: 0, y: -20 }}
             className="mobile-nav open"
           >
-            {['home', 'about', 'resume', 'qualification', 'projects', 'certifications', 'blogs', 'contact'].map(item => (
+            {['home', 'about', 'career', 'projects', 'certifications', 'blogs', 'contact'].map(item => (
               <a 
                 key={item} 
                 href={`#${item}`} 
                 onClick={() => setIsMenuOpen(false)}
                 className={activeSection === item ? 'active' : ''}
               >
-                {item.charAt(0).toUpperCase() + item.slice(1)}
+                {item === 'career' ? 'Career Profile' : item.charAt(0).toUpperCase() + item.slice(1)}
               </a>
             ))}
           </motion.div>
@@ -518,139 +518,249 @@ export default function App() {
         </motion.div>
       </section>
 
-      {/* RESUME (Timeline) */}
-      <section id="resume">
+      {/* CAREER PROFILE — merged Resume + Qualification */}
+      <section id="career">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
         >
-          <h2 className="section-title">My <span>Resume</span></h2>
-          <div className="flex justify-center mb-8 mt-4">
-            <a
-              href="/Shafeeq-Resume.pdf"
-              download="Shafeeq_S_Cybersecurity_Resume.pdf"
-              className="btn-primary flex items-center gap-2"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download Resume
-            </a>
-          </div>
-          <div className="resume-grid">
-            <div>
-              <div className="resume-col-title">
-                <GraduationCap className="icon" size={20} /> Education
+          {/* ── A. Profile Header ─────────────────────────────────── */}
+          <div className="cp-header">
+            <div className="cp-header-text">
+              <h2 className="section-title" style={{textAlign:'left', transform:'none', left:'auto'}}>
+                Career <span>Profile</span>
+              </h2>
+              <p className="cp-intro">
+                Cybersecurity student focused on Blue Team operations — SOC investigations, malware analysis, threat detection, and building practical security tools. Currently deepening skills through hands-on LetsDefend labs, independent research projects, and formal internship experience with the Government of Tamil Nadu.
+              </p>
+              <div className="cp-header-actions">
+                <a
+                  href="/Shafeeq-Resume.pdf"
+                  download="Shafeeq_S_Cybersecurity_Resume.pdf"
+                  className="btn-primary flex items-center gap-2"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Download Resume
+                </a>
+                <a href="#projects" className="btn-secondary flex items-center gap-2">
+                  <Code size={16} /> View Projects
+                </a>
+                <div className="cp-social-links">
+                  <a href="https://www.linkedin.com/in/shafeeq-cybersec/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="cp-social-btn">
+                    <Linkedin size={16} />
+                  </a>
+                  <a href="https://github.com/Shafeeq-Cybersec" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="cp-social-btn">
+                    <Github size={16} />
+                  </a>
+                </div>
               </div>
-            <div className="timeline">
-              <div className="tl-item">
-                <div className="tl-dot"></div>
-                <div className="tl-period">2024 – 2028</div>
-                <div className="tl-title">B.Tech — CS & Business Systems</div>
-                <div className="tl-org">Panimalar Engineering College</div>
-                <div className="tl-desc">CGPA: 8.17 / 10</div>
-              </div>
-              <div className="tl-item">
-                <div className="tl-dot"></div>
-                <div className="tl-period">2024</div>
-                <div className="tl-title">HSE (+2)</div>
-                <div className="tl-org">Velammal Matric.Hr.Sec.School</div>
-                <div className="tl-desc">Percentage: 76.17%</div>
-              </div>
-              <div className="tl-item">
-                <div className="tl-dot"></div>
-                <div className="tl-period">2022</div>
-                <div className="tl-title">SSLC</div>
-                <div className="tl-org">Sir Issac Newton Matriculation School</div>
-                <div className="tl-desc">Percentage: 86.6%</div>
+            </div>
+            <div className="cp-header-badge">
+              <div className="cp-badge-inner">
+                <Shield size={32} className="cp-badge-icon" />
+                <div className="cp-badge-label">Blue Team</div>
+                <div className="cp-badge-sublabel">SOC · Malware · Forensics</div>
               </div>
             </div>
           </div>
-          <div>
-            <div className="resume-col-title">
-              <Briefcase className="icon" size={20} /> Experience
+
+          {/* ── B. Technical Skills ───────────────────────────────── */}
+          <div className="cp-block">
+            <div className="cp-block-title">
+              <Settings size={18} className="cp-block-icon" />
+              Technical Skills
             </div>
-            <div className="timeline">
-              <div className="tl-item">
-                <div className="tl-dot"></div>
-                <div className="tl-period">Mar 2024 – Apr 2024</div>
-                <div className="tl-title">Cybersecurity Intern</div>
-                <div className="tl-org">TANSAM (Govt. of Tamil Nadu)</div>
-                <ul className="tl-list">
-                  <li>Performed OSINT reconnaissance to gather and analyse open-source intelligence.</li>
-                  <li>Carried out security exercises on Kali Linux, including steganography and basic exploitation techniques.</li>
-                  <li>Identified IoT security risks and explored practical mitigations.</li>
-                  <li>Studied NIST RMF, NIST CSF, and ISO 27005 frameworks and how they apply to risk management.</li>
-                  <li>Gained hands-on exposure to incident response processes and security documentation.</li>
+            <div className="cp-skills-grid">
+
+              <div className="cp-skill-cat">
+                <div className="cp-skill-cat-name">SOC Operations &amp; Incident Response</div>
+                <div className="cp-tags">
+                  {['Alert Triage','Log Correlation','SIEM Analysis','Incident Response','IOC Extraction','Threat Detection','Phishing Analysis'].map(t => <span key={t} className="cp-tag">{t}</span>)}
+                </div>
+              </div>
+
+              <div className="cp-skill-cat">
+                <div className="cp-skill-cat-name">Threat Hunting &amp; OSINT</div>
+                <div className="cp-tags">
+                  {['Threat Hunting','Log Analysis','OSINT Techniques','IOC Research','Threat Intelligence','Email Header Analysis'].map(t => <span key={t} className="cp-tag">{t}</span>)}
+                </div>
+              </div>
+
+              <div className="cp-skill-cat">
+                <div className="cp-skill-cat-name">Malware Analysis &amp; Digital Forensics</div>
+                <div className="cp-tags">
+                  {['Static Analysis','Dynamic Analysis','Procmon','Process Hacker','RegShot','Fiddler','VirusTotal','Sandbox Analysis'].map(t => <span key={t} className="cp-tag">{t}</span>)}
+                </div>
+              </div>
+
+              <div className="cp-skill-cat">
+                <div className="cp-skill-cat-name">Network Security &amp; Traffic Analysis</div>
+                <div className="cp-tags">
+                  {['Wireshark','TCP/IP','DNS','HTTP/HTTPS','Network Protocols','Traffic Analysis','Port Scanning'].map(t => <span key={t} className="cp-tag">{t}</span>)}
+                </div>
+              </div>
+
+              <div className="cp-skill-cat">
+                <div className="cp-skill-cat-name">Security Frameworks &amp; Platforms</div>
+                <div className="cp-tags">
+                  {['NIST RMF','NIST CSF','ISO 27005','MITRE ATT&CK','Cyber Kill Chain','Kali Linux','VirtualBox','LetsDefend'].map(t => <span key={t} className="cp-tag">{t}</span>)}
+                </div>
+              </div>
+
+              <div className="cp-skill-cat">
+                <div className="cp-skill-cat-name">Programming &amp; Automation</div>
+                <div className="cp-tags">
+                  {['Python','Java','C++','Linux','Windows','Bash Scripting','GitHub'].map(t => <span key={t} className="cp-tag">{t}</span>)}
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* ── C. Experience ─────────────────────────────────────── */}
+          <div className="cp-block">
+            <div className="cp-block-title">
+              <Briefcase size={18} className="cp-block-icon" />
+              Experience
+            </div>
+
+            {/* Formal internship */}
+            <div className="cp-exp-item">
+              <div className="cp-exp-dot cp-exp-dot--formal" />
+              <div className="cp-exp-body">
+                <div className="cp-exp-header">
+                  <div>
+                    <div className="cp-exp-role">Cybersecurity Intern — Purple Team</div>
+                    <div className="cp-exp-org">TANSAM · Government of Tamil Nadu</div>
+                  </div>
+                  <div className="cp-exp-right">
+                    <span className="cp-exp-period">Mar 2024 – Apr 2024</span>
+                    <span className="cp-exp-badge cp-exp-badge--formal">Internship</span>
+                  </div>
+                </div>
+                <ul className="cp-exp-list">
+                  <li>Performed OSINT reconnaissance and gathered open-source intelligence as part of structured security assessments.</li>
+                  <li>Carried out security exercises on Kali Linux including steganography and basic exploitation techniques.</li>
+                  <li>Evaluated IoT security risks and explored practical mitigation strategies.</li>
+                  <li>Studied and applied NIST RMF, NIST CSF, and ISO 27005 frameworks to real-world risk management scenarios.</li>
+                  <li>Gained exposure to incident response processes and security documentation practices.</li>
+                </ul>
+                <div className="cp-exp-achievement">
+                  <Trophy size={13} className="inline mr-1.5 text-yellow-500" />
+                  Certificate of Excellence — ranked in top 2 of 40 interns
+                </div>
+              </div>
+            </div>
+
+            {/* Practical lab work */}
+            <div className="cp-exp-item">
+              <div className="cp-exp-dot cp-exp-dot--lab" />
+              <div className="cp-exp-body">
+                <div className="cp-exp-header">
+                  <div>
+                    <div className="cp-exp-role">SOC Analyst Training &amp; Investigations</div>
+                    <div className="cp-exp-org">LetsDefend · Self-directed</div>
+                  </div>
+                  <div className="cp-exp-right">
+                    <span className="cp-exp-period">2026 – Present</span>
+                    <span className="cp-exp-badge cp-exp-badge--lab">Hands-on Labs</span>
+                  </div>
+                </div>
+                <ul className="cp-exp-list">
+                  <li>Investigated 11+ real-world security incidents spanning phishing, malware execution, brute-force attacks, command injection, and zero-day exploits.</li>
+                  <li>Analysed Windows Event Logs, proxy logs, and endpoint data to determine attack timelines and confirm true/false positives.</li>
+                  <li>Extracted IOCs and mapped attack behaviour to MITRE ATT&amp;CK techniques and the Cyber Kill Chain.</li>
+                  <li>Performed containment actions including host isolation, IP blocking, credential rotation, and patch recommendations.</li>
+                  <li>Documented findings as structured SOC investigation reports — published across LinkedIn and blog platform.</li>
                 </ul>
               </div>
             </div>
+
           </div>
-        </div>
-      </motion.div>
-    </section>
 
-      {/* QUALIFICATION Section */}
-      <section id="qualification" className="relative">
-        <motion.div
-          initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
-          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1, ease: [0.33, 1, 0.68, 1] }}
-        >
-          <h2 className="section-title">My <span>Qualification</span></h2>
-          <div className="qual-grid">
-            {/* Card 1: Skills & Tools */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-              className="qual-card"
-            >
-            <div className="qual-title-row">
-              <Settings className="icon" size={20} />
-              <h3>Skills & Tools</h3>
+          {/* ── D. Education ──────────────────────────────────────── */}
+          <div className="cp-block">
+            <div className="cp-block-title">
+              <GraduationCap size={18} className="cp-block-icon" />
+              Education
             </div>
-            <ul className="qual-list">
-              <li>Malware Analysis (Static & Dynamic)</li>
-              <li>Network Traffic Analysis (Wireshark)</li>
-              <li>Phishing Email Analysis</li>
-              <li>Incident Response & Alert Investigation</li>
-              <li>Threat Hunting & Log Analysis</li>
-              <li>OSINT Techniques</li>
-              <li>Kali Linux & CTF Challenges</li>
-              <li>Procmon / Process Hacker (Sysinternals)</li>
-              <li>Burp Suite (Basic Web Testing)</li>
-              <li>John the Ripper / Password Cracking</li>
-              <li>SIEM Alerts & SOC Operations</li>
-              <li>Python Scripting & Automation</li>
-              <li>Fiddler / Steganography Tools</li>
-            </ul>
-          </motion.div>
+            <div className="cp-edu-grid">
+              <div className="cp-edu-card cp-edu-card--primary">
+                <div className="cp-edu-period">2024 – 2028</div>
+                <div className="cp-edu-degree">B.Tech — Computer Science &amp; Business Systems</div>
+                <div className="cp-edu-org">Panimalar Engineering College</div>
+                <div className="cp-edu-score">CGPA: 8.17 / 10</div>
+              </div>
+              <div className="cp-edu-card">
+                <div className="cp-edu-period">2024</div>
+                <div className="cp-edu-degree">HSE (+2)</div>
+                <div className="cp-edu-org">Velammal Matric. Hr. Sec. School</div>
+                <div className="cp-edu-score">76.17%</div>
+              </div>
+              <div className="cp-edu-card">
+                <div className="cp-edu-period">2022</div>
+                <div className="cp-edu-degree">SSLC</div>
+                <div className="cp-edu-org">Sir Issac Newton Matriculation School</div>
+                <div className="cp-edu-score">86.6%</div>
+              </div>
+            </div>
+          </div>
 
-          {/* Card 2: Certifications */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.33, 1, 0.68, 1] }}
-            className="qual-card"
-          >
-            <div className="qual-title-row">
-              <Award className="icon" size={20} />
-              <h3>Certifications</h3>
+          {/* ── E. Achievements ───────────────────────────────────── */}
+          <div className="cp-block">
+            <div className="cp-block-title">
+              <Award size={18} className="cp-block-icon" />
+              Achievements
             </div>
-            <ul className="qual-list">
-              <li>Cybersecurity Internship – TANSAM Center of Excellence</li>
-              <li>TryHackMe – Hands-on Cybersecurity Labs</li>
-              <li>LetsDefend – SOC Analyst Training (Ongoing)</li>
-              <li>IEEE Conference Presenter – PECTEAM 2K25</li>
-              <li>Certificate of Appreciation & Excellence – Cybersecurity Quiz</li>
-              <li>B.Tech Computer Science & Business Systems (CGPA 8.17)</li>
-            </ul>
-          </motion.div>
-        </div>
+            <div className="cp-achievements">
+              <div className="cp-achievement-card">
+                <Trophy size={20} className="cp-achievement-icon cp-achievement-icon--gold" />
+                <div className="cp-achievement-text">
+                  <div className="cp-achievement-title">Certificate of Excellence</div>
+                  <div className="cp-achievement-sub">TANSAM — Top 2 of 40 interns</div>
+                </div>
+              </div>
+              <div className="cp-achievement-card">
+                <Target size={20} className="cp-achievement-icon cp-achievement-icon--blue" />
+                <div className="cp-achievement-text">
+                  <div className="cp-achievement-title">RUSH HOUR 24 National Hackathon</div>
+                  <div className="cp-achievement-sub">Contributed to MCP Guardian · Sathyabama Institute</div>
+                </div>
+              </div>
+              <div className="cp-achievement-card">
+                <Award size={20} className="cp-achievement-icon cp-achievement-icon--gold" />
+                <div className="cp-achievement-text">
+                  <div className="cp-achievement-title">1st Place — Rhetoric Rumble Debate</div>
+                  <div className="cp-achievement-sub">R.M.D. Engineering College</div>
+                </div>
+              </div>
+              <div className="cp-achievement-card">
+                <Radio size={20} className="cp-achievement-icon cp-achievement-icon--blue" />
+                <div className="cp-achievement-text">
+                  <div className="cp-achievement-title">IEEE Conference Presenter</div>
+                  <div className="cp-achievement-sub">PECTEAM 2K25 · Panimalar Engineering College</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── G. Closing CTA ────────────────────────────────────── */}
+          <div className="cp-cta">
+            <div className="cp-cta-text">Interested in cybersecurity, threat detection, or AI security?</div>
+            <div className="cp-cta-sub">Open to internships, collaborations, and conversations.</div>
+            <div className="cp-cta-links">
+              <a href="#contact" className="btn-primary">Get in Touch</a>
+              <a href="https://www.linkedin.com/in/shafeeq-cybersec/" target="_blank" rel="noopener noreferrer" className="btn-secondary flex items-center gap-2">
+                <Linkedin size={15} /> LinkedIn
+              </a>
+              <a href="https://github.com/Shafeeq-Cybersec" target="_blank" rel="noopener noreferrer" className="btn-secondary flex items-center gap-2">
+                <Github size={15} /> GitHub
+              </a>
+            </div>
+          </div>
+
         </motion.div>
       </section>
 

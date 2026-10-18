@@ -870,3 +870,480 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
 .stats-socials a:hover {
   color: #3b82f6;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   CAREER PROFILE SECTION
+   ═══════════════════════════════════════════════════════════════ */
+
+#career { background: var(--bg2); }
+
+/* ── Shared block wrapper ─────────────────────────────────────── */
+.cp-block {
+  max-width: 900px;
+  margin: 0 auto 3.5rem;
+}
+
+.cp-block-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-family: var(--font-mono);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.cp-block-icon {
+  color: var(--blue-light);
+  flex-shrink: 0;
+}
+
+/* ── A. Profile Header ────────────────────────────────────────── */
+.cp-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto 3.5rem;
+}
+
+.cp-header-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.cp-intro {
+  font-size: 0.87rem;
+  color: var(--text-dim);
+  line-height: 1.85;
+  max-width: 580px;
+  margin-bottom: 1.75rem;
+}
+
+.cp-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cp-social-links {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 0.25rem;
+}
+
+.cp-social-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 6px;
+  transition: all 0.2s var(--ease-in-out);
+}
+
+.cp-social-btn:hover {
+  border-color: var(--blue-light);
+  color: var(--blue-light);
+  background: var(--blue-dim);
+}
+
+.cp-header-badge {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cp-badge-inner {
+  width: 130px;
+  height: 130px;
+  border: 1px solid rgba(61, 111, 212, 0.25);
+  border-radius: 50%;
+  background: rgba(61, 111, 212, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  backdrop-filter: blur(8px);
+}
+
+.cp-badge-icon {
+  color: var(--blue-light);
+  opacity: 0.85;
+}
+
+.cp-badge-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.05em;
+}
+
+.cp-badge-sublabel {
+  font-size: 0.58rem;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+/* ── B. Skills Dashboard ──────────────────────────────────────── */
+.cp-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.cp-skill-cat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  transition: border-color 0.3s var(--ease-in-out);
+}
+
+.cp-skill-cat:hover {
+  border-color: rgba(61, 111, 212, 0.35);
+}
+
+.cp-skill-cat-name {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--blue-light);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.85rem;
+  font-family: var(--font-mono);
+}
+
+.cp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.cp-tag {
+  font-size: 0.7rem;
+  padding: 0.22rem 0.6rem;
+  background: rgba(61, 111, 212, 0.08);
+  border: 1px solid rgba(61, 111, 212, 0.2);
+  color: var(--text-dim);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  transition: all 0.2s var(--ease-in-out);
+}
+
+.cp-tag:hover {
+  background: rgba(61, 111, 212, 0.15);
+  border-color: rgba(61, 111, 212, 0.4);
+  color: var(--text);
+}
+
+/* ── C. Experience Timeline ───────────────────────────────────── */
+.cp-exp-item {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.cp-exp-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 20px;
+  bottom: -2rem;
+  width: 1px;
+  background: linear-gradient(180deg, var(--border), transparent);
+}
+
+.cp-exp-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+.cp-exp-dot--formal {
+  background: var(--blue);
+  border: 2px solid var(--bg2);
+  box-shadow: 0 0 0 3px rgba(61, 111, 212, 0.25);
+}
+
+.cp-exp-dot--lab {
+  background: transparent;
+  border: 2px solid var(--blue);
+  box-shadow: 0 0 0 3px rgba(61, 111, 212, 0.12);
+}
+
+.cp-exp-body {
+  flex: 1;
+  min-width: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.2rem 1.4rem;
+  transition: border-color 0.3s var(--ease-in-out);
+}
+
+.cp-exp-body:hover {
+  border-color: rgba(61, 111, 212, 0.3);
+}
+
+.cp-exp-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.cp-exp-role {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.2rem;
+}
+
+.cp-exp-org {
+  font-size: 0.76rem;
+  color: var(--blue-light);
+  font-weight: 500;
+}
+
+.cp-exp-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.cp-exp-period {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--blue-light);
+  white-space: nowrap;
+}
+
+.cp-exp-badge {
+  font-size: 0.6rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.18rem 0.55rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.cp-exp-badge--formal {
+  background: rgba(61, 111, 212, 0.15);
+  border: 1px solid rgba(61, 111, 212, 0.3);
+  color: var(--blue-light);
+}
+
+.cp-exp-badge--lab {
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  color: #4ade80;
+}
+
+.cp-exp-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.5rem;
+}
+
+.cp-exp-list li {
+  font-size: 0.79rem;
+  color: var(--text-dim);
+  padding: 0.25rem 0 0.25rem 1rem;
+  position: relative;
+  line-height: 1.65;
+}
+
+.cp-exp-list li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--blue-light);
+  font-weight: 700;
+}
+
+.cp-exp-achievement {
+  margin-top: 0.85rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(234, 179, 8, 0.06);
+  border: 1px solid rgba(234, 179, 8, 0.2);
+  border-radius: 4px;
+  font-size: 0.72rem;
+  color: #fbbf24;
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+}
+
+/* ── D. Education Cards ───────────────────────────────────────── */
+.cp-edu-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.cp-edu-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.2rem 1.3rem;
+  transition: border-color 0.3s var(--ease-in-out);
+}
+
+.cp-edu-card:hover {
+  border-color: rgba(61, 111, 212, 0.3);
+}
+
+.cp-edu-card--primary {
+  border-left: 3px solid var(--blue);
+}
+
+.cp-edu-period {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--blue-light);
+  margin-bottom: 0.4rem;
+}
+
+.cp-edu-degree {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.3rem;
+  line-height: 1.35;
+}
+
+.cp-edu-org {
+  font-size: 0.73rem;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.cp-edu-score {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--blue-light);
+  font-weight: 500;
+}
+
+/* ── E. Achievements ──────────────────────────────────────────── */
+.cp-achievements {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.cp-achievement-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.1rem;
+  transition: border-color 0.3s var(--ease-in-out);
+}
+
+.cp-achievement-card:hover {
+  border-color: rgba(61, 111, 212, 0.3);
+}
+
+.cp-achievement-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.cp-achievement-icon--gold { color: #f59e0b; }
+.cp-achievement-icon--blue { color: var(--blue-light); }
+
+.cp-achievement-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.2rem;
+  line-height: 1.35;
+}
+
+.cp-achievement-sub {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+/* ── G. Closing CTA ──────────────────────────────────────────── */
+.cp-cta {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2.5rem 2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(61, 111, 212, 0.03);
+}
+
+.cp-cta-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.cp-cta-sub {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
+}
+
+.cp-cta-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .cp-header { flex-direction: column; }
+  .cp-header-badge { display: none; }
+  .cp-edu-grid { grid-template-columns: 1fr; }
+  .cp-exp-header { flex-direction: column; gap: 0.5rem; }
+  .cp-exp-right { align-items: flex-start; }
+  .cp-skills-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .cp-achievements { grid-template-columns: 1fr; }
+  .cp-cta { padding: 1.75rem 1.25rem; }
+  .cp-cta-text { font-size: 0.92rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cp-skill-cat, .cp-exp-body, .cp-edu-card,
+  .cp-achievement-card, .cp-tag, .cp-social-btn {
+    transition: none !important;
+  }
+}
