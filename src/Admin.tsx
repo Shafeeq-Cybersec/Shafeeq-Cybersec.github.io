@@ -19,6 +19,7 @@ interface Certificate {
   sub: string;
   image: string;
   pdf: string;
+  link: string;
   icon: string;
 }
 
@@ -337,6 +338,37 @@ function CertificatesPanel({ token }: { token: string }) {
     }
   };
 
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [editForm, setEditForm] = useState<Certificate>({ cat: '', title: '', sub: '', image: '', pdf: '', link: '', icon: 'shield' });
+
+  const startEdit = (index: number) => {
+    if (!items) return;
+    setEditingIndex(index);
+    setEditForm({ ...items[index], link: (items[index] as any).link ?? '' });
+  };
+
+  const saveEdit = async () => {
+    if (editingIndex === null || !items) return;
+    setStatus({ type: 'busy', msg: 'Saving…' });
+    try {
+      const latest = await getFile(token, 'src/data/certificates.json');
+      const current: Certificate[] = latest ? JSON.parse(latest.content) : [];
+      const next = current.map((c, i) => i === editingIndex ? { ...c, ...editForm } : c);
+      await putFile(
+        token,
+        'src/data/certificates.json',
+        utf8ToBase64(JSON.stringify(next, null, 2)),
+        `Update certificate: ${editForm.title}`,
+        latest?.sha
+      );
+      setStatus({ type: 'ok', msg: 'Certificate updated.' });
+      setEditingIndex(null);
+      await load();
+    } catch (e) {
+      setStatus({ type: 'err', msg: e instanceof Error ? e.message : 'Failed to update.' });
+    }
+  };
+
   return (
     <div className="grid md:grid-cols-2 gap-8">
       <div>
@@ -380,24 +412,63 @@ function CertificatesPanel({ token }: { token: string }) {
         <h2 className="text-lg font-semibold text-white mb-4">Existing Certificates ({items?.length ?? '…'})</h2>
         <div className="space-y-2 max-h-[600px] overflow-y-auto pr-1">
           {items?.map((c, i) => (
-            <div key={`${c.title}-${i}`} className="flex items-center gap-3 border border-[#222] bg-[#111] rounded px-3 py-2">
-              <div className="w-12 h-12 rounded bg-[#0a0a0a] border border-[#222] shrink-0 overflow-hidden flex items-center justify-center">
-                {c.image && !c.image.toLowerCase().endsWith('.pdf') ? (
-                  <img src={c.image} alt="" className="w-full h-full object-cover" />
-                ) : (
-                  <FileText size={18} className="text-[#555]" />
-                )}
+            <div key={`${c.title}-${i}`} className="border border-[#222] bg-[#111] rounded overflow-hidden">
+              {/* Row */}
+              <div className="flex items-center gap-3 px-3 py-2">
+                <div className="w-12 h-12 rounded bg-[#0a0a0a] border border-[#222] shrink-0 overflow-hidden flex items-center justify-center">
+                  {c.image && !c.image.toLowerCase().endsWith('.pdf') ? (
+                    <img src={c.image} alt="" className="w-full h-full object-cover" />
+                  ) : (
+                    <FileText size={18} className="text-[#555]" />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="text-sm text-white truncate">{c.title}</div>
+                  <div className="text-xs text-[#888]">{c.cat} · {c.sub}</div>
+                  {(c as any).link && (
+                    <div className="text-xs text-[#3d6fd4] truncate mt-0.5">{(c as any).link}</div>
+                  )}
+                </div>
+                <div className="flex gap-2 shrink-0">
+                  <button
+                    onClick={() => editingIndex === i ? setEditingIndex(null) : startEdit(i)}
+                    className="text-xs text-blue-400 hover:text-blue-300"
+                  >
+                    {editingIndex === i ? 'Cancel' : 'Edit'}
+                  </button>
+                  <button
+                    onClick={() => removeCertificate(i)}
+                    className="text-xs text-red-400 hover:text-red-300"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
-              <div className="min-w-0 flex-1">
-                <div className="text-sm text-white truncate">{c.title}</div>
-                <div className="text-xs text-[#888]">{c.cat} · {c.sub}</div>
-              </div>
-              <button
-                onClick={() => removeCertificate(i)}
-                className="text-xs text-red-400 hover:text-red-300 shrink-0"
-              >
-                Delete
-              </button>
+              {/* Inline edit form */}
+              {editingIndex === i && (
+                <div className="border-t border-[#222] px-3 py-3 space-y-2 bg-[#0d0d0d]">
+                  <label className="block">
+                    <span className="block text-xs text-[#888] mb-1">Title</span>
+                    <input value={editForm.title} onChange={e => setEditForm({...editForm, title: e.target.value})}
+                      className="w-full px-2 py-1.5 rounded bg-[#0a0a0a] border border-[#333] text-sm outline-none focus:border-[#3d6fd4]" />
+                  </label>
+                  <label className="block">
+                    <span className="block text-xs text-[#888] mb-1">Subtitle / Issuer</span>
+                    <input value={editForm.sub} onChange={e => setEditForm({...editForm, sub: e.target.value})}
+                      className="w-full px-2 py-1.5 rounded bg-[#0a0a0a] border border-[#333] text-sm outline-none focus:border-[#3d6fd4]" />
+                  </label>
+                  <label className="block">
+                    <span className="block text-xs text-[#888] mb-1">Credential URL</span>
+                    <input value={(editForm as any).link ?? ''} onChange={e => setEditForm({...editForm, link: e.target.value} as any)}
+                      placeholder="https://..."
+                      className="w-full px-2 py-1.5 rounded bg-[#0a0a0a] border border-[#333] text-sm outline-none focus:border-[#3d6fd4]" />
+                  </label>
+                  <button onClick={saveEdit} disabled={status.type === 'busy'}
+                    className="px-3 py-1.5 rounded bg-[#3d6fd4] hover:bg-[#5a8dee] disabled:opacity-50 text-white text-xs font-medium transition">
+                    {status.type === 'busy' ? 'Saving…' : 'Save Changes'}
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
