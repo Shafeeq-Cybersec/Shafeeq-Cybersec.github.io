@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "Certificate of Excellence",
+    "sub": "TANSAM — Top 2 of 40 interns",
+    "icon": "trophy",
+    "color": "gold"
+  },
+  {
+    "id": 2,
+    "title": "RUSH HOUR 24 National Hackathon",
+    "sub": "Contributed to MCP Guardian · Sathyabama Institute",
+    "icon": "target",
+    "color": "blue"
+  },
+  {
+    "id": 3,
+    "title": "1st Place — Rhetoric Rumble Debate",
+    "sub": "R.M.D. Engineering College",
+    "icon": "award",
+    "color": "gold"
+  },
+  {
+    "id": 4,
+    "title": "IEEE Conference Presenter",
+    "sub": "PECTEAM 2K25 · Panimalar Engineering College",
+    "icon": "radio",
+    "color": "blue"
+  }
+]

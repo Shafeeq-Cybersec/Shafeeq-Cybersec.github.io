@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "role": "Cybersecurity Intern — Purple Team",
+    "org": "TANSAM · Government of Tamil Nadu",
+    "period": "Mar 2024 – Apr 2024",
+    "type": "formal",
+    "badge": "Internship",
+    "bullets": [
+      "Performed OSINT reconnaissance and gathered open-source intelligence as part of structured security assessments.",
+      "Carried out security exercises on Kali Linux including steganography and basic exploitation techniques.",
+      "Evaluated IoT security risks and explored practical mitigation strategies.",
+      "Studied and applied NIST RMF, NIST CSF, and ISO 27005 frameworks to real-world risk management scenarios.",
+      "Gained exposure to incident response processes and security documentation practices."
+    ],
+    "achievement": "Certificate of Excellence — ranked in top 2 of 40 interns"
+  },
+  {
+    "id": 2,
+    "role": "SOC Analyst Training & Investigations",
+    "org": "LetsDefend · Self-directed",
+    "period": "2026 – Present",
+    "type": "lab",
+    "badge": "Hands-on Labs",
+    "bullets": [
+      "Investigated 11+ real-world security incidents spanning phishing, malware execution, brute-force attacks, command injection, and zero-day exploits.",
+      "Analysed Windows Event Logs, proxy logs, and endpoint data to determine attack timelines and confirm true/false positives.",
+      "Extracted IOCs and mapped attack behaviour to MITRE ATT&CK techniques and the Cyber Kill Chain.",
+      "Performed containment actions including host isolation, IP blocking, credential rotation, and patch recommendations.",
+      "Documented findings as structured SOC investigation reports — published across LinkedIn and blog platform."
+    ],
+    "achievement": ""
+  }
+]

@@ -678,10 +678,427 @@ function ProjectsPanel({ token }: { token: string }) {
   );
 }
 
+/* ═══════════════════════════════════════════════════════
+   PROFILE PANEL
+   ═══════════════════════════════════════════════════════ */
+function ProfilePanel({ token }: { token: string }) {
+  const { status, setStatus } = useStatus();
+  const [form, setForm] = useState<Record<string, string> | null>(null);
+
+  useEffect(() => {
+    getFile(token, 'src/data/profile.json').then(f => {
+      if (f) setForm(JSON.parse(f.content));
+    });
+  }, []);
+
+  const save = async () => {
+    if (!form) return;
+    setStatus({ type: 'busy', msg: 'Saving…' });
+    try {
+      const latest = await getFile(token, 'src/data/profile.json');
+      await putFile(token, 'src/data/profile.json',
+        utf8ToBase64(JSON.stringify(form, null, 2)),
+        'Update profile data', latest?.sha);
+      setStatus({ type: 'ok', msg: 'Profile saved. Site rebuilds in ~1 min.' });
+    } catch (e) {
+      setStatus({ type: 'err', msg: e instanceof Error ? e.message : 'Failed.' });
+    }
+  };
+
+  if (!form) return <p className="text-[#888] text-sm">Loading…</p>;
+
+  const fields: { key: string; label: string; textarea?: boolean }[] = [
+    { key: 'availabilityPill',  label: 'Availability Pill text' },
+    { key: 'intro',             label: 'Career Profile intro paragraph', textarea: true },
+    { key: 'aboutParagraph1',   label: 'About — Paragraph 1', textarea: true },
+    { key: 'aboutParagraph2',   label: 'About — Paragraph 2', textarea: true },
+    { key: 'degree',            label: 'Degree' },
+    { key: 'college',           label: 'College' },
+    { key: 'cgpa',              label: 'CGPA' },
+    { key: 'city',              label: 'City' },
+    { key: 'email',             label: 'Email' },
+    { key: 'focus',             label: 'Focus (About section)' },
+    { key: 'ctaText',           label: 'CTA heading' },
+    { key: 'ctaSub',            label: 'CTA subtext' },
+  ];
+
+  const statsForm = (form as any).heroStats as Record<string, string> | undefined;
+
+  return (
+    <div className="max-w-2xl">
+      <h2 className="text-lg font-semibold text-white mb-4">Profile & About</h2>
+      {fields.map(f => (
+        <TextField key={f.key} label={f.label} textarea={f.textarea}
+          value={(form as any)[f.key] ?? ''}
+          onChange={v => setForm({ ...form, [f.key]: v })} />
+      ))}
+      <h3 className="text-sm font-semibold text-white mt-4 mb-2">Hero Stats</h3>
+      {statsForm && ['incidentReports','labsLabel','labsSublabel'].map(k => (
+        <TextField key={k} label={k}
+          value={statsForm[k] ?? ''}
+          onChange={v => setForm({ ...form, heroStats: { ...statsForm, [k]: v } } as any)} />
+      ))}
+      <button onClick={save} disabled={status.type === 'busy'}
+        className="px-4 py-2 rounded bg-[#3d6fd4] hover:bg-[#5a8dee] disabled:opacity-50 text-white text-sm font-medium transition">
+        {status.type === 'busy' ? 'Saving…' : 'Save Profile'}
+      </button>
+      {status.msg && <p className={`text-xs mt-3 ${status.type === 'err' ? 'text-red-400' : 'text-green-400'}`}>{status.msg}</p>}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════
+   SKILLS PANEL
+   ═══════════════════════════════════════════════════════ */
+interface SkillCategory { category: string; tags: string[]; }
+
+function SkillsPanel({ token }: { token: string }) {
+  const [items, setItems] = useState<SkillCategory[] | null>(null);
+  const { status, setStatus } = useStatus();
+  const [newCat, setNewCat] = useState('');
+
+  const load = async () => {
+    const f = await getFile(token, 'src/data/skills.json');
+    if (f) setItems(JSON.parse(f.content));
+  };
+  useEffect(() => { load(); }, []);
+
+  const save = async (next: SkillCategory[]) => {
+    setStatus({ type: 'busy', msg: 'Saving…' });
+    try {
+      const latest = await getFile(token, 'src/data/skills.json');
+      await putFile(token, 'src/data/skills.json',
+        utf8ToBase64(JSON.stringify(next, null, 2)),
+        'Update skills', latest?.sha);
+      setItems(next);
+      setStatus({ type: 'ok', msg: 'Skills saved. Rebuilds in ~1 min.' });
+    } catch (e) {
+      setStatus({ type: 'err', msg: e instanceof Error ? e.message : 'Failed.' });
+    }
+  };
+
+  const updateTags = (idx: number, raw: string) => {
+    if (!items) return;
+    const next = items.map((c, i) =>
+      i === idx ? { ...c, tags: raw.split(',').map(t => t.trim()).filter(Boolean) } : c);
+    setItems(next);
+  };
+
+  const addCategory = () => {
+    if (!newCat.trim() || !items) return;
+    setItems([...items, { category: newCat.trim(), tags: [] }]);
+    setNewCat('');
+  };
+
+  const removeCategory = (idx: number) => {
+    if (!items) return;
+    setItems(items.filter((_, i) => i !== idx));
+  };
+
+  if (!items) return <p className="text-[#888] text-sm">Loading…</p>;
+
+  return (
+    <div className="max-w-2xl">
+      <h2 className="text-lg font-semibold text-white mb-4">Technical Skills</h2>
+      <p className="text-xs text-[#888] mb-4">Each category has comma-separated skill tags.</p>
+      <div className="space-y-4 mb-6">
+        {items.map((cat, idx) => (
+          <div key={idx} className="border border-[#222] rounded p-3 bg-[#111]">
+            <div className="flex items-center justify-between mb-2">
+              <input value={cat.category}
+                onChange={e => setItems(items.map((c, i) => i === idx ? { ...c, category: e.target.value } : c))}
+                className="flex-1 px-2 py-1 rounded bg-[#0a0a0a] border border-[#333] text-sm outline-none focus:border-[#3d6fd4] mr-2"
+              />
+              <button onClick={() => removeCategory(idx)} className="text-xs text-red-400 hover:text-red-300 shrink-0">Remove</button>
+            </div>
+            <textarea
+              value={cat.tags.join(', ')}
+              onChange={e => updateTags(idx, e.target.value)}
+              rows={2}
+              placeholder="Tag 1, Tag 2, Tag 3"
+              className="w-full px-2 py-1 rounded bg-[#0a0a0a] border border-[#333] text-xs outline-none focus:border-[#3d6fd4]"
+            />
+          </div>
+        ))}
+      </div>
+      <div className="flex gap-2 mb-4">
+        <input value={newCat} onChange={e => setNewCat(e.target.value)} placeholder="New category name"
+          className="flex-1 px-3 py-2 rounded bg-[#0a0a0a] border border-[#333] text-sm outline-none focus:border-[#3d6fd4]" />
+        <button onClick={addCategory} className="px-3 py-2 rounded bg-[#141414] border border-[#333] text-sm text-white hover:border-[#3d6fd4]">+ Add</button>
+      </div>
+      <button onClick={() => save(items)} disabled={status.type === 'busy'}
+        className="px-4 py-2 rounded bg-[#3d6fd4] hover:bg-[#5a8dee] disabled:opacity-50 text-white text-sm font-medium transition">
+        {status.type === 'busy' ? 'Saving…' : 'Save Skills'}
+      </button>
+      {status.msg && <p className={`text-xs mt-3 ${status.type === 'err' ? 'text-red-400' : 'text-green-400'}`}>{status.msg}</p>}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════
+   EXPERIENCE PANEL
+   ═══════════════════════════════════════════════════════ */
+interface ExpEntry { id: number; role: string; org: string; period: string; type: string; badge: string; bullets: string[]; achievement: string; }
+
+function ExperiencePanel({ token }: { token: string }) {
+  const [items, setItems] = useState<ExpEntry[] | null>(null);
+  const { status, setStatus } = useStatus();
+  const blank: Omit<ExpEntry,'id'> = { role:'', org:'', period:'', type:'formal', badge:'Internship', bullets:[], achievement:'' };
+  const [form, setForm] = useState(blank);
+
+  const load = async () => {
+    const f = await getFile(token, 'src/data/experience.json');
+    if (f) setItems(JSON.parse(f.content));
+  };
+  useEffect(() => { load(); }, []);
+
+  const save = async (next: ExpEntry[]) => {
+    setStatus({ type: 'busy', msg: 'Saving…' });
+    try {
+      const latest = await getFile(token, 'src/data/experience.json');
+      await putFile(token, 'src/data/experience.json',
+        utf8ToBase64(JSON.stringify(next, null, 2)),
+        `Update experience`, latest?.sha);
+      setItems(next);
+      setStatus({ type: 'ok', msg: 'Saved. Rebuilds in ~1 min.' });
+    } catch (e) {
+      setStatus({ type: 'err', msg: e instanceof Error ? e.message : 'Failed.' });
+    }
+  };
+
+  const add = () => {
+    if (!form.role.trim() || !items) return;
+    const next = [...items, { ...form, id: Date.now(), bullets: form.bullets }];
+    save(next);
+    setForm(blank);
+  };
+
+  const remove = (id: number) => {
+    if (!items || !confirm('Remove this entry?')) return;
+    save(items.filter(e => e.id !== id));
+  };
+
+  if (!items) return <p className="text-[#888] text-sm">Loading…</p>;
+
+  return (
+    <div className="grid md:grid-cols-2 gap-8">
+      <div>
+        <h2 className="text-lg font-semibold text-white mb-4">Add Experience</h2>
+        <TextField label="Role / Title" value={form.role} onChange={v => setForm({...form, role: v})} />
+        <TextField label="Organisation" value={form.org} onChange={v => setForm({...form, org: v})} />
+        <TextField label="Period (e.g. Mar 2024 – Apr 2024)" value={form.period} onChange={v => setForm({...form, period: v})} />
+        <label className="block mb-3">
+          <span className="block text-xs text-[#888] mb-1">Type</span>
+          <select value={form.type} onChange={e => setForm({...form, type: e.target.value})}
+            className="w-full px-3 py-2 rounded bg-[#0a0a0a] border border-[#333] text-sm outline-none">
+            <option value="formal">Formal (Internship)</option>
+            <option value="lab">Hands-on / Lab</option>
+          </select>
+        </label>
+        <TextField label="Badge label (e.g. Internship)" value={form.badge} onChange={v => setForm({...form, badge: v})} />
+        <TextField label="Bullet points (one per line)" textarea value={form.bullets.join('\n')}
+          onChange={v => setForm({...form, bullets: v.split('\n').map(s=>s.trim()).filter(Boolean)})} />
+        <TextField label="Achievement note (optional)" value={form.achievement} onChange={v => setForm({...form, achievement: v})} />
+        <button onClick={add} disabled={status.type === 'busy'}
+          className="px-4 py-2 rounded bg-[#3d6fd4] hover:bg-[#5a8dee] disabled:opacity-50 text-white text-sm font-medium transition">
+          {status.type === 'busy' ? 'Working…' : 'Add Entry'}
+        </button>
+        {status.msg && <p className={`text-xs mt-3 ${status.type === 'err' ? 'text-red-400' : 'text-green-400'}`}>{status.msg}</p>}
+      </div>
+      <div>
+        <h2 className="text-lg font-semibold text-white mb-4">Existing ({items.length})</h2>
+        <div className="space-y-2 max-h-[500px] overflow-y-auto pr-1">
+          {items.map(e => (
+            <div key={e.id} className="flex items-start justify-between gap-3 border border-[#222] bg-[#111] rounded px-3 py-2">
+              <div className="min-w-0">
+                <div className="text-sm text-white truncate">{e.role}</div>
+                <div className="text-xs text-[#888]">{e.org} · {e.period}</div>
+                <div className="text-xs text-[#555] mt-0.5">{e.bullets.length} bullet{e.bullets.length !== 1 ? 's' : ''}</div>
+              </div>
+              <button onClick={() => remove(e.id)} className="text-xs text-red-400 hover:text-red-300 shrink-0">Delete</button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════
+   EDUCATION PANEL
+   ═══════════════════════════════════════════════════════ */
+interface EduEntry { id: number; period: string; degree: string; org: string; score: string; primary: boolean; }
+
+function EducationPanel({ token }: { token: string }) {
+  const [items, setItems] = useState<EduEntry[] | null>(null);
+  const { status, setStatus } = useStatus();
+  const blank: Omit<EduEntry,'id'> = { period:'', degree:'', org:'', score:'', primary: false };
+  const [form, setForm] = useState(blank);
+
+  const load = async () => {
+    const f = await getFile(token, 'src/data/education.json');
+    if (f) setItems(JSON.parse(f.content));
+  };
+  useEffect(() => { load(); }, []);
+
+  const save = async (next: EduEntry[]) => {
+    setStatus({ type: 'busy', msg: 'Saving…' });
+    try {
+      const latest = await getFile(token, 'src/data/education.json');
+      await putFile(token, 'src/data/education.json',
+        utf8ToBase64(JSON.stringify(next, null, 2)),
+        'Update education', latest?.sha);
+      setItems(next);
+      setStatus({ type: 'ok', msg: 'Saved. Rebuilds in ~1 min.' });
+    } catch (e) {
+      setStatus({ type: 'err', msg: e instanceof Error ? e.message : 'Failed.' });
+    }
+  };
+
+  const add = () => {
+    if (!form.degree.trim() || !items) return;
+    save([...items, { ...form, id: Date.now() }]);
+    setForm(blank);
+  };
+
+  const remove = (id: number) => {
+    if (!items || !confirm('Remove?')) return;
+    save(items.filter(e => e.id !== id));
+  };
+
+  if (!items) return <p className="text-[#888] text-sm">Loading…</p>;
+
+  return (
+    <div className="grid md:grid-cols-2 gap-8">
+      <div>
+        <h2 className="text-lg font-semibold text-white mb-4">Add Education</h2>
+        <TextField label="Period (e.g. 2024 – 2028)" value={form.period} onChange={v => setForm({...form, period: v})} />
+        <TextField label="Degree / Qualification" value={form.degree} onChange={v => setForm({...form, degree: v})} />
+        <TextField label="Institution" value={form.org} onChange={v => setForm({...form, org: v})} />
+        <TextField label="Score (e.g. CGPA: 8.17 / 10)" value={form.score} onChange={v => setForm({...form, score: v})} />
+        <label className="flex items-center gap-2 mb-4 text-sm text-[#888] cursor-pointer">
+          <input type="checkbox" checked={form.primary} onChange={e => setForm({...form, primary: e.target.checked})} />
+          Mark as primary (blue accent border)
+        </label>
+        <button onClick={add} disabled={status.type === 'busy'}
+          className="px-4 py-2 rounded bg-[#3d6fd4] hover:bg-[#5a8dee] disabled:opacity-50 text-white text-sm font-medium transition">
+          {status.type === 'busy' ? 'Working…' : 'Add Entry'}
+        </button>
+        {status.msg && <p className={`text-xs mt-3 ${status.type === 'err' ? 'text-red-400' : 'text-green-400'}`}>{status.msg}</p>}
+      </div>
+      <div>
+        <h2 className="text-lg font-semibold text-white mb-4">Existing ({items.length})</h2>
+        <div className="space-y-2 max-h-[500px] overflow-y-auto pr-1">
+          {items.map(e => (
+            <div key={e.id} className="flex items-start justify-between gap-3 border border-[#222] bg-[#111] rounded px-3 py-2">
+              <div className="min-w-0">
+                <div className="text-sm text-white truncate">{e.degree}</div>
+                <div className="text-xs text-[#888]">{e.org} · {e.period}</div>
+                <div className="text-xs text-[#555]">{e.score}{e.primary ? ' · primary' : ''}</div>
+              </div>
+              <button onClick={() => remove(e.id)} className="text-xs text-red-400 hover:text-red-300 shrink-0">Delete</button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════
+   ACHIEVEMENTS PANEL
+   ═══════════════════════════════════════════════════════ */
+interface AchEntry { id: number; title: string; sub: string; icon: string; color: string; }
+
+function AchievementsPanel({ token }: { token: string }) {
+  const [items, setItems] = useState<AchEntry[] | null>(null);
+  const { status, setStatus } = useStatus();
+  const blank: Omit<AchEntry,'id'> = { title:'', sub:'', icon:'award', color:'blue' };
+  const [form, setForm] = useState(blank);
+
+  const load = async () => {
+    const f = await getFile(token, 'src/data/achievements.json');
+    if (f) setItems(JSON.parse(f.content));
+  };
+  useEffect(() => { load(); }, []);
+
+  const save = async (next: AchEntry[]) => {
+    setStatus({ type: 'busy', msg: 'Saving…' });
+    try {
+      const latest = await getFile(token, 'src/data/achievements.json');
+      await putFile(token, 'src/data/achievements.json',
+        utf8ToBase64(JSON.stringify(next, null, 2)),
+        'Update achievements', latest?.sha);
+      setItems(next);
+      setStatus({ type: 'ok', msg: 'Saved. Rebuilds in ~1 min.' });
+    } catch (e) {
+      setStatus({ type: 'err', msg: e instanceof Error ? e.message : 'Failed.' });
+    }
+  };
+
+  const add = () => {
+    if (!form.title.trim() || !items) return;
+    save([...items, { ...form, id: Date.now() }]);
+    setForm(blank);
+  };
+
+  const remove = (id: number) => {
+    if (!items || !confirm('Remove?')) return;
+    save(items.filter(a => a.id !== id));
+  };
+
+  if (!items) return <p className="text-[#888] text-sm">Loading…</p>;
+
+  return (
+    <div className="grid md:grid-cols-2 gap-8">
+      <div>
+        <h2 className="text-lg font-semibold text-white mb-4">Add Achievement</h2>
+        <TextField label="Title" value={form.title} onChange={v => setForm({...form, title: v})} />
+        <TextField label="Subtitle / Source" value={form.sub} onChange={v => setForm({...form, sub: v})} />
+        <label className="block mb-3">
+          <span className="block text-xs text-[#888] mb-1">Icon</span>
+          <select value={form.icon} onChange={e => setForm({...form, icon: e.target.value})}
+            className="w-full px-3 py-2 rounded bg-[#0a0a0a] border border-[#333] text-sm outline-none">
+            {['trophy','award','target','radio','shield','star'].map(i => <option key={i} value={i}>{i}</option>)}
+          </select>
+        </label>
+        <label className="block mb-4">
+          <span className="block text-xs text-[#888] mb-1">Accent colour</span>
+          <select value={form.color} onChange={e => setForm({...form, color: e.target.value})}
+            className="w-full px-3 py-2 rounded bg-[#0a0a0a] border border-[#333] text-sm outline-none">
+            <option value="gold">Gold</option>
+            <option value="blue">Blue</option>
+          </select>
+        </label>
+        <button onClick={add} disabled={status.type === 'busy'}
+          className="px-4 py-2 rounded bg-[#3d6fd4] hover:bg-[#5a8dee] disabled:opacity-50 text-white text-sm font-medium transition">
+          {status.type === 'busy' ? 'Working…' : 'Add Achievement'}
+        </button>
+        {status.msg && <p className={`text-xs mt-3 ${status.type === 'err' ? 'text-red-400' : 'text-green-400'}`}>{status.msg}</p>}
+      </div>
+      <div>
+        <h2 className="text-lg font-semibold text-white mb-4">Existing ({items.length})</h2>
+        <div className="space-y-2 max-h-[500px] overflow-y-auto pr-1">
+          {items.map(a => (
+            <div key={a.id} className="flex items-start justify-between gap-3 border border-[#222] bg-[#111] rounded px-3 py-2">
+              <div className="min-w-0">
+                <div className="text-sm text-white truncate">{a.title}</div>
+                <div className="text-xs text-[#888]">{a.sub}</div>
+                <div className="text-xs text-[#555]">{a.icon} · {a.color}</div>
+              </div>
+              <button onClick={() => remove(a.id)} className="text-xs text-red-400 hover:text-red-300 shrink-0">Delete</button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Admin() {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem(TOKEN_KEY));
   const [login, setLogin] = useState<string | null>(null);
-  const [tab, setTab] = useState<'certs' | 'blogs' | 'projects'>('certs');
+  const [tab, setTab] = useState<'certs' | 'blogs' | 'projects' | 'profile' | 'skills' | 'experience' | 'education' | 'achievements'>('certs');
 
   useEffect(() => {
     if (token && !login) {
@@ -704,6 +1121,17 @@ export default function Admin() {
       />
     );
   }
+
+  const tabs: { id: typeof tab; label: string }[] = [
+    { id: 'profile',      label: 'Profile'      },
+    { id: 'skills',       label: 'Skills'       },
+    { id: 'experience',   label: 'Experience'   },
+    { id: 'education',    label: 'Education'    },
+    { id: 'achievements', label: 'Achievements' },
+    { id: 'certs',        label: 'Certificates' },
+    { id: 'blogs',        label: 'Blogs'        },
+    { id: 'projects',     label: 'Projects'     },
+  ];
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-[#e0e0e0] font-mono">
@@ -729,22 +1157,29 @@ export default function Admin() {
         </div>
       </header>
 
-      <div className="flex gap-2 px-6 pt-4">
-        {(['certs', 'blogs', 'projects'] as const).map((t) => (
+      <div className="flex flex-wrap gap-2 px-6 pt-4">
+        {tabs.map((t) => (
           <button
-            key={t}
-            onClick={() => setTab(t)}
+            key={t.id}
+            onClick={() => setTab(t.id)}
             className={`px-3 py-1.5 rounded text-sm ${
-              tab === t ? 'bg-[#3d6fd4] text-white' : 'bg-[#141414] text-[#888] border border-[#222]'
+              tab === t.id ? 'bg-[#3d6fd4] text-white' : 'bg-[#141414] text-[#888] border border-[#222]'
             }`}
           >
-            {t === 'certs' ? 'Certificates' : t === 'blogs' ? 'Blogs' : 'Projects'}
+            {t.label}
           </button>
         ))}
       </div>
 
       <main className="p-6">
-        {tab === 'certs' ? <CertificatesPanel token={token} /> : tab === 'blogs' ? <BlogsPanel token={token} /> : <ProjectsPanel token={token} />}
+        {tab === 'certs'        && <CertificatesPanel  token={token} />}
+        {tab === 'blogs'        && <BlogsPanel         token={token} />}
+        {tab === 'projects'     && <ProjectsPanel      token={token} />}
+        {tab === 'profile'      && <ProfilePanel       token={token} />}
+        {tab === 'skills'       && <SkillsPanel        token={token} />}
+        {tab === 'experience'   && <ExperiencePanel    token={token} />}
+        {tab === 'education'    && <EducationPanel     token={token} />}
+        {tab === 'achievements' && <AchievementsPanel  token={token} />}
       </main>
     </div>
   );

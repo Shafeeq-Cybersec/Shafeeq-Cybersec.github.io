@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "period": "2024 – 2028",
+    "degree": "B.Tech — Computer Science & Business Systems",
+    "org": "Panimalar Engineering College",
+    "score": "CGPA: 8.17 / 10",
+    "primary": true
+  },
+  {
+    "id": 2,
+    "period": "2024",
+    "degree": "HSE (+2)",
+    "org": "Velammal Matric. Hr. Sec. School",
+    "score": "76.17%",
+    "primary": false
+  },
+  {
+    "id": 3,
+    "period": "2022",
+    "degree": "SSLC",
+    "org": "Sir Issac Newton Matriculation School",
+    "score": "86.6%",
+    "primary": false
+  }
+]

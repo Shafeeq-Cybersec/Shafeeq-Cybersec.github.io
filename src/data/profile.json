@@ -1,0 +1,20 @@
+{
+  "name": "Shafeeq S",
+  "availabilityPill": "B.Tech CSBS '28 · Open to Internships",
+  "intro": "Cybersecurity student focused on Blue Team operations — SOC investigations, malware analysis, threat detection, and building practical security tools. Deepening skills through hands-on LetsDefend labs, independent research projects, and formal internship experience with the Government of Tamil Nadu.",
+  "aboutParagraph1": "I'm a Computer Science and Business Systems student at Panimalar Engineering College, interested in cybersecurity, especially SOC investigations, malware analysis, and digital forensics.",
+  "aboutParagraph2": "I enjoy investigating security alerts, exploring suspicious files, and using tools like Wireshark and Procmon to understand what's happening on a system. I also build security projects and write about the investigations and techniques I work on.",
+  "degree": "B.Tech CS & Business Systems",
+  "college": "Panimalar Engineering College",
+  "cgpa": "8.17 / 10",
+  "city": "Chennai, India",
+  "email": "shafeeq.connect@gmail.com",
+  "focus": "SOC · Malware Analysis · Forensics",
+  "heroStats": {
+    "incidentReports": "11+",
+    "labsLabel": "Hands-on Labs",
+    "labsSublabel": "LetsDefend"
+  },
+  "ctaText": "Interested in cybersecurity, threat detection, or AI security?",
+  "ctaSub": "Open to internships, collaborations, and conversations."
+}

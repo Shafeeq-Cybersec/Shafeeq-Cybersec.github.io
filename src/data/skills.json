@@ -1,0 +1,26 @@
+[
+  {
+    "category": "SOC Operations & Incident Response",
+    "tags": ["Alert Triage", "Log Correlation", "SIEM Analysis", "Incident Response", "IOC Extraction", "Threat Detection", "Phishing Analysis"]
+  },
+  {
+    "category": "Threat Hunting & OSINT",
+    "tags": ["Threat Hunting", "Log Analysis", "OSINT Techniques", "IOC Research", "Threat Intelligence", "Email Header Analysis"]
+  },
+  {
+    "category": "Malware Analysis & Digital Forensics",
+    "tags": ["Static Analysis", "Dynamic Analysis", "Procmon", "Process Hacker", "RegShot", "Fiddler", "VirusTotal", "Sandbox Analysis"]
+  },
+  {
+    "category": "Network Security & Traffic Analysis",
+    "tags": ["Wireshark", "TCP/IP", "DNS", "HTTP/HTTPS", "Network Protocols", "Traffic Analysis", "Port Scanning"]
+  },
+  {
+    "category": "Security Frameworks & Platforms",
+    "tags": ["NIST RMF", "NIST CSF", "ISO 27005", "MITRE ATT&CK", "Cyber Kill Chain", "Kali Linux", "VirtualBox", "LetsDefend"]
+  },
+  {
+    "category": "Programming & Automation",
+    "tags": ["Python", "Java", "C++", "Linux", "Windows", "Bash Scripting", "GitHub"]
+  }
+]
