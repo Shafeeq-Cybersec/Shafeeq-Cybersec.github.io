@@ -1092,6 +1092,17 @@ export default function App() {
               <div className="mt-6 text-center">
                 <h3 className="text-white text-xl font-semibold mb-1">{filteredCerts[selectedCertIndex].title}</h3>
                 <p className="text-blue-400 font-mono text-sm uppercase tracking-wider">{filteredCerts[selectedCertIndex].sub}</p>
+                {(filteredCerts[selectedCertIndex] as any).link && (
+                  <a
+                    href={(filteredCerts[selectedCertIndex] as any).link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 mt-4 px-5 py-2 rounded border border-blue-500/40 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400 text-sm font-medium transition-all duration-200"
+                  >
+                    <ExternalLink size={14} />
+                    View Credential
+                  </a>
+                )}
                 <div className="mt-4 text-white/40 text-xs font-mono">
                   {selectedCertIndex + 1} of {filteredCerts.length}
                 </div>

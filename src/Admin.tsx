@@ -252,7 +252,7 @@ function CertificatesPanel({ token }: { token: string }) {
   const [sha, setSha] = useState<string | undefined>();
   const { status, setStatus } = useStatus();
 
-  const [form, setForm] = useState({ cat: '', title: '', sub: '', pdf: '', icon: 'shield' });
+  const [form, setForm] = useState({ cat: '', title: '', sub: '', pdf: '', link: '', icon: 'shield' });
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const load = async () => {
@@ -295,6 +295,7 @@ function CertificatesPanel({ token }: { token: string }) {
           sub: form.sub,
           image: `/certificates/${filename}`,
           pdf: form.pdf,
+          link: form.link,
           icon: form.icon,
         },
       ];
@@ -306,7 +307,7 @@ function CertificatesPanel({ token }: { token: string }) {
         latest?.sha
       );
       setStatus({ type: 'ok', msg: 'Certificate added. It will appear after the site rebuilds (~1 min).' });
-      setForm({ cat: form.cat, title: '', sub: '', pdf: '', icon: 'shield' });
+      setForm({ cat: form.cat, title: '', sub: '', pdf: '', link: '', icon: 'shield' });
       setImageFile(null);
       await load();
     } catch (e) {
@@ -348,6 +349,7 @@ function CertificatesPanel({ token }: { token: string }) {
         />
         <TextField label="Title" value={form.title} onChange={(v) => setForm({ ...form, title: v })} />
         <TextField label="Subtitle / Issuer" value={form.sub} onChange={(v) => setForm({ ...form, sub: v })} />
+        <TextField label="Credential URL (optional — shown as View Credential button)" value={form.link} onChange={(v) => setForm({ ...form, link: v })} />
         <TextField label="PDF link (optional)" value={form.pdf} onChange={(v) => setForm({ ...form, pdf: v })} />
         <label className="block mb-3">
           <span className="block text-xs text-[#888] mb-1">Fallback icon</span>
