@@ -150,5 +150,13 @@
     "image": "/certificates/fae3db47-07a2-4e62-80be-626612652d8f-1787986450065.png",
     "pdf": "",
     "icon": "shield"
+  },
+  {
+    "cat": "CTF",
+    "title": "Holmes CTF 2026",
+    "sub": "Hack The Box — The Reichenbach Directive",
+    "image": "/certificates/certificate-shafeeq7-page-0001-1792494858171.jpg",
+    "pdf": "",
+    "icon": "trophy"
   }
 ]
