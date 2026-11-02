@@ -177,5 +177,14 @@
     "image": "/certificates/certificate-shafeeq7-page-0001-1792494858171.jpg",
     "pdf": "",
     "icon": "trophy"
+  },
+  {
+    "cat": "Letsdefend",
+    "title": "Malware Analysis Skill Path",
+    "sub": "LetsDefend | Hands-on Cybersecurity Training",
+    "image": "/certificates/malware-analysis-certificate-1793587905210.png",
+    "pdf": "",
+    "link": "",
+    "icon": "award"
   }
 ]
