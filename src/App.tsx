@@ -612,15 +612,23 @@ export default function App() {
                       <span className={`cp-exp-badge cp-exp-badge--${exp.type}`}>{exp.badge}</span>
                     </div>
                   </div>
-                  <ul className="cp-exp-list">
-                    {exp.bullets.map((b, i) => <li key={i}>{b}</li>)}
-                  </ul>
-                  {exp.achievement && (
-                    <div className="cp-exp-achievement">
-                      <Trophy size={13} className="inline mr-1.5 text-yellow-500" />
-                      {exp.achievement}
+                  <div className="cp-exp-hint">
+                    <span>Hover to expand</span>
+                    <span className="text-[10px]">▾</span>
+                  </div>
+                  <div className="cp-exp-detail">
+                    <div>
+                      <ul className="cp-exp-list">
+                        {exp.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                      </ul>
+                      {exp.achievement && (
+                        <div className="cp-exp-achievement">
+                          <Trophy size={13} className="inline mr-1.5 text-yellow-500" />
+                          {exp.achievement}
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             ))}
