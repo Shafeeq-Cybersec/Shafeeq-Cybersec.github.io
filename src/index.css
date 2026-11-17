@@ -293,11 +293,11 @@ section { padding: 80px 8%; }
 }
 
 .proj-card:hover, .qual-card:hover { 
-  border-color: var(--blue-light); 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  /* Enhanced hover now defined in Global Hover Effects section */
 }
 
-.proj-card::before, .qual-card::before { display: none; }
+/* .proj-card::before is now the left accent bar defined in Global Hover Effects */
+.qual-card::before { display: none; }
 .proj-badge { display: inline-block; font-size: 0.63rem; padding: 0.15rem 0.5rem; background: rgba(255,71,87,0.12); border: 1px solid rgba(255,71,87,0.3); color: #ff6b7a; margin-bottom: 0.6rem; font-family: var(--font-mono); }
 .proj-icon-wrap { width: 42px; height: 42px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 0.9rem; color: var(--blue-light); font-family: var(--font-mono); }
 .proj-title { font-size: 0.88rem; font-weight: 600; color: var(--white); margin-bottom: 0.3rem; }
@@ -518,18 +518,232 @@ section { padding: 80px 8%; }
 .page-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border); cursor: pointer; border: none; transition: all 0.5s var(--spring); }
 .page-dot.active { background: var(--blue); width: 22px; border-radius: 5px; transform: scale(1.1); }
 
-/* Global Hover Effects */
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL HOVER EFFECTS — 2027 Upgrade
+   Premium shine sweeps, card lifts, glow borders, and micro-interactions
+   ═══════════════════════════════════════════════════════════════ */
+
 .btn-primary, .btn-secondary, .nav-links a, .filter-btn, .page-btn, .cert-card, .blog-card, .proj-card, .qual-card {
   transition-timing-function: var(--cinematic) !important;
 }
 
-.proj-card, .qual-card, .blog-card, .cert-card {
-  transition: transform 0.6s var(--cinematic), border-color 0.6s var(--cinematic), box-shadow 0.6s var(--cinematic), filter 0.6s var(--cinematic);
+/* ── Shine Sweep Effect (diagonal light across buttons on hover) ── */
+.btn-primary,
+.btn-secondary,
+.blog-read-more,
+.submit-btn,
+.proj-link {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
 }
 
-.blog-card:hover, .proj-card:hover, .qual-card:hover, .cert-card:hover {
+.btn-primary::after,
+.btn-secondary::after,
+.submit-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, 0.35) 50%, transparent 68%);
+  transform: translateX(-130%);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary:hover::after,
+.btn-secondary:hover::after,
+.submit-btn:hover::after {
+  transform: translateX(130%);
+}
+
+/* ── Card Transitions (Lift + Glow + Shadow Pop) ── */
+.proj-card, .qual-card, .blog-card, .cert-card, .skill-tile {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.3s ease;
+}
+
+/* Project cards — slide right + left accent bar */
+.proj-card {
+  position: relative;
+}
+
+.proj-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--blue-light), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.proj-card:hover {
+  border-color: var(--blue-light);
+  transform: translateX(6px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(61, 111, 212, 0.15);
+  filter: brightness(1.08);
+}
+
+.proj-card:hover::before {
+  opacity: 1;
+}
+
+/* Blog cards — lift + blue glow */
+.blog-card:hover {
+  border-color: var(--blue-light);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), 0 0 20px rgba(61, 111, 212, 0.1);
+  filter: brightness(1.08);
+}
+
+/* Cert cards — lift + glow (already has translateY(-5px) but enhance shadow) */
+.cert-card:hover {
+  border-color: var(--blue);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 18px rgba(61, 111, 212, 0.12);
   filter: brightness(1.1);
-  box-shadow: 0 10px 30px -10px rgba(61, 111, 212, 0.2);
+}
+
+/* Qualification cards — lift + border glow */
+.qual-card:hover {
+  border-color: rgba(61, 111, 212, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 15px rgba(61, 111, 212, 0.08);
+  filter: brightness(1.06);
+}
+
+/* Skill tiles — enhanced lift */
+.skill-tile:hover {
+  transform: translateY(-4px);
+  border-color: var(--blue-light);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3), 0 0 12px rgba(61, 111, 212, 0.1);
+}
+
+/* ── Timeline Diamond Glow (Experience section) ── */
+.tl-dot {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tl-item:hover .tl-dot {
+  width: 14px;
+  height: 14px;
+  box-shadow: 0 0 0 3px rgba(61, 111, 212, 0.2), 0 0 18px rgba(61, 111, 212, 0.5);
+  background: var(--blue-light);
+}
+
+/* ── Nav CTA Button (LET'S TALK) — lift + white glow ── */
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--blue-light);
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+  left: 0;
+}
+
+/* ── Stats Card Hover ── */
+.stats-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4), 0 0 12px rgba(61, 111, 212, 0.08);
+}
+
+/* ── Achievement Cards Hover ── */
+.achievement-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.achievement-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--blue-light);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35), 0 0 12px rgba(61, 111, 212, 0.1);
+}
+
+/* ── Filter Buttons — shine sweep ── */
+.filter-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, 0.2) 50%, transparent 68%);
+  transform: translateX(-130%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.filter-btn:hover::after,
+.filter-btn.active::after {
+  transform: translateX(130%);
+}
+
+/* ── About Item Hover ── */
+.about-item {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0.3rem 0.5rem;
+  border-radius: 6px;
+}
+
+.about-item:hover {
+  transform: translateX(4px);
+  background: rgba(61, 111, 212, 0.04);
+}
+
+/* ── Contact Social Links Hover ── */
+.stats-socials a {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+}
+
+.stats-socials a:hover {
+  transform: translateY(-2px) scale(1.15);
+  color: var(--blue-light);
+}
+
+/* ── Scroll-to-Top Enhanced Hover ── */
+.scroll-top:hover {
+  background: var(--blue-light);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(59, 130, 246, 0.35);
+}
+
+/* ── Page Navigation Dots — spring bounce ── */
+.page-dot {
+  transition: all 0.4s var(--spring);
+}
+
+.page-dot:hover {
+  background: rgba(61, 111, 212, 0.5);
+  transform: scale(1.3);
+}
+
+/* ── Form Inputs — focus glow ring ── */
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15), 0 0 12px rgba(59, 130, 246, 0.08);
 }
 
 /* Section Transitions */
