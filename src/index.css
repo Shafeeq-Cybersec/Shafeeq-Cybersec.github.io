@@ -279,7 +279,7 @@ section { padding: 80px 8%; }
 
 #projects { background: var(--bg2); }
 
-/* Option 2: Stacked Builds List */
+/* Option 2: Stacked Builds List with Hover-To-Expand */
 .projects-stack {
   display: flex;
   flex-direction: column;
@@ -292,14 +292,11 @@ section { padding: 80px 8%; }
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 1.75rem 2rem;
+  padding: 1.6rem 2rem;
   position: relative;
   overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1rem 2rem;
-  align-items: center;
-  transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  cursor: pointer;
+  transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
 }
 
 .build-card::before {
@@ -317,18 +314,91 @@ section { padding: 80px 8%; }
 .build-card:hover {
   border-color: rgba(61, 111, 212, 0.55);
   transform: translateX(6px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(61, 111, 212, 0.1);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(61, 111, 212, 0.12);
 }
 
 .build-card:hover::before {
   opacity: 1;
 }
 
+.build-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.build-hint {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue-light);
+  opacity: 0.75;
+  margin-top: 0.45rem;
+  transition: opacity 0.25s ease, max-height 0.3s ease, margin 0.3s ease;
+  max-height: 24px;
+}
+
+.build-card:hover .build-hint {
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+  overflow: hidden;
+}
+
+.build-detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.build-detail > div {
+  overflow: hidden;
+  min-height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+  filter: blur(4px);
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+}
+
+.build-card:hover .build-detail {
+  grid-template-rows: 1fr;
+}
+
+.build-card:hover .build-detail > div {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  padding-top: 0.75rem;
+}
+
+@media (hover: none) {
+  .build-hint {
+    display: none;
+  }
+  .build-detail {
+    grid-template-rows: 1fr;
+  }
+  .build-detail > div {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    padding-top: 0.75rem;
+  }
+}
+
 @media (max-width: 768px) {
   .build-card {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    padding: 1.4rem;
+    padding: 1.35rem 1.4rem;
+  }
+  .build-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
   }
 }
 
