@@ -715,53 +715,74 @@ export default function App() {
             }}
             className="projects-grid"
           >
-            {projects.map((p, i) => (
+            {projects.map((p: any, i: number) => (
               <motion.div
                 key={`${p.title}-${i}`}
                 variants={{
-                  hidden: { opacity: 0, y: 30, scale: 0.95 },
+                  hidden: { opacity: 0, y: 30, scale: 0.96 },
                   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.33, 1, 0.68, 1] } }
                 }}
-                whileHover={{ y: -10, scale: 1.02, transition: { duration: 0.4, ease: "easeOut" } }}
                 className="proj-card group"
               >
-                <div className="proj-icon-wrap">
-                  {p.icon}
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3.5">
+                    <span className="text-[10px] font-mono tracking-widest uppercase text-blue-400 font-semibold px-2.5 py-0.5 rounded bg-blue-500/10 border border-blue-500/20">
+                      {p.badge || 'SECURITY BUILD'}
+                    </span>
+                    <span className="text-xs font-mono text-gray-500">{p.period}</span>
+                  </div>
+
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/25 flex items-center justify-center text-blue-400 flex-shrink-0 group-hover:border-blue-400/50 transition-colors">
+                      {p.icon}
+                    </div>
+                    <h3 className="text-base sm:text-lg font-semibold text-white group-hover:text-blue-400 transition-colors leading-snug">
+                      {p.title}
+                    </h3>
+                  </div>
+
+                  <p className="text-xs sm:text-[13px] text-gray-400 leading-relaxed mb-4">
+                    {p.desc}
+                  </p>
+
+                  {p.techTags && p.techTags.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mb-5">
+                      {p.techTags.map((tag: string, tIdx: number) => (
+                        <span key={tIdx} className="text-[10.5px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-300">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <div className="proj-title">{p.title}</div>
-                <div className="proj-period">{p.period}</div>
-                <p className="proj-desc">{p.desc}</p>
-                <div className="proj-tech">{p.tech}</div>
-                {p.link && (
-                  <a href={p.link} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-mono transition-colors">
-                    <ExternalLink size={14} /> View Project
-                  </a>
-                )}
+
+                <div className="flex items-center gap-3 pt-3.5 border-t border-white/5 mt-auto">
+                  {p.link && (
+                    <a 
+                      href={p.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium font-mono transition-all shadow-sm shadow-blue-500/20"
+                    >
+                      <ExternalLink size={12} />
+                      <span>Live App</span>
+                    </a>
+                  )}
+                  {p.github && (
+                    <a 
+                      href={p.github} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-gray-300 hover:text-white text-xs font-medium font-mono transition-all"
+                    >
+                      <Github size={12} />
+                      <span>Code</span>
+                    </a>
+                  )}
+                </div>
               </motion.div>
             ))}
-
-            <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 30, scale: 0.95 },
-              visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.33, 1, 0.68, 1] } }
-            }}
-            whileHover={{ y: -10, scale: 1.02, transition: { duration: 0.4, ease: "easeOut" } }}
-            className="proj-card group"
-          >
-            <div className="proj-icon-wrap">
-              <Trophy size={22} />
-            </div>
-            <div className="proj-title">Awards & Honors</div>
-            <div className="proj-period">2024 – 2026</div>
-            <ul className="tl-list mt-3">
-              <li className="text-[0.78rem] text-gray-400 mb-1">Global Rank 371 / Top 6% — HTB Holmes CTF 2026 (57 Sherlocks Flags · Captain)</li>
-              <li className="text-[0.78rem] text-gray-400 mb-1">Research Presenter — IEEE ICAICCIT 2025 (QRishing & ML Detection)</li>
-              <li className="text-[0.78rem] text-gray-400 mb-1">Certificate of Excellence — TANSAM (Siemens × TIDCO)</li>
-              <li className="text-[0.78rem] text-gray-400 mb-1">LetsDefend VIP+ Defender — 93% SLA Success Rate (3,907 Pts)</li>
-              <li className="text-[0.78rem] text-gray-400">1st Place — Rhetoric Rumble Debate (RMD)</li>
-            </ul>
           </motion.div>
-        </motion.div>
         </motion.div>
       </section>
 
