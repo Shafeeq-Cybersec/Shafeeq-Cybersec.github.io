@@ -278,6 +278,60 @@ section { padding: 80px 8%; }
 .tl-list li::before { content: '•'; position: absolute; left: 0; color: var(--blue-light); }
 
 #projects { background: var(--bg2); }
+
+/* Option 2: Stacked Builds List */
+.projects-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.build-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.75rem 2rem;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem 2rem;
+  align-items: center;
+  transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.build-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--blue-light), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.build-card:hover {
+  border-color: rgba(61, 111, 212, 0.55);
+  transform: translateX(6px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(61, 111, 212, 0.1);
+}
+
+.build-card:hover::before {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .build-card {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 1.4rem;
+  }
+}
+
 .projects-grid { 
   display: grid; 
   grid-template-columns: repeat(2, 1fr); 

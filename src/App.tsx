@@ -709,44 +709,39 @@ export default function App() {
               visible: {
                 opacity: 1,
                 transition: {
-                  staggerChildren: 0.15
+                  staggerChildren: 0.12
                 }
               }
             }}
-            className="projects-grid"
+            className="projects-stack"
           >
             {projects.map((p: any, i: number) => (
               <motion.div
                 key={`${p.title}-${i}`}
                 variants={{
-                  hidden: { opacity: 0, y: 30, scale: 0.96 },
-                  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.33, 1, 0.68, 1] } }
+                  hidden: { opacity: 0, y: 25 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.33, 1, 0.68, 1] } }
                 }}
-                className="proj-card group"
+                className="build-card group"
               >
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-3.5">
+                  <div className="flex items-center gap-3 mb-2 flex-wrap">
                     <span className="text-[10px] font-mono tracking-widest uppercase text-blue-400 font-semibold px-2.5 py-0.5 rounded bg-blue-500/10 border border-blue-500/20">
                       {p.badge || 'SECURITY BUILD'}
                     </span>
                     <span className="text-xs font-mono text-gray-500">{p.period}</span>
                   </div>
 
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/25 flex items-center justify-center text-blue-400 flex-shrink-0 group-hover:border-blue-400/50 transition-colors">
-                      {p.icon}
-                    </div>
-                    <h3 className="text-base sm:text-lg font-semibold text-white group-hover:text-blue-400 transition-colors leading-snug">
-                      {p.title}
-                    </h3>
-                  </div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white group-hover:text-blue-400 transition-colors mb-2">
+                    {p.title}
+                  </h3>
 
-                  <p className="text-xs sm:text-[13px] text-gray-400 leading-relaxed mb-4">
+                  <p className="text-xs sm:text-[13.5px] text-gray-400 leading-relaxed mb-3.5 max-w-3xl">
                     {p.desc}
                   </p>
 
                   {p.techTags && p.techTags.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mb-5">
+                    <div className="flex flex-wrap gap-1.5">
                       {p.techTags.map((tag: string, tIdx: number) => (
                         <span key={tIdx} className="text-[10.5px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-300">
                           {tag}
@@ -756,13 +751,13 @@ export default function App() {
                   )}
                 </div>
 
-                <div className="flex items-center gap-3 pt-3.5 border-t border-white/5 mt-auto">
+                <div className="flex sm:flex-col items-center sm:items-end gap-2.5 flex-shrink-0">
                   {p.link && (
                     <a 
                       href={p.link} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium font-mono transition-all shadow-sm shadow-blue-500/20"
+                      className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium font-mono transition-all shadow-sm shadow-blue-500/20 whitespace-nowrap min-w-[110px]"
                     >
                       <ExternalLink size={12} />
                       <span>Live App</span>
@@ -773,7 +768,7 @@ export default function App() {
                       href={p.github} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-gray-300 hover:text-white text-xs font-medium font-mono transition-all"
+                      className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-gray-300 hover:text-white text-xs font-medium font-mono transition-all whitespace-nowrap min-w-[110px]"
                     >
                       <Github size={12} />
                       <span>Code</span>
