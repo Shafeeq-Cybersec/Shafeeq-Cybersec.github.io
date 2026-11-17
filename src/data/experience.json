@@ -1,34 +1,88 @@
 [
   {
     "id": 1,
-    "role": "Cybersecurity Intern — Purple Team",
-    "org": "TANSAM · Government of Tamil Nadu",
-    "period": "Mar 2024 – Apr 2024",
+    "role": "Cybersecurity Intern & Real-World Project",
+    "org": "EWB Courses · AICTE & DPIIT Recognized",
+    "period": "Oct 2026",
     "type": "formal",
     "badge": "Internship",
     "bullets": [
-      "Performed OSINT reconnaissance and gathered open-source intelligence as part of structured security assessments.",
-      "Carried out security exercises on Kali Linux including steganography and basic exploitation techniques.",
-      "Evaluated IoT security risks and explored practical mitigation strategies.",
-      "Studied and applied NIST RMF, NIST CSF, and ISO 27005 frameworks to real-world risk management scenarios.",
-      "Gained exposure to incident response processes and security documentation practices."
+      "Completed hands-on cybersecurity internship program and assigned real-world industry project.",
+      "Conducted security analysis, threat modeling, and defensive endpoint assessments.",
+      "Awarded completion certificate ID: EWB/INT/2026/2304 under AICTE National Internship Portal."
     ],
-    "achievement": "Certificate of Excellence — ranked in top 2 of 40 interns"
+    "achievement": "AICTE & DPIIT Recognized Project Completion"
   },
   {
     "id": 2,
-    "role": "SOC Analyst Training & Investigations",
-    "org": "LetsDefend · Self-directed",
-    "period": "2026 – Present",
-    "type": "lab",
-    "badge": "Hands-on Labs",
+    "role": "ServiceNow Platform & Agentic AI Intern",
+    "org": "ServiceNow University × SmartBridge · AICTE",
+    "period": "Jun 2026 – Jul 2026",
+    "type": "formal",
+    "badge": "Virtual Internship",
     "bullets": [
-      "Investigated 11+ real-world security incidents spanning phishing, malware execution, brute-force attacks, command injection, and zero-day exploits.",
-      "Analysed Windows Event Logs, proxy logs, and endpoint data to determine attack timelines and confirm true/false positives.",
-      "Extracted IOCs and mapped attack behaviour to MITRE ATT&CK techniques and the Cyber Kill Chain.",
-      "Performed containment actions including host isolation, IP blocking, credential rotation, and patch recommendations.",
-      "Documented findings as structured SOC investigation reports — published across LinkedIn and blog platform."
+      "Completed ServiceNow Administration Fundamentals, Flow Designer, and Automated Test Framework (ATF) Essentials.",
+      "Explored Agentic AI integration and automated security incident response workflows.",
+      "Prepared for Certified System Administrator (CSA) certification and completed micro-certifications (Cert ID: SNU2030781)."
     ],
-    "achievement": ""
+    "achievement": "ServiceNow University & AICTE Certified (ID: SNU2030781)"
+  },
+  {
+    "id": 3,
+    "role": "Applied AI Intern — System Design & Building",
+    "org": "CSRBOX Foundation × AICTE × IBM SkillsBuild",
+    "period": "Dec 2025 – Jan 2026",
+    "type": "formal",
+    "badge": "Applied AI",
+    "bullets": [
+      "Completed 6-week intensive 'Learn, Design, and Build with Artificial Intelligence' program.",
+      "Built and deployed practical AI models and defensive automation workflows (ID: 202526AICTECSRBOXA1036).",
+      "Collaborated on real-world engineering problem statements under IBM SkillsBuild and AICTE guidance."
+    ],
+    "achievement": "Certificate of Achievement in Applied AI System Design"
+  },
+  {
+    "id": 4,
+    "role": "Cybersecurity Intern",
+    "org": "Codec Technologies · Google for Education Partner",
+    "period": "Jul 2025 – Sep 2025",
+    "type": "formal",
+    "badge": "Internship",
+    "bullets": [
+      "Completed 2-month AICTE & ICAC approved intensive cybersecurity internship program.",
+      "Analyzed threat vectors, conducted vulnerability assessments, and practiced incident triage.",
+      "Earned ICAC recognized and ISO certified credentials (AICTE ID: CORPORATE6759d549ce59e1733940553 · NCS ID: E19E86-0116588288923)."
+    ],
+    "achievement": "ICAC Recognized & ISO Certified Completion"
+  },
+  {
+    "id": 5,
+    "role": "Cybersecurity Intern — Blue & Purple Team",
+    "org": "TANSAM (TIDCO × Siemens) · Govt of Tamil Nadu",
+    "period": "Apr 2025 – May 2025",
+    "type": "formal",
+    "badge": "Internship",
+    "bullets": [
+      "Carried out ethical hacking exercises on Kali Linux, OSINT reconnaissance, and network traffic forensics.",
+      "Developed Phishing Email Detection using Scikit-learn + NLP integrated with Gmail and CheckPhish APIs.",
+      "Evaluated IoT security risks and mapped attack scenarios to NIST CSF and ISO 27005 frameworks.",
+      "Gained hands-on exposure to SOC incident triage, threat classification, and formal security reporting."
+    ],
+    "achievement": "Certificate of Excellence — Awarded for Outstanding Performance (Top 2 of 40 interns)"
+  },
+  {
+    "id": 6,
+    "role": "SOC Analyst Investigations & DFIR",
+    "org": "LetsDefend · Self-directed Blue Team",
+    "period": "2025 – Present",
+    "type": "lab",
+    "badge": "VIP+ Defender",
+    "bullets": [
+      "Investigated 12+ real-world SOC alerts spanning Karma ransomware, XZ supply chain backdoor, DLL sideloading, and Quishing.",
+      "Maintained a 93% incident investigation success rate and scored 3,907 points with 19,041 SLA rating.",
+      "Extracted IOCs, mapped attacker behaviors across MITRE ATT&CK techniques, and executed host containment actions.",
+      "Published detailed forensic incident write-ups on personal cybersecurity journal platform."
+    ],
+    "achievement": "VIP+ Tier · 93% Investigation SLA Accuracy (3,907 Points)"
   }
 ]

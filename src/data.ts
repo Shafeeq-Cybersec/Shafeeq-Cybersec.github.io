@@ -9,7 +9,7 @@ import experienceData from './data/experience.json';
 import educationData from './data/education.json';
 import achievementsData from './data/achievements.json';
 
-export const roles = ['Blue Team Analyst', 'Threat Hunter', 'Cybersecurity Analyst', 'System Defender'];
+export const roles = ['Blue Team Analyst', 'SOC Specialist', 'Malware Analyst', 'AI Security Builder'];
 
 // ── Certificates ─────────────────────────────────────────────────
 const iconMap: Record<string, React.ReactElement> = {

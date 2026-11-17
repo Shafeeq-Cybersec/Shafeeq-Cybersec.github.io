@@ -751,12 +751,14 @@ export default function App() {
             <div className="proj-icon-wrap">
               <Trophy size={22} />
             </div>
-            <div className="proj-title">Awards & Achievements</div>
-            <div className="proj-period">2024 – 2025</div>
+            <div className="proj-title">Awards & Honors</div>
+            <div className="proj-period">2024 – 2026</div>
             <ul className="tl-list mt-3">
-              <li className="text-[0.78rem] text-gray-400 mb-1">1st Place — Cybersecurity Quiz (TANSAM)</li>
-              <li className="text-[0.78rem] text-gray-400 mb-1">1st Place — Rhetoric Rumble Debate (RMD)</li>
-              <li className="text-[0.78rem] text-gray-400">Award of Excellence — TANSAM Internship</li>
+              <li className="text-[0.78rem] text-gray-400 mb-1">Global Rank 371 / Top 6% — HTB Holmes CTF 2026 (57 Sherlocks Flags · Captain)</li>
+              <li className="text-[0.78rem] text-gray-400 mb-1">Research Presenter — IEEE ICAICCIT 2025 (QRishing & ML Detection)</li>
+              <li className="text-[0.78rem] text-gray-400 mb-1">Certificate of Excellence — TANSAM (Siemens × TIDCO)</li>
+              <li className="text-[0.78rem] text-gray-400 mb-1">LetsDefend VIP+ Defender — 93% SLA Success Rate (3,907 Pts)</li>
+              <li className="text-[0.78rem] text-gray-400">1st Place — Rhetoric Rumble Debate (RMD)</li>
             </ul>
           </motion.div>
         </motion.div>

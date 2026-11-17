@@ -1,18 +1,34 @@
 [
   {
-    "title": "Password Security Analyzer",
+    "title": "ThreatLens — Reconstruct the Invisible",
     "period": "2026",
-    "desc": "A real-time password strength analysis tool that evaluates password security using entropy calculation, pattern detection, and common password checks. It provides instant feedback, estimated crack time, and actionable suggestions to improve password strength. Built with a privacy-first approach where all analysis happens locally in the browser.",
-    "tech": "Python · JavaScript · HTML & CSS · Zxcvbn · GitHub",
-    "link": "https://shafeeq-cybersec.github.io/password-security-analyzer/",
-    "icon": "lock"
-  },
-  {
-    "title": "ThreatLens - Reconstruct the invisible",
-    "period": "2026",
-    "desc": "A browser-based SOC dashboard that reconstructs cyber attacks by mapping security events across the Cyber Kill Chain and the MITRE ATT&CK framework. It analyzes raw security logs using a client-side rule engine, automatically identifies attack stages, enriches events with ATT&CK techniques, and calculates dynamic risk scores to help analysts understand attacker behavior. Designed as a lightweight, privacy-friendly platform with no backend or AI API dependencies.",
-    "tech": "TypeScript · Vite · Tailwind CSS · JavaScript · HTML · CSS",
+    "desc": "A browser-based SOC investigation platform that reconstructs cyber attacks by mapping security events across the Cyber Kill Chain and MITRE ATT&CK framework. Features a client-side rule engine that correlates raw telemetry, assigns dynamic threat scores, and enriches indicators of compromise without external backend dependencies.",
+    "tech": "TypeScript · Vite · Tailwind CSS v4 · Cyber Kill Chain · MITRE ATT&CK",
     "link": "https://shafeeq-cybersec.github.io/threatlens/",
     "icon": "search"
+  },
+  {
+    "title": "PromptShield — LLM Security Gateway",
+    "period": "2026",
+    "desc": "An AI-powered defensive security gateway that protects Large Language Models against prompt injection, unauthorized tool execution, and sensitive data leakage. Deployed with real-time payload filtering and automated policy compliance.",
+    "tech": "Python · FastAPI · Scikit-learn · Gemini API · Docker · Azure Container Apps",
+    "link": "https://promptshield.kindgrass-b7ef1aa3.eastasia.azurecontainerapps.io/",
+    "icon": "shield"
+  },
+  {
+    "title": "CyberTwin — AI Attack Surface & Blast Radius Engine",
+    "period": "2026",
+    "desc": "An AI-powered Cyber Digital Twin platform for enterprise attack surface mapping, graph-based attack path analysis, blast radius calculation, vulnerability intelligence, and proactive threat exposure management.",
+    "tech": "JavaScript · Graph Analysis · Threat Exposure Management · MIT License",
+    "link": "https://github.com/Shafeeq-Cybersec/CyberTwin",
+    "icon": "target"
+  },
+  {
+    "title": "Password Security Analyzer",
+    "period": "2026",
+    "desc": "A real-time password strength analysis tool that evaluates security using Shannon entropy calculation, pattern detection, and common dictionary checks. Evaluates estimated crack time with zero external network telemetry.",
+    "tech": "JavaScript · Python · HTML/CSS · Zxcvbn · GitHub Pages",
+    "link": "https://shafeeq-cybersec.github.io/password-security-analyzer/",
+    "icon": "lock"
   }
 ]
