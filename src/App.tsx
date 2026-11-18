@@ -724,19 +724,48 @@ export default function App() {
                 className="build"
                 tabIndex={0}
               >
-                {/* Badge */}
-                <div className="build-badge">{p.badge || 'SECURITY BUILD'}</div>
+                {/* Top bar: Badge on left, Links on right */}
+                <div className="build-top">
+                  <div className="build-badge">{p.badge || `0${i + 1} / SECURITY BUILD`}</div>
+                  <div className="build-links">
+                    {p.link && (
+                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="tlink">
+                        Live app ↗
+                      </a>
+                    )}
+                    {p.github && (
+                      <a href={p.github} target="_blank" rel="noopener noreferrer" className="tlink">
+                        Code ↗
+                      </a>
+                    )}
+                  </div>
+                </div>
 
                 {/* Title */}
                 <h3 className="build-title">{p.title}</h3>
 
-                {/* Hint: visible when collapsed, hides on hover */}
-                <div className="build-hint" aria-hidden="true">hover to expand</div>
+                {/* Concise 2-line description (ALWAYS VISIBLE) */}
+                <p className="build-desc">{p.desc}</p>
+
+                {/* Hint: indicates interactive expand */}
+                <div className="build-hint" aria-hidden="true">
+                  <span>Hover to view Key Capabilities & Stack</span>
+                  <span className="build-hint-arrow">▾</span>
+                </div>
 
                 {/* Expandable detail on hover */}
                 <div className="build-detail">
                   <div>
-                    <p className="build-desc">{p.desc}</p>
+                    {p.capabilities && p.capabilities.length > 0 && (
+                      <div className="build-caps">
+                        <div className="build-cap-heading">KEY CAPABILITIES</div>
+                        <ul className="build-cap-list">
+                          {p.capabilities.map((cap: string, cIdx: number) => (
+                            <li key={cIdx}>{cap}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
 
                     {p.techTags && p.techTags.length > 0 && (
                       <div className="build-tech">
@@ -745,19 +774,6 @@ export default function App() {
                         ))}
                       </div>
                     )}
-
-                    <div className="build-links">
-                      {p.link && (
-                        <a href={p.link} target="_blank" rel="noopener noreferrer" className="tlink">
-                          Live app ↗
-                        </a>
-                      )}
-                      {p.github && (
-                        <a href={p.github} target="_blank" rel="noopener noreferrer" className="tlink">
-                          Code ↗
-                        </a>
-                      )}
-                    </div>
                   </div>
                 </div>
               </motion.div>
