@@ -693,10 +693,10 @@ export default function App() {
 
       <section id="projects">
         <motion.div
-           initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
-           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-           viewport={{ once: true, margin: "-100px" }}
-           transition={{ duration: 1, ease: [0.33, 1, 0.68, 1] }}
+           initial={{ opacity: 0, y: 25 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true, margin: "-80px" }}
+           transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
         >
           <h2 className="section-title">My <span>Projects</span></h2>
           <motion.div 

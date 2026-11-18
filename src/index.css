@@ -300,10 +300,12 @@ section { padding: 80px 8%; }
   border-radius: 18px;
   background: var(--card);
   padding: 28px 32px;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s ease,
-              box-shadow 0.3s ease,
-              background 0.3s ease;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, border-color;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s ease,
+              box-shadow 0.22s ease;
   position: relative;
   overflow: hidden;
   cursor: default;
@@ -318,13 +320,13 @@ section { padding: 80px 8%; }
   width: 3px;
   background: linear-gradient(180deg, var(--blue-light), transparent);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 .build:hover {
   border-color: rgba(61, 111, 212, 0.5);
-  transform: translateX(6px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(61, 111, 212, 0.08);
+  transform: translateY(-2px) translateZ(0);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), 0 0 14px rgba(59, 130, 246, 0.1);
 }
 
 .build:hover:before {
@@ -410,7 +412,7 @@ section { padding: 80px 8%; }
   display: grid;
   grid-template-rows: 0fr;
   opacity: 0;
-  transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+  transition: grid-template-rows 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease;
 }
 
 .build-detail > div {
