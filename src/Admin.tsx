@@ -10,6 +10,7 @@ import {
   verifyToken,
   GitHubApiError,
 } from './lib/github';
+import localProjects from './data/projects.json';
 
 const TOKEN_KEY = 'admin_gh_token';
 
@@ -655,7 +656,25 @@ function ProjectsPanel({ token }: { token: string }) {
 
   const load = async () => {
     const file = await getFile(token, 'src/data/projects.json');
-    setItems(file ? JSON.parse(file.content) : []);
+    setItems(file ? JSON.parse(file.content) : (localProjects as any));
+  };
+
+  const syncLocalProjects = async () => {
+    setStatus({ type: 'busy', msg: 'Syncing 5 local projects to GitHub…' });
+    try {
+      const latest = await getFile(token, 'src/data/projects.json');
+      await putFile(
+        token,
+        'src/data/projects.json',
+        utf8ToBase64(JSON.stringify(localProjects, null, 2)),
+        'Sync 5 curated flagship projects from 2027 portfolio redesign',
+        latest?.sha
+      );
+      setItems(localProjects as any);
+      setStatus({ type: 'ok', msg: 'Successfully synced all 5 projects to GitHub! Rebuilding in ~1 min.' });
+    } catch (e) {
+      setStatus({ type: 'err', msg: e instanceof Error ? e.message : 'Failed to sync projects.' });
+    }
   };
 
   useEffect(() => {
@@ -770,7 +789,23 @@ function ProjectsPanel({ token }: { token: string }) {
       </div>
 
       <div>
-        <h2 className="text-lg font-semibold text-white mb-4">Existing Projects ({items?.length ?? '…'})</h2>
+        <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <h2 className="text-lg font-semibold text-white">Existing Projects ({items?.length ?? '…'})</h2>
+          <button
+            onClick={syncLocalProjects}
+            disabled={status.type === 'busy'}
+            className="text-xs px-3 py-1.5 rounded bg-[#3d6fd4] hover:bg-[#5a8dee] text-white font-medium transition flex items-center gap-1.5 shadow-sm"
+          >
+            <span>⚡ Sync 5 Projects to GitHub</span>
+          </button>
+        </div>
+
+        {items && items.length < 5 && (
+          <div className="mb-4 p-3 rounded bg-blue-950/40 border border-blue-500/30 text-xs text-blue-200">
+            <span className="font-semibold block mb-1">Notice:</span>
+            Your GitHub repository currently has {items.length} projects stored on the remote main branch. Click the <strong>&ldquo;Sync 5 Projects to GitHub&rdquo;</strong> button above to push all 5 curated flagship projects directly to your repository!
+          </div>
+        )}
         <div className="space-y-3 max-h-[600px] overflow-y-auto pr-1">
           {items?.map((p, i) => (
             <div key={`${p.title}-${i}`} className="border border-[#222] bg-[#111] rounded p-3">
