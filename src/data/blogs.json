@@ -33,17 +33,6 @@
     "content": "# CVE-2024-3094: Investigating the XZ Supply Chain Backdoor\n\n## Case Overview\nA SOC investigation into a critical XZ/liblzma supply-chain compromise alert involving a malicious liblzma.so.5.6.1 artifact discovered on an Ubuntu SSH development server.\n\n---\n\n## Investigation Highlights\n- Identified backdoor entry points in upstream build scripts.\n- Verified OpenSSH daemon hooking and authentication bypass mechanics.\n- Reconstructed forensic timeline and implemented defensive package pinning.\n\n[Read Full Investigation on ShafeeqBlogs →](https://shafeeq-cybersecblogs.vercel.app/articles/cve-2024-3094-investigating-the-xz-supply-chain-backdoor)\n"
   },
   {
-    "id": 10,
-    "date": "04 Sep, 2026",
-    "author": "Shafeeq S",
-    "title": "SOC247: DLL Sideloading, Trojan Execution & Failed C2",
-    "desc": "A SOC investigation of a possible DLL sideloading alert where a phishing email delivered a malicious update.exe payload that executed on the endpoint and attempted outbound C2 communication.",
-    "cat": "Malware Analysis",
-    "image": "",
-    "link": "https://shafeeq-cybersecblogs.vercel.app/articles/soc247-investigating-dll-sideloading-trojan-execution-and-failed-c2-communication",
-    "content": "# SOC247: Investigating DLL Sideloading, Trojan Execution, and Failed C2 Communication\n\n## Case Overview\nA SOC investigation of a possible DLL sideloading alert where a phishing email delivered a malicious update.exe payload that executed on the endpoint and attempted outbound communication to a suspected C2 address.\n\n---\n\n## Investigation Highlights\n- Traced initial access via malicious lure email.\n- Analyzed process tree for legitimate binary abusing hijacked DLL export.\n- Validated firewall rule containment blocking outbound C2 callbacks.\n\n[Read Full Investigation on ShafeeqBlogs →](https://shafeeq-cybersecblogs.vercel.app/articles/soc247-investigating-dll-sideloading-trojan-execution-and-failed-c2-communication)\n"
-  },
-  {
     "id": 8,
     "date": "27 Aug, 2026",
     "author": "Shafeeq S",
