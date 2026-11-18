@@ -44,17 +44,6 @@
     "content": "# SOC159: Karma Ransomware Attack Investigation\n\n## Case Overview\nA hands-on SOC investigation of a Karma ransomware alert using VirusTotal, Windows Defender event logs, and PicusAgent assessment logs to analyse malware detection, quarantine actions, and blocked network activity.\n\n---\n\n## Investigation Highlights\n- Correlated Windows Defender telemetry and quarantine logs on endpoint.\n- Performed hash verification and C2 indicator identification using VirusTotal.\n- Assessed network perimeter logs for automated beaconing and containment.\n\n[Read Full Investigation on ShafeeqBlogs →](https://shafeeq-cybersecblogs.vercel.app/articles/soc159-karma-ransomware-attack-investigation)\n"
   },
   {
-    "id": 11,
-    "date": "06 Sep, 2026",
-    "author": "Shafeeq S",
-    "title": "CVE-2024-3094: Investigating the XZ Supply Chain Backdoor",
-    "desc": "A SOC investigation into a critical XZ/liblzma supply-chain compromise alert involving a malicious liblzma.so.5.6.1 artifact discovered on an Ubuntu SSH development server.",
-    "cat": "Malware Analysis",
-    "image": "",
-    "link": "https://shafeeq-cybersecblogs.vercel.app/articles/cve-2024-3094-investigating-the-xz-supply-chain-backdoor",
-    "content": "# CVE-2024-3094: Investigating the XZ Supply Chain Backdoor\n\n## Case Overview\nA SOC investigation into a critical XZ/liblzma supply-chain compromise alert involving a malicious liblzma.so.5.6.1 artifact discovered on an Ubuntu SSH development server.\n\n---\n\n## Investigation Highlights\n- Identified backdoor entry points in upstream build scripts.\n- Verified OpenSSH daemon hooking and authentication bypass mechanics.\n- Reconstructed forensic timeline and implemented defensive package pinning.\n\n[Read Full Investigation on ShafeeqBlogs →](https://shafeeq-cybersecblogs.vercel.app/articles/cve-2024-3094-investigating-the-xz-supply-chain-backdoor)\n"
-  },
-  {
     "id": 8,
     "date": "27 Aug, 2026",
     "author": "Shafeeq S",
