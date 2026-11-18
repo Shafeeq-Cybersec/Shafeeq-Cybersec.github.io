@@ -1,5 +1,16 @@
 [
   {
+    "id": 13,
+    "date": "31 Aug, 2026",
+    "author": "Shafeeq S",
+    "title": "Network Sniffer Detected: Linux Trojan Investigation",
+    "desc": "A SOC investigation uncovering a Linux Trojan disguised as Microsoft Office software, capturing network traffic through tcpdump, transferring PCAP data via GoFile, and establishing persistence through cron jobs.",
+    "cat": "Malware Analysis",
+    "image": "/blogs/network-sniffer-blog-thumbnail-1794972168883.png",
+    "link": "https://shafeeq-cybersecblogs.vercel.app/articles/network-sniffer-detected-linux-trojan-investigation",
+    "content": "Case Overview\n\nInvestigated a High-severity SOC alert involving suspicious network-sniffing activity on a Linux endpoint named Billy.\n\nThe investigation uncovered a malicious Bash script disguised as Microsoft Office software that captured network traffic, transferred the resulting PCAP through GoFile, and established persistence using a cron job.\n\nInvestigation Highlights\n\n1. Alert & Initial Access Analysis\n\nInvestigated SOC198 – Network Sniffer Detected.\n\nIdentified suspicious access to microsoft-office.zip.\n\nCorrelated browser history and endpoint telemetry to establish the download sequence.\n\n2. Malware Analysis\n\nExamined the malicious microsoft-office.sh Bash script.\n\nIdentified packet capture, external data transfer, and persistence capabilities.\n\nConfirmed execution through endpoint process telemetry.\n\n3. Network & Exfiltration Analysis\n\nRecovered outfile.pcap and confirmed packet capture.\n\nAnalyzed cap.log and identified a GoFile download-page URL.\n\nCorrelated artifacts to support successful external data transfer.\n\n4. Persistence Investigation\n\nIdentified a malicious @reboot cron entry.\n\nMapped the persistence mechanism to MITRE ATT&CK T1053.003.\n\n5. Containment & Eradication\n\nIsolated the affected endpoint.\n\nPreserved forensic artifacts.\n\nRemoved the malicious script and cron entry.\n\nVerified successful persistence removal.\n\nInvestigation Result\n\nVerdict: True Positive\n\nSeverity: High\n\nHostname: Billy\n\nInternal IP: 172.16.17.193\n\nMalware: microsoft-office.sh\n\nSHA-256: 86a3f2f66b0af4db199ca71dc2902fcee1086cecb29a7753546730b4330ece19\n\nMITRE ATT&CK:\n\nT1040 – Network Sniffing\n\nT1053.003 – Cron\n\nCase Status: Contained & Eradicated\n\nKey Takeaway\n\nDemonstrated the importance of correlating endpoint telemetry, malware behavior, packet captures, and persistence artifacts to reconstruct a complete attack chain.\n\nThe investigation also highlighted the importance of distinguishing confirmed evidence from inferred activity when assessing potential credential exposure and external data transfer."
+  },
+  {
     "id": 12,
     "date": "18 Oct, 2026",
     "author": "Shafeeq S",
