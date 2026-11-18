@@ -1,18 +1,115 @@
 [
   {
-    "title": "Password Security Analyzer",
+    "badge": "01 / SOC INVESTIGATION & INTEL",
+    "title": "ThreatLens — SOC Investigation & Threat Intelligence Platform",
     "period": "2026",
-    "desc": "A real-time password strength analysis tool that evaluates password security using entropy calculation, pattern detection, and common password checks. It provides instant feedback, estimated crack time, and actionable suggestions to improve password strength. Built with a privacy-first approach where all analysis happens locally in the browser.",
-    "tech": "Python · JavaScript · HTML & CSS · Zxcvbn · GitHub",
-    "link": "https://shafeeq-cybersec.github.io/password-security-analyzer/",
+    "desc": "A self-hosted SOC platform that orchestrates concurrent threat intelligence feeds, correlates multi-stage attack telemetry, and surfaces actionable incident verdicts on an interactive dashboard.",
+    "capabilities": [
+      "Multi-pipeline signal collection running parallel queries against 70+ VirusTotal engines and Google Safe Browsing APIs.",
+      "Multi-source risk aggregation engine applying dynamic weights to telemetry without external dependencies.",
+      "Attack path reconstruction mapping alerts directly across MITRE ATT&CK techniques and Cyber Kill Chain phases.",
+      "Real-time event streaming and interactive triage via WebSocket/SocketIO pipelines."
+    ],
+    "techTags": [
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "SocketIO",
+      "MITRE ATT&CK",
+      "Cyber Kill Chain"
+    ],
+    "link": "https://shafeeq-cybersec.github.io/threatlens/",
+    "github": "https://github.com/Shafeeq-Cybersec/threat-intel-platform",
+    "icon": "search"
+  },
+  {
+    "badge": "02 / AGENTIC AI SECURITY",
+    "title": "MCP-Guardian — Model Context Protocol Security Firewall",
+    "period": "2026",
+    "desc": "A real-time security firewall protecting autonomous AI agents against prompt injection, tool poisoning, and data leakage across Model Context Protocol (MCP) ecosystems.",
+    "capabilities": [
+      "Sandboxed tool execution intercepting JSON-RPC protocol calls before underlying system command execution.",
+      "Multi-tool attack chain detection preventing cascading privilege escalation across connected agent tools.",
+      "Strict role-based execution boundaries restricting sensitive file, network, and database tool capabilities.",
+      "Real-time PII redaction and payload quarantine sanitizing tool responses before returning to the model."
+    ],
+    "techTags": [
+      "Python",
+      "FastAPI",
+      "MCP Protocol",
+      "JSON-RPC",
+      "LLM Guardrails",
+      "Sandboxing"
+    ],
+    "github": "https://github.com/Shafeeq-Cybersec/MCP-Guardian",
+    "icon": "shield"
+  },
+  {
+    "badge": "03 / ATTACK SURFACE MODELING",
+    "title": "CyberTwin — Enterprise Attack Surface & Blast Radius Engine",
+    "period": "2026",
+    "desc": "An AI-powered Cyber Digital Twin platform for modeling enterprise attack surfaces, calculating probabilistic breach traversal paths, and simulating lateral movement blast radius.",
+    "capabilities": [
+      "Graph-based dependency modeling utilizing Neo4j to map network nodes, services, and identity relations.",
+      "Algorithmic attack path calculation identifying the shortest traversable paths to high-value assets.",
+      "Blast radius simulation evaluating the exact lateral movement potential from a single compromised endpoint.",
+      "Continuous vulnerability intelligence ingestion prioritizing CVE exposure remediation based on reachability."
+    ],
+    "techTags": [
+      "Python",
+      "FastAPI",
+      "Neo4j",
+      "React 18",
+      "TypeScript",
+      "Threat Modeling"
+    ],
+    "github": "https://github.com/Shafeeq-Cybersec/CyberTwin",
+    "icon": "target"
+  },
+  {
+    "badge": "04 / LLM DEFENSIVE FIREWALL",
+    "title": "PromptShield — Defensive LLM Security Gateway",
+    "period": "2026",
+    "desc": "An inline defensive proxy that intercepts prompts and model completions to protect Large Language Models against prompt injection, unauthorized tool execution, and sensitive data leakage.",
+    "capabilities": [
+      "Two-pass security inspection scanning inputs before reaching the model and sanitizing outputs before return.",
+      "Multi-tier detection engine combining Scikit-learn heuristic scoring with a Gemini LLM-as-judge second opinion.",
+      "Direct policy enforcement mapping threats against OWASP Top 10 for Large Language Applications.",
+      "Enterprise gateway features including token-bucket rate limiting, API-key authentication, and cryptographic audit logs."
+    ],
+    "techTags": [
+      "Python",
+      "FastAPI",
+      "Scikit-learn",
+      "Gemini API",
+      "Docker",
+      "Azure Container Apps"
+    ],
+    "link": "https://promptshield.kindgrass-b7ef1aa3.eastasia.azurecontainerapps.io/",
+    "github": "https://github.com/Shafeeq-Cybersec/PromptSheild",
     "icon": "lock"
   },
   {
-    "title": "ThreatLens - Reconstruct the invisible",
+    "badge": "05 / APPLIED ML THREAT DETECTION",
+    "title": "PhishGuard — Machine Learning Phishing URL Detection Engine",
     "period": "2026",
-    "desc": "A browser-based SOC dashboard that reconstructs cyber attacks by mapping security events across the Cyber Kill Chain and the MITRE ATT&CK framework. It analyzes raw security logs using a client-side rule engine, automatically identifies attack stages, enriches events with ATT&CK techniques, and calculates dynamic risk scores to help analysts understand attacker behavior. Designed as a lightweight, privacy-friendly platform with no backend or AI API dependencies.",
-    "tech": "TypeScript · Vite · Tailwind CSS · JavaScript · HTML · CSS",
-    "link": "https://shafeeq-cybersec.github.io/threatlens/",
-    "icon": "search"
+    "desc": "A machine learning threat engine that detects malicious phishing URLs in real time by analyzing 22 lexical and structural syntax patterns with zero external network reconnaissance.",
+    "capabilities": [
+      "Trained Random Forest classifier evaluated across 120,000 verified malicious and benign URL samples.",
+      "Pure client/lexical feature extraction (zero network requests required, preventing attacker telemetry triggering).",
+      "Brand impersonation heuristics and spoof-safe domain distance matching.",
+      "Multi-level risk verdict output with complete feature importance transparency and anomaly breakdown."
+    ],
+    "techTags": [
+      "Python",
+      "Scikit-learn",
+      "Random Forest",
+      "Flask",
+      "Feature Engineering",
+      "Azure Container Apps"
+    ],
+    "link": "https://phishguard.kindgrass-b7ef1aa3.eastasia.azurecontainerapps.io/",
+    "github": "https://github.com/Shafeeq-Cybersec/Phishguard",
+    "icon": "bug"
   }
 ]
