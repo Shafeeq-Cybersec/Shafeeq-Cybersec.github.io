@@ -277,29 +277,40 @@ section { padding: 80px 8%; }
 .tl-list li { font-size: 0.78rem; color: var(--text-dim); padding: 0.15rem 0 0.15rem 1rem; position: relative; line-height: 1.6; }
 .tl-list li::before { content: '•'; position: absolute; left: 0; color: var(--blue-light); }
 
-#projects { background: var(--bg2); }
+/* ═══════════════════════════════════════════════════════════════
+   BUILDS SECTION — EXACT REFERENCE DESIGN (Sabarish Style)
+   ═══════════════════════════════════════════════════════════════ */
 
-/* Option 2: Stacked Builds List with Hover-To-Expand */
-.projects-stack {
+#projects { 
+  background: var(--bg2); 
+}
+
+.builds {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  max-width: 980px;
+  gap: 18px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
-.build-card {
-  background: var(--card);
+.build {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 30px;
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.6rem 2rem;
+  border-radius: 18px;
+  background: var(--card);
+  padding: 32px 34px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease,
+              background 0.3s ease;
   position: relative;
   overflow: hidden;
-  cursor: pointer;
-  transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+  cursor: default;
 }
 
-.build-card::before {
+.build:before {
   content: "";
   position: absolute;
   left: 0;
@@ -311,103 +322,155 @@ section { padding: 80px 8%; }
   transition: opacity 0.3s ease;
 }
 
-.build-card:hover {
-  border-color: rgba(61, 111, 212, 0.55);
+.build:hover {
+  border-color: rgba(61, 111, 212, 0.5);
   transform: translateX(6px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(61, 111, 212, 0.12);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(61, 111, 212, 0.08);
 }
 
-.build-card:hover::before {
+.build:hover:before {
   opacity: 1;
 }
 
-.build-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
+.build:focus-visible {
+  outline: 1px solid var(--blue-light);
+  outline-offset: 3px;
+}
+
+.build-badge {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--blue-light);
+}
+
+.build-title {
+  font-size: clamp(18px, 2.2vw, 23px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--white);
+  margin-top: 2px;
 }
 
 .build-hint {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  grid-column: 1 / -1;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
+  font-size: 10px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--blue-light);
+  color: var(--text-dim);
   opacity: 0.75;
-  margin-top: 0.45rem;
-  transition: opacity 0.25s ease, max-height 0.3s ease, margin 0.3s ease;
-  max-height: 24px;
+  margin-top: 4px;
+  transition: opacity 0.25s ease;
 }
 
-.build-card:hover .build-hint {
+.build:focus-within .build-hint,
+.build:hover .build-hint {
   opacity: 0;
-  max-height: 0;
-  margin-top: 0;
-  overflow: hidden;
 }
 
 .build-detail {
+  grid-column: 1 / -1;
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
 
 .build-detail > div {
   overflow: hidden;
   min-height: 0;
-  opacity: 0;
-  transform: translateY(-6px);
-  filter: blur(4px);
-  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
 }
 
-.build-card:hover .build-detail {
+.build:focus-within .build-detail,
+.build:hover .build-detail {
   grid-template-rows: 1fr;
+  opacity: 1;
 }
 
-.build-card:hover .build-detail > div {
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
-  padding-top: 0.75rem;
+.build-desc {
+  grid-column: 1 / -1;
+  font-size: 14px;
+  line-height: 1.75;
+  color: #a3a3a3;
+  white-space: pre-line;
+  max-width: 90ch;
+  margin-top: 10px;
+}
+
+.build-tech {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.build-tech span {
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.build:hover .build-tech span {
+  border-color: rgba(61, 111, 212, 0.25);
+  color: var(--text);
+}
+
+.build-links {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 16px;
+  padding-top: 6px;
+}
+
+.tlink {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue-light);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tlink:hover {
+  border-color: var(--blue-light);
+  color: var(--white);
 }
 
 @media (hover: none) {
+  .build-detail {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
   .build-hint {
     display: none;
   }
-  .build-detail {
-    grid-template-rows: 1fr;
-  }
-  .build-detail > div {
-    opacity: 1;
-    transform: none;
-    filter: none;
-    padding-top: 0.75rem;
-  }
 }
 
-@media (max-width: 768px) {
-  .build-card {
-    padding: 1.35rem 1.4rem;
+@media (max-width: 900px) {
+  .build {
+    grid-template-columns: 1fr;
+    padding: 24px;
   }
-  .build-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.85rem;
-  }
-}
-
-.projects-grid { 
-  display: grid; 
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 1.75rem; 
-  max-width: 1160px; 
-  margin: 0 auto; 
 }
 
 @media (max-width: 860px) {

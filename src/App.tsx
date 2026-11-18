@@ -713,7 +713,7 @@ export default function App() {
                 }
               }
             }}
-            className="projects-stack"
+            className="builds"
           >
             {projects.map((p: any, i: number) => (
               <motion.div
@@ -722,71 +722,43 @@ export default function App() {
                   hidden: { opacity: 0, y: 25 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.33, 1, 0.68, 1] } }
                 }}
-                className="build-card group"
+                className="build"
+                tabIndex={0}
               >
-                {/* Header: visible always */}
-                <div className="build-header">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-2 flex-wrap">
-                      <span className="text-[10px] font-mono tracking-widest uppercase text-blue-400 font-semibold px-2.5 py-0.5 rounded bg-blue-500/10 border border-blue-500/20">
-                        {p.badge || 'SECURITY BUILD'}
-                      </span>
-                      <span className="text-xs font-mono text-gray-500">{p.period}</span>
-                    </div>
+                {/* Badge */}
+                <div className="build-badge">{p.badge || 'SECURITY BUILD'}</div>
 
-                    <h3 className="text-lg sm:text-xl font-semibold text-white group-hover:text-blue-400 transition-colors">
-                      {p.title}
-                    </h3>
-                  </div>
-
-                  <div className="flex items-center gap-2.5 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
-                    {p.link && (
-                      <a 
-                        href={p.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium font-mono transition-all shadow-sm shadow-blue-500/20 whitespace-nowrap"
-                      >
-                        <ExternalLink size={12} />
-                        <span>Live App</span>
-                      </a>
-                    )}
-                    {p.github && (
-                      <a 
-                        href={p.github} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-gray-300 hover:text-white text-xs font-medium font-mono transition-all whitespace-nowrap"
-                      >
-                        <Github size={12} />
-                        <span>Code</span>
-                      </a>
-                    )}
-                  </div>
-                </div>
+                {/* Title */}
+                <h3 className="build-title">{p.title}</h3>
 
                 {/* Hint: visible when collapsed, hides on hover */}
-                <div className="build-hint">
-                  <span>Hover to expand description & stack</span>
-                  <span className="text-[10px]">▾</span>
-                </div>
+                <div className="build-hint" aria-hidden="true">hover to expand</div>
 
                 {/* Expandable detail on hover */}
                 <div className="build-detail">
                   <div>
-                    <p className="text-xs sm:text-[13.5px] text-gray-400 leading-relaxed mb-3.5 max-w-3xl">
-                      {p.desc}
-                    </p>
+                    <p className="build-desc">{p.desc}</p>
 
                     {p.techTags && p.techTags.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5">
+                      <div className="build-tech">
                         {p.techTags.map((tag: string, tIdx: number) => (
-                          <span key={tIdx} className="text-[10.5px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-300">
-                            {tag}
-                          </span>
+                          <span key={tIdx}>{tag}</span>
                         ))}
                       </div>
                     )}
+
+                    <div className="build-links">
+                      {p.link && (
+                        <a href={p.link} target="_blank" rel="noopener noreferrer" className="tlink">
+                          Live app ↗
+                        </a>
+                      )}
+                      {p.github && (
+                        <a href={p.github} target="_blank" rel="noopener noreferrer" className="tlink">
+                          Code ↗
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </motion.div>
