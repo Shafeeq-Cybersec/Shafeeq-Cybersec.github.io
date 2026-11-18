@@ -33,17 +33,6 @@
     "content": "# SOC247: Investigating DLL Sideloading, Trojan Execution, and Failed C2 Communication\n\n## Case Overview\nA SOC investigation of a possible DLL sideloading alert where a phishing email delivered a malicious update.exe payload that executed on the endpoint and attempted outbound communication to a suspected C2 address.\n\n---\n\n## Investigation Highlights\n- Traced initial access via malicious lure email.\n- Analyzed process tree for legitimate binary abusing hijacked DLL export.\n- Validated firewall rule containment blocking outbound C2 callbacks.\n\n[Read Full Investigation on ShafeeqBlogs →](https://shafeeq-cybersecblogs.vercel.app/articles/soc247-investigating-dll-sideloading-trojan-execution-and-failed-c2-communication)\n"
   },
   {
-    "id": 9,
-    "date": "31 Aug, 2026",
-    "author": "Shafeeq S",
-    "title": "Network Sniffer Detected: Linux Trojan Investigation",
-    "desc": "A SOC investigation of a malicious Bash script that used tcpdump to capture network traffic, transferred the resulting PCAP through GoFile, and established persistence through a cron job.",
-    "cat": "Malware Analysis",
-    "image": "",
-    "link": "https://shafeeq-cybersecblogs.vercel.app/articles/network-sniffer-detected-linux-trojan-investigation",
-    "content": "# Network Sniffer Detected: Linux Trojan Investigation\n\n## Case Overview\nA SOC investigation of a malicious Bash script that used tcpdump to capture network traffic, transferred the resulting PCAP through GoFile, and established persistence through a cron job.\n\n---\n\n## Investigation Highlights\n- Identified unauthorized tcpdump background process and cron persistence.\n- Uncovered exfiltration channel utilizing GoFile file sharing API.\n- Hardened Linux user permissions and implemented auditd monitoring for raw socket access.\n\n[Read Full Investigation on ShafeeqBlogs →](https://shafeeq-cybersecblogs.vercel.app/articles/network-sniffer-detected-linux-trojan-investigation)\n"
-  },
-  {
     "id": 8,
     "date": "27 Aug, 2026",
     "author": "Shafeeq S",
