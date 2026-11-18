@@ -33,7 +33,6 @@ import {
   ExternalLink,
   Globe,
   Phone,
-  BookOpen,
   X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -109,15 +108,6 @@ export default function App() {
   const [selectedBlogIndex, setSelectedBlogIndex] = useState<number | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isBlogHovered, setIsBlogHovered] = useState(false);
-  const [repoCount, setRepoCount] = useState<number | null>(null);
-
-  // Fetch public repository count — reads only public_repos, no token required
-  useEffect(() => {
-    fetch('https://api.github.com/users/Shafeeq-Cybersec')
-      .then(r => r.ok ? r.json() : Promise.reject())
-      .then((data: { public_repos: number }) => setRepoCount(data.public_repos))
-      .catch(() => setRepoCount(null));
-  }, []);
 
   // Typing effect logic
   useEffect(() => {
@@ -374,34 +364,38 @@ export default function App() {
               <span className="inline-block w-[2px] h-[1.1em] bg-[#3B82F6] ml-1 align-middle animate-pulse"></span>
             </motion.div>
 
-            {/* Stats card — replaces the three ShieldCheck bullets */}
+            {/* Stats card — 4-stat hero strip */}
             <motion.div
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.23, 1, 0.32, 1] } }
               }}
-              className="stats-card mb-8 max-w-[520px] mx-auto lg:mx-0"
+              className="stats-card mb-8 max-w-[560px] mx-auto lg:mx-0"
             >
-              {/* Three stats */}
+              {/* Four stats */}
               <div className="stats-row">
                 <div className="stat-item">
-                  <span className="stat-number">{profile.heroStats.incidentReports}</span>
-                  <span className="stat-label">Incident</span>
-                  <span className="stat-label">Reports</span>
+                  <span className="stat-number">{profile.heroStats.sla}</span>
+                  <span className="stat-label">{profile.heroStats.slaLabel}</span>
+                  <span className="stat-sublabel">{profile.heroStats.slaSub}</span>
                 </div>
                 <div className="stat-divider" />
                 <div className="stat-item">
-                  <span className="stat-number">
-                    {repoCount !== null ? repoCount : '11+'}
-                  </span>
-                  <span className="stat-label">GitHub</span>
-                  <span className="stat-label">Repos</span>
+                  <span className="stat-number">{profile.heroStats.htb}</span>
+                  <span className="stat-label">{profile.heroStats.htbLabel}</span>
+                  <span className="stat-sublabel">{profile.heroStats.htbSub}</span>
                 </div>
                 <div className="stat-divider" />
                 <div className="stat-item">
-                  <BookOpen size={18} className="stat-icon" />
-                  <span className="stat-label">{profile.heroStats.labsLabel}</span>
-                  <span className="stat-sublabel">{profile.heroStats.labsSublabel}</span>
+                  <span className="stat-number">{profile.heroStats.reports}</span>
+                  <span className="stat-label">{profile.heroStats.reportsLabel}</span>
+                  <span className="stat-sublabel">{profile.heroStats.reportsSub}</span>
+                </div>
+                <div className="stat-divider" />
+                <div className="stat-item">
+                  <span className="stat-number">{profile.heroStats.builds}</span>
+                  <span className="stat-label">{profile.heroStats.buildsLabel}</span>
+                  <span className="stat-sublabel">{profile.heroStats.buildsSub}</span>
                 </div>
               </div>
 

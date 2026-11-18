@@ -11,9 +11,18 @@
   "email": "shafeeq.connect@gmail.com",
   "focus": "SOC · Malware Analysis · AI Security",
   "heroStats": {
-    "incidentReports": "12+",
-    "labsLabel": "Hands-on Labs",
-    "labsSublabel": "LetsDefend · VIP+"
+    "sla": "93%",
+    "slaLabel": "LetsDefend",
+    "slaSub": "SLA Accuracy",
+    "htb": "Top 6%",
+    "htbLabel": "Holmes CTF",
+    "htbSub": "Global Rank",
+    "reports": "12+",
+    "reportsLabel": "Forensic",
+    "reportsSub": "Reports",
+    "builds": "4",
+    "buildsLabel": "Flagship",
+    "buildsSub": "Security Tools"
   },
   "ctaText": "Interested in cybersecurity, threat detection, or AI security?",
   "ctaSub": "Open to internships, collaborations, and conversations."
