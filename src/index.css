@@ -1575,134 +1575,113 @@ footer { text-align: center; padding: 1.25rem; border-top: 1px solid var(--borde
   letter-spacing: 0.04em;
 }
 
-/* ── B. Skills Dashboard / Stack Cards with Tooltips ─────────────────────── */
-.stack-grid {
+/* ── B. Skills Dashboard (Original Compact Grid with Hover Tooltips) ──────────────── */
+.cp-skills-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
 }
 
-@media (max-width: 900px) {
-  .stack-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.stack-card {
-  border: 1px solid var(--border);
-  border-radius: 16px;
+.cp-skill-cat {
   background: var(--card);
-  padding: 24px 26px;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s ease,
-              box-shadow 0.3s ease;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.1rem 1.15rem 1.15rem;
+  transition: border-color 0.25s var(--ease-in-out),
+              box-shadow   0.25s var(--ease-in-out),
+              transform    0.25s var(--ease-in-out);
   position: relative;
 }
 
-.stack-card:hover {
-  border-color: rgba(61, 111, 212, 0.4);
-  transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35), 0 0 15px rgba(61, 111, 212, 0.08);
+.cp-skill-cat:hover {
+  border-color: rgba(61, 111, 212, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
 }
 
-.stack-cat {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--blue-light);
+.cp-skill-cat-name {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.85rem;
+  line-height: 1.3;
 }
 
-.stack-cat i {
-  font-style: normal;
-  color: var(--text-dim);
-  font-weight: 400;
-  font-size: 11px;
-}
-
-.stack-blurb {
-  margin-top: 8px;
-  font-size: 13px;
-  line-height: 1.55;
-  color: #9ca3af;
-}
-
-.stack-chips {
+.cp-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 16px;
+  gap: 0.38rem;
 }
 
-.chip {
+.cp-tag {
   position: relative;
-  padding: 6px 13px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
-  font-size: 12.5px;
+  font-size: 0.69rem;
+  padding: 0.22rem 0.6rem;
+  background: rgba(61, 111, 212, 0.08);
+  border: 1px solid rgba(61, 111, 212, 0.2);
   color: #cbd5e1;
+  border-radius: 4px;
+  line-height: 1.4;
   cursor: default;
-  transition: color 0.2s ease,
-              border-color 0.2s ease,
-              transform 0.2s ease,
-              background 0.2s ease;
-  user-select: none;
   outline: none;
+  user-select: none;
+  transition: background 0.18s var(--ease-in-out),
+              border-color 0.18s var(--ease-in-out),
+              color 0.18s var(--ease-in-out),
+              transform 0.18s var(--ease-in-out);
 }
 
-.chip:hover,
-.chip:focus-visible {
-  color: #ffffff;
+.cp-tag:hover,
+.cp-tag:focus-visible {
+  background: rgba(61, 111, 212, 0.22);
   border-color: var(--blue-light);
-  background: rgba(59, 130, 246, 0.1);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  color: #ffffff;
+  transform: translateY(-1px);
+  z-index: 50;
 }
 
-/* Tooltip Popup */
-.chip .tip {
+/* Tooltip Popup on Hover */
+.cp-tag .tip {
   position: absolute;
-  bottom: calc(100% + 10px);
+  bottom: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%) translateY(5px);
+  transform: translateX(-50%) translateY(4px);
   width: max-content;
-  max-width: min(260px, 80vw);
+  max-width: min(240px, 75vw);
   white-space: normal;
-  background: #0d121f;
-  border: 1px solid rgba(59, 130, 246, 0.4);
+  background: #0b0f19;
+  border: 1px solid rgba(59, 130, 246, 0.45);
   color: #e2e8f0;
-  font-size: 11.5px;
+  font-size: 11px;
   line-height: 1.45;
-  padding: 9px 13px;
-  border-radius: 9px;
+  padding: 7px 11px;
+  border-radius: 8px;
   opacity: 0;
   pointer-events: none;
   z-index: 100;
-  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.7), 0 0 16px rgba(59, 130, 246, 0.2);
+  transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.75), 0 0 14px rgba(59, 130, 246, 0.22);
   text-align: left;
 }
 
-/* Pointer arrow */
-.chip .tip::after {
+/* Arrow pointer */
+.cp-tag .tip::after {
   content: "";
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  border-width: 5px;
+  border-width: 4px;
   border-style: solid;
-  border-color: rgba(59, 130, 246, 0.4) transparent transparent transparent;
+  border-color: rgba(59, 130, 246, 0.45) transparent transparent transparent;
 }
 
-.chip:hover .tip,
-.chip:focus-visible .tip {
+.cp-tag:hover .tip,
+.cp-tag:focus-visible .tip {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }

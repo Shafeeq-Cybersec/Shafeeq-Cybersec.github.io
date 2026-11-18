@@ -573,20 +573,13 @@ export default function App() {
               <Settings size={18} className="cp-block-icon" />
               Technical Skills
             </div>
-            <p className="text-xs text-gray-400 mb-5">
-              Hover any chip for where it earned its place — every tool here has a story from an internship, a build, or a lab room.
-            </p>
-            <div className="stack-grid">
+            <div className="cp-skills-grid">
               {skills.map((cat: any) => (
-                <div key={cat.category} className="stack-card">
-                  <div className="stack-cat">
-                    <span>{cat.category}</span>
-                    <i>{cat.skills ? cat.skills.length : (cat.tags ? cat.tags.length : 0)}</i>
-                  </div>
-                  {cat.blurb && <p className="stack-blurb">{cat.blurb}</p>}
-                  <div className="stack-chips">
+                <div key={cat.category} className="cp-skill-cat">
+                  <div className="cp-skill-cat-name">{cat.category}</div>
+                  <div className="cp-tags">
                     {(cat.skills || (cat.tags || []).map((t: string) => ({ name: t, tip: '' }))).map((item: any, idx: number) => (
-                      <span key={idx} className="chip" tabIndex={0}>
+                      <span key={idx} className="cp-tag" tabIndex={0}>
                         {item.name || item}
                         {item.tip && <span className="tip">{item.tip}</span>}
                       </span>
