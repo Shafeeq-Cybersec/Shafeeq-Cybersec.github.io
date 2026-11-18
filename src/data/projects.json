@@ -10,14 +10,7 @@
       "Attack path reconstruction mapping alerts directly across MITRE ATT&CK techniques and Cyber Kill Chain phases.",
       "Real-time event streaming and interactive triage via WebSocket/SocketIO pipelines."
     ],
-    "techTags": [
-      "TypeScript",
-      "Vite",
-      "Tailwind CSS",
-      "SocketIO",
-      "MITRE ATT&CK",
-      "Cyber Kill Chain"
-    ],
+    "techTags": ["TypeScript", "Vite", "Tailwind CSS", "SocketIO", "MITRE ATT&CK", "Cyber Kill Chain"],
     "link": "https://shafeeq-cybersec.github.io/threatlens/",
     "github": "https://github.com/Shafeeq-Cybersec/threat-intel-platform",
     "icon": "search"
@@ -33,14 +26,7 @@
       "Strict role-based execution boundaries restricting sensitive file, network, and database tool capabilities.",
       "Real-time PII redaction and payload quarantine sanitizing tool responses before returning to the model."
     ],
-    "techTags": [
-      "Python",
-      "FastAPI",
-      "MCP Protocol",
-      "JSON-RPC",
-      "LLM Guardrails",
-      "Sandboxing"
-    ],
+    "techTags": ["Python", "FastAPI", "MCP Protocol", "JSON-RPC", "LLM Guardrails", "Sandboxing"],
     "github": "https://github.com/Shafeeq-Cybersec/MCP-Guardian",
     "icon": "shield"
   },
@@ -55,14 +41,7 @@
       "Blast radius simulation evaluating the exact lateral movement potential from a single compromised endpoint.",
       "Continuous vulnerability intelligence ingestion prioritizing CVE exposure remediation based on reachability."
     ],
-    "techTags": [
-      "Python",
-      "FastAPI",
-      "Neo4j",
-      "React 18",
-      "TypeScript",
-      "Threat Modeling"
-    ],
+    "techTags": ["Python", "FastAPI", "Neo4j", "React 18", "TypeScript", "Threat Modeling"],
     "github": "https://github.com/Shafeeq-Cybersec/CyberTwin",
     "icon": "target"
   },
@@ -77,14 +56,7 @@
       "Direct policy enforcement mapping threats against OWASP Top 10 for Large Language Applications.",
       "Enterprise gateway features including token-bucket rate limiting, API-key authentication, and cryptographic audit logs."
     ],
-    "techTags": [
-      "Python",
-      "FastAPI",
-      "Scikit-learn",
-      "Gemini API",
-      "Docker",
-      "Azure Container Apps"
-    ],
+    "techTags": ["Python", "FastAPI", "Scikit-learn", "Gemini API", "Docker", "Azure Container Apps"],
     "link": "https://promptshield.kindgrass-b7ef1aa3.eastasia.azurecontainerapps.io/",
     "github": "https://github.com/Shafeeq-Cybersec/PromptSheild",
     "icon": "lock"
@@ -100,14 +72,7 @@
       "Brand impersonation heuristics and spoof-safe domain distance matching.",
       "Multi-level risk verdict output with complete feature importance transparency and anomaly breakdown."
     ],
-    "techTags": [
-      "Python",
-      "Scikit-learn",
-      "Random Forest",
-      "Flask",
-      "Feature Engineering",
-      "Azure Container Apps"
-    ],
+    "techTags": ["Python", "Scikit-learn", "Random Forest", "Flask", "Feature Engineering", "Azure Container Apps"],
     "link": "https://phishguard.kindgrass-b7ef1aa3.eastasia.azurecontainerapps.io/",
     "github": "https://github.com/Shafeeq-Cybersec/Phishguard",
     "icon": "bug"

@@ -10,6 +10,7 @@ import {
   verifyToken,
   GitHubApiError,
 } from './lib/github';
+import localProjects from './data/projects.json';
 
 const TOKEN_KEY = 'admin_gh_token';
 
@@ -36,12 +37,16 @@ interface Blog {
 }
 
 interface Project {
+  badge?: string;
   title: string;
   period: string;
   desc: string;
-  tech: string;
-  link: string;
-  icon: string;
+  capabilities?: string[];
+  tech?: string;
+  techTags?: string[];
+  link?: string;
+  github?: string;
+  icon?: string;
 }
 
 function useStatus() {
@@ -637,11 +642,39 @@ function ProjectsPanel({ token }: { token: string }) {
   const [items, setItems] = useState<Project[] | null>(null);
   const { status, setStatus } = useStatus();
 
-  const [form, setForm] = useState({ title: '', period: '', desc: '', tech: '', link: '', icon: 'shield' });
+  const [form, setForm] = useState({
+    badge: '',
+    title: '',
+    period: '2026',
+    desc: '',
+    capabilitiesText: '',
+    techTagsText: '',
+    link: '',
+    github: '',
+    icon: 'shield'
+  });
 
   const load = async () => {
     const file = await getFile(token, 'src/data/projects.json');
-    setItems(file ? JSON.parse(file.content) : []);
+    setItems(file ? JSON.parse(file.content) : (localProjects as any));
+  };
+
+  const syncLocalProjects = async () => {
+    setStatus({ type: 'busy', msg: 'Syncing 5 local projects to GitHub…' });
+    try {
+      const latest = await getFile(token, 'src/data/projects.json');
+      await putFile(
+        token,
+        'src/data/projects.json',
+        utf8ToBase64(JSON.stringify(localProjects, null, 2)),
+        'Sync 5 curated flagship projects from 2027 portfolio redesign',
+        latest?.sha
+      );
+      setItems(localProjects as any);
+      setStatus({ type: 'ok', msg: 'Successfully synced all 5 projects to GitHub! Rebuilding in ~1 min.' });
+    } catch (e) {
+      setStatus({ type: 'err', msg: e instanceof Error ? e.message : 'Failed to sync projects.' });
+    }
   };
 
   useEffect(() => {
@@ -658,7 +691,18 @@ function ProjectsPanel({ token }: { token: string }) {
     try {
       const latest = await getFile(token, 'src/data/projects.json');
       const current: Project[] = latest ? JSON.parse(latest.content) : [];
-      const next = [...current, { ...form }];
+      const newProj: Project = {
+        badge: form.badge.trim() || `0${current.length + 1} / SECURITY BUILD`,
+        title: form.title.trim(),
+        period: form.period.trim() || '2026',
+        desc: form.desc.trim(),
+        capabilities: form.capabilitiesText.split('\n').map(s => s.trim()).filter(Boolean),
+        techTags: form.techTagsText.split(',').map(s => s.trim()).filter(Boolean),
+        link: form.link.trim(),
+        github: form.github.trim(),
+        icon: form.icon
+      };
+      const next = [...current, newProj];
       await putFile(
         token,
         'src/data/projects.json',
@@ -666,8 +710,18 @@ function ProjectsPanel({ token }: { token: string }) {
         `Add project: ${form.title}`,
         latest?.sha
       );
-      setStatus({ type: 'ok', msg: 'Project added. It will appear after the site rebuilds (~1 min).' });
-      setForm({ title: '', period: '', desc: '', tech: '', link: '', icon: 'shield' });
+      setStatus({ type: 'ok', msg: 'Project added. It will appear after site rebuilds (~1 min).' });
+      setForm({
+        badge: '',
+        title: '',
+        period: '2026',
+        desc: '',
+        capabilitiesText: '',
+        techTagsText: '',
+        link: '',
+        github: '',
+        icon: 'shield'
+      });
       await load();
     } catch (e) {
       setStatus({ type: 'err', msg: e instanceof Error ? e.message : 'Failed to add project.' });
@@ -700,11 +754,14 @@ function ProjectsPanel({ token }: { token: string }) {
     <div className="grid md:grid-cols-2 gap-8">
       <div>
         <h2 className="text-lg font-semibold text-white mb-4">Add Project</h2>
+        <TextField label="Category Badge (e.g. 01 / SOC INVESTIGATION & INTEL)" value={form.badge} onChange={(v) => setForm({ ...form, badge: v })} />
         <TextField label="Title" value={form.title} onChange={(v) => setForm({ ...form, title: v })} />
         <TextField label="Period (e.g. 2026)" value={form.period} onChange={(v) => setForm({ ...form, period: v })} />
-        <TextField label="Description" value={form.desc} onChange={(v) => setForm({ ...form, desc: v })} textarea />
-        <TextField label="Tech stack (e.g. Python · React · GitHub)" value={form.tech} onChange={(v) => setForm({ ...form, tech: v })} />
-        <TextField label="Project link (optional)" value={form.link} onChange={(v) => setForm({ ...form, link: v })} />
+        <TextField label="Concise 2-Line Description" value={form.desc} onChange={(v) => setForm({ ...form, desc: v })} textarea />
+        <TextField label="Key Capabilities (one technical bullet per line)" value={form.capabilitiesText} onChange={(v) => setForm({ ...form, capabilitiesText: v })} textarea />
+        <TextField label="Tech stack tags (comma-separated, e.g. Python, FastAPI, Docker)" value={form.techTagsText} onChange={(v) => setForm({ ...form, techTagsText: v })} />
+        <TextField label="Live App link (optional)" value={form.link} onChange={(v) => setForm({ ...form, link: v })} />
+        <TextField label="GitHub repository link (optional)" value={form.github} onChange={(v) => setForm({ ...form, github: v })} />
         <label className="block mb-4">
           <span className="block text-xs text-[#888] mb-1">Icon</span>
           <select
@@ -732,17 +789,51 @@ function ProjectsPanel({ token }: { token: string }) {
       </div>
 
       <div>
-        <h2 className="text-lg font-semibold text-white mb-4">Existing Projects ({items?.length ?? '…'})</h2>
-        <div className="space-y-2 max-h-[600px] overflow-y-auto pr-1">
+        <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <h2 className="text-lg font-semibold text-white">Existing Projects ({items?.length ?? '…'})</h2>
+          <button
+            onClick={syncLocalProjects}
+            disabled={status.type === 'busy'}
+            className="text-xs px-3 py-1.5 rounded bg-[#3d6fd4] hover:bg-[#5a8dee] text-white font-medium transition flex items-center gap-1.5 shadow-sm"
+          >
+            <span>⚡ Sync 5 Projects to GitHub</span>
+          </button>
+        </div>
+
+        {items && items.length < 5 && (
+          <div className="mb-4 p-3 rounded bg-blue-950/40 border border-blue-500/30 text-xs text-blue-200">
+            <span className="font-semibold block mb-1">Notice:</span>
+            Your GitHub repository currently has {items.length} projects stored on the remote main branch. Click the <strong>&ldquo;Sync 5 Projects to GitHub&rdquo;</strong> button above to push all 5 curated flagship projects directly to your repository!
+          </div>
+        )}
+        <div className="space-y-3 max-h-[600px] overflow-y-auto pr-1">
           {items?.map((p, i) => (
-            <div key={`${p.title}-${i}`} className="flex items-center justify-between gap-3 border border-[#222] bg-[#111] rounded px-3 py-2">
-              <div className="min-w-0">
-                <div className="text-sm text-white truncate">{p.title}</div>
-                <div className="text-xs text-[#888]">{p.period}</div>
+            <div key={`${p.title}-${i}`} className="border border-[#222] bg-[#111] rounded p-3">
+              <div className="flex items-start justify-between gap-3 mb-1">
+                <div className="min-w-0">
+                  <span className="text-[10px] font-mono text-[#5a8dee] uppercase tracking-wider block">{p.badge || `0${i + 1}`}</span>
+                  <div className="text-sm font-medium text-white truncate">{p.title}</div>
+                  <div className="text-xs text-[#888]">{p.period}</div>
+                </div>
+                <button onClick={() => removeProject(i)} className="text-xs text-red-400 hover:text-red-300 shrink-0">
+                  Delete
+                </button>
               </div>
-              <button onClick={() => removeProject(i)} className="text-xs text-red-400 hover:text-red-300 shrink-0">
-                Delete
-              </button>
+              <p className="text-xs text-[#aaa] line-clamp-2 my-1">{p.desc}</p>
+              {p.capabilities && p.capabilities.length > 0 && (
+                <div className="text-[11px] text-[#777] mb-1">
+                  {p.capabilities.length} key capabilities defined
+                </div>
+              )}
+              {p.techTags && p.techTags.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {p.techTags.map((t, idx) => (
+                    <span key={idx} className="text-[9.5px] px-1.5 py-0.5 rounded bg-[#1c1c1c] text-[#999] border border-[#2a2a2a]">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -805,11 +896,24 @@ function ProfilePanel({ token }: { token: string }) {
           value={(form as any)[f.key] ?? ''}
           onChange={v => setForm({ ...form, [f.key]: v })} />
       ))}
-      <h3 className="text-sm font-semibold text-white mt-4 mb-2">Hero Stats</h3>
-      {statsForm && ['incidentReports','labsLabel','labsSublabel'].map(k => (
-        <TextField key={k} label={k}
-          value={statsForm[k] ?? ''}
-          onChange={v => setForm({ ...form, heroStats: { ...statsForm, [k]: v } } as any)} />
+      <h3 className="text-sm font-semibold text-white mt-6 mb-2">Hero Stats (4-Stat Strip)</h3>
+      {statsForm && [
+        { k: 'sla', l: 'Stat 1 Value (e.g. 93%)' },
+        { k: 'slaLabel', l: 'Stat 1 Label (e.g. LetsDefend)' },
+        { k: 'slaSub', l: 'Stat 1 Subtitle (e.g. SLA Accuracy)' },
+        { k: 'htb', l: 'Stat 2 Value (e.g. Top 6%)' },
+        { k: 'htbLabel', l: 'Stat 2 Label (e.g. Holmes CTF)' },
+        { k: 'htbSub', l: 'Stat 2 Subtitle (e.g. Global Rank)' },
+        { k: 'reports', l: 'Stat 3 Value (e.g. 12+)' },
+        { k: 'reportsLabel', l: 'Stat 3 Label (e.g. Forensic)' },
+        { k: 'reportsSub', l: 'Stat 3 Subtitle (e.g. Reports)' },
+        { k: 'builds', l: 'Stat 4 Value (e.g. 5)' },
+        { k: 'buildsLabel', l: 'Stat 4 Label (e.g. Flagship)' },
+        { k: 'buildsSub', l: 'Stat 4 Subtitle (e.g. Security Tools)' },
+      ].map(item => (
+        <TextField key={item.k} label={item.l}
+          value={statsForm[item.k] ?? ''}
+          onChange={v => setForm({ ...form, heroStats: { ...statsForm, [item.k]: v } } as any)} />
       ))}
       <button onClick={save} disabled={status.type === 'busy'}
         className="px-4 py-2 rounded bg-[#3d6fd4] hover:bg-[#5a8dee] disabled:opacity-50 text-white text-sm font-medium transition">
@@ -823,7 +927,8 @@ function ProfilePanel({ token }: { token: string }) {
 /* ═══════════════════════════════════════════════════════
    SKILLS PANEL
    ═══════════════════════════════════════════════════════ */
-interface SkillCategory { category: string; tags: string[]; }
+interface SkillItem { name: string; tip: string; }
+interface SkillCategory { category: string; blurb?: string; skills?: SkillItem[]; tags?: string[]; }
 
 function SkillsPanel({ token }: { token: string }) {
   const [items, setItems] = useState<SkillCategory[] | null>(null);
@@ -850,16 +955,35 @@ function SkillsPanel({ token }: { token: string }) {
     }
   };
 
-  const updateTags = (idx: number, raw: string) => {
+  const updateSkillsText = (idx: number, raw: string) => {
     if (!items) return;
+    const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+    const parsedSkills = lines.map(line => {
+      const parts = line.split('|');
+      const name = parts[0].trim();
+      const tip = parts.slice(1).join('|').trim();
+      return { name, tip };
+    });
     const next = items.map((c, i) =>
-      i === idx ? { ...c, tags: raw.split(',').map(t => t.trim()).filter(Boolean) } : c);
+      i === idx ? {
+        ...c,
+        skills: parsedSkills,
+        tags: parsedSkills.map(s => s.name)
+      } : c
+    );
     setItems(next);
+  };
+
+  const getSkillsText = (cat: SkillCategory) => {
+    if (cat.skills && cat.skills.length > 0) {
+      return cat.skills.map(s => s.tip ? `${s.name} | ${s.tip}` : s.name).join('\n');
+    }
+    return (cat.tags || []).join('\n');
   };
 
   const addCategory = () => {
     if (!newCat.trim() || !items) return;
-    setItems([...items, { category: newCat.trim(), tags: [] }]);
+    setItems([...items, { category: newCat.trim(), skills: [], tags: [] }]);
     setNewCat('');
   };
 
@@ -872,8 +996,10 @@ function SkillsPanel({ token }: { token: string }) {
 
   return (
     <div className="max-w-2xl">
-      <h2 className="text-lg font-semibold text-white mb-4">Technical Skills</h2>
-      <p className="text-xs text-[#888] mb-4">Each category has comma-separated skill tags.</p>
+      <h2 className="text-lg font-semibold text-white mb-2">Technical Skills & Hover Tooltips</h2>
+      <p className="text-xs text-[#888] mb-4">
+        Enter one skill per line. Format: <code className="text-[#5a8dee]">Skill Name | Tooltip context (optional)</code>
+      </p>
       <div className="space-y-4 mb-6">
         {items.map((cat, idx) => (
           <div key={idx} className="border border-[#222] rounded p-3 bg-[#111]">
@@ -885,11 +1011,11 @@ function SkillsPanel({ token }: { token: string }) {
               <button onClick={() => removeCategory(idx)} className="text-xs text-red-400 hover:text-red-300 shrink-0">Remove</button>
             </div>
             <textarea
-              value={cat.tags.join(', ')}
-              onChange={e => updateTags(idx, e.target.value)}
-              rows={2}
-              placeholder="Tag 1, Tag 2, Tag 3"
-              className="w-full px-2 py-1 rounded bg-[#0a0a0a] border border-[#333] text-xs outline-none focus:border-[#3d6fd4]"
+              value={getSkillsText(cat)}
+              onChange={e => updateSkillsText(idx, e.target.value)}
+              rows={4}
+              placeholder={"Skill Name | Tooltip context\nExample: SIEM Analysis | Splunk and LetsDefend workflows"}
+              className="w-full px-2 py-1 rounded bg-[#0a0a0a] border border-[#333] text-xs font-mono outline-none focus:border-[#3d6fd4]"
             />
           </div>
         ))}

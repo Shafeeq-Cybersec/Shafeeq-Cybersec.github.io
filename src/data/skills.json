@@ -1,6 +1,15 @@
 [
   {
     "category": "SOC Operations & Incident Response",
+    "skills": [
+      { "name": "Alert Triage", "tip": "93% SLA accuracy across 3,907 points on LetsDefend VIP+ platform" },
+      { "name": "Log Correlation", "tip": "ThreatLens multi-stage correlation across auth & network events" },
+      { "name": "SIEM Analysis", "tip": "Splunk & LetsDefend playbooks during simulated incident handling" },
+      { "name": "Incident Response", "tip": "TANSAM attack scenarios & triage playbooks during Siemens internship" },
+      { "name": "IOC Extraction", "tip": "Automated artifact triage in MailSleuth & incident reports" },
+      { "name": "Threat Detection", "tip": "ThreatLens rule engine mapping alerts to Cyber Kill Chain" },
+      { "name": "Phishing Analysis", "tip": "Scikit-learn NLP detector at TANSAM & IEEE QRishing paper" }
+    ],
     "tags": [
       "Alert Triage",
       "Log Correlation",
@@ -13,6 +22,14 @@
   },
   {
     "category": "Threat Hunting & OSINT",
+    "skills": [
+      { "name": "Threat Hunting", "tip": "Hypothesis-driven threat hunting across Sysmon & Windows event logs" },
+      { "name": "Log Analysis", "tip": "Event ID analysis for logon, privilege escalation & process creation" },
+      { "name": "OSINT Techniques", "tip": "Domain, IP, and threat actor infrastructure profiling" },
+      { "name": "IOC Research", "tip": "VirusTotal, AbuseIPDB, and AlienVault OTX indicator validation" },
+      { "name": "Threat Intelligence", "tip": "Correlating active campaigns with MITRE ATT&CK adversary tactics" },
+      { "name": "Email Header Analysis", "tip": "Authentication triage: SPF, DKIM, DMARC & routing hops" }
+    ],
     "tags": [
       "Threat Hunting",
       "Log Analysis",
@@ -24,6 +41,15 @@
   },
   {
     "category": "Malware Analysis & Digital Forensics",
+    "skills": [
+      { "name": "Static Analysis", "tip": "PE header dissection, imported DLLs, and strings extraction" },
+      { "name": "Dynamic Analysis", "tip": "Sandboxed behavioral execution, registry & network tracking" },
+      { "name": "Procmon", "tip": "Real-time process, registry, and file system activity tracing" },
+      { "name": "Process Hacker", "tip": "Live memory inspection, token privileges & thread monitoring" },
+      { "name": "RegShot", "tip": "Registry delta snapshots before and after malware execution" },
+      { "name": "Fiddler", "tip": "Decrypted HTTP/HTTPS traffic inspection and C2 beacon analysis" },
+      { "name": "VirusTotal", "tip": "Multi-engine signature verification & sandbox behavioral reports" }
+    ],
     "tags": [
       "Static Analysis",
       "Dynamic Analysis",
@@ -36,6 +62,15 @@
   },
   {
     "category": "Network Security & Traffic Analysis",
+    "skills": [
+      { "name": "Wireshark", "tip": "PCAP packet dissection, protocol analysis & anomaly carving" },
+      { "name": "TCP/IP", "tip": "Handshake analysis, TCP flags, and connection state tracking" },
+      { "name": "DNS", "tip": "Detecting DNS tunneling, spoofing, and malicious C2 lookups" },
+      { "name": "HTTP/HTTPS", "tip": "Inspecting web traffic anomalies, payloads, and malicious redirects" },
+      { "name": "Network Protocols", "tip": "Deep-dive analysis of SMB, RDP, ARP, and ICMP abuse" },
+      { "name": "Traffic Analysis", "tip": "Baselining normal bandwidth to identify exfiltration spikes" },
+      { "name": "Port Scanning", "tip": "Nmap host discovery, service enumeration & NSE vulnerability scripts" }
+    ],
     "tags": [
       "Wireshark",
       "TCP/IP",
@@ -48,6 +83,16 @@
   },
   {
     "category": "Security Frameworks & Platforms",
+    "skills": [
+      { "name": "NIST RMF", "tip": "Risk management framework applied across system life cycles" },
+      { "name": "NIST CSF", "tip": "Identify, Protect, Detect, Respond, and Recover core functions" },
+      { "name": "ISO 27005", "tip": "Information security risk management methodologies" },
+      { "name": "MITRE ATT&CK", "tip": "Technique mapping and Kill Chain alignment in ThreatLens" },
+      { "name": "Cyber Kill Chain", "tip": "Reconstructing 7-stage attack progressions in SOC platform" },
+      { "name": "Kali Linux", "tip": "Primary distribution for security tooling and penetration testing" },
+      { "name": "VirtualBox", "tip": "Isolated malware sandbox and defensive lab environments" },
+      { "name": "LetsDefend", "tip": "VIP+ Defender · 3,907 pts · 19,041 SLA score · 93% accuracy" }
+    ],
     "tags": [
       "NIST RMF",
       "NIST CSF",
@@ -61,6 +106,15 @@
   },
   {
     "category": "Programming & Automation",
+    "skills": [
+      { "name": "Python", "tip": "Automation scripts, threat correlation engines & PromptShield gateway" },
+      { "name": "Java", "tip": "Object-oriented software development and backend systems" },
+      { "name": "C++", "tip": "Low-level system mechanics, memory fundamentals & algorithms" },
+      { "name": "Linux", "tip": "Shell administration, UFW firewall hardening, and systemd services" },
+      { "name": "Windows", "tip": "PowerShell automation, registry forensics & event log querying" },
+      { "name": "Bash Scripting", "tip": "Automated log parsing, reconnaissance, and telemetry scripts" },
+      { "name": "GitHub", "tip": "Version control, CI/CD actions, and open-source project delivery" }
+    ],
     "tags": [
       "Python",
       "Java",

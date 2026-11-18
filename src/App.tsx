@@ -33,7 +33,6 @@ import {
   ExternalLink,
   Globe,
   Phone,
-  BookOpen,
   X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -109,15 +108,6 @@ export default function App() {
   const [selectedBlogIndex, setSelectedBlogIndex] = useState<number | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isBlogHovered, setIsBlogHovered] = useState(false);
-  const [repoCount, setRepoCount] = useState<number | null>(null);
-
-  // Fetch public repository count — reads only public_repos, no token required
-  useEffect(() => {
-    fetch('https://api.github.com/users/Shafeeq-Cybersec')
-      .then(r => r.ok ? r.json() : Promise.reject())
-      .then((data: { public_repos: number }) => setRepoCount(data.public_repos))
-      .catch(() => setRepoCount(null));
-  }, []);
 
   // Typing effect logic
   useEffect(() => {
@@ -357,7 +347,7 @@ export default function App() {
                 hidden: { opacity: 0, y: 30, filter: 'blur(10px)' },
                 visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 1, ease: [0.23, 1, 0.32, 1] } }
               }}
-              className="text-white text-[clamp(2.2rem,8vw,4.5rem)] font-[800] leading-[1.1] tracking-[1px] mb-4 sm:whitespace-nowrap"
+              className="hero-name"
             >
               SHAFEEQ S
             </motion.h1>
@@ -367,41 +357,45 @@ export default function App() {
                 hidden: { opacity: 0 },
                 visible: { opacity: 1, transition: { duration: 0.8 } }
               }}
-              className="text-[18px] sm:text-[22px] md:text-[26px] mb-8"
+              className="hero-typer"
             >
-              <span className="text-[#9CA3AF]">I am a </span>
-              <span className="text-[#3B82F6] font-semibold">{typedText}</span>
-              <span className="inline-block w-[2px] h-[1.1em] bg-[#3B82F6] ml-1 align-middle animate-pulse"></span>
+              <span className="hero-typer-prefix">I am a </span>
+              <span className="hero-typer-role">{typedText}</span>
+              <span className="hero-cursor" />
             </motion.div>
 
-            {/* Stats card — replaces the three ShieldCheck bullets */}
+            {/* Stats card — 4-stat hero strip */}
             <motion.div
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.23, 1, 0.32, 1] } }
               }}
-              className="stats-card mb-8 max-w-[520px] mx-auto lg:mx-0"
+              className="stats-card mb-8 max-w-[560px] mx-auto lg:mx-0"
             >
-              {/* Three stats */}
+              {/* Four stats */}
               <div className="stats-row">
                 <div className="stat-item">
-                  <span className="stat-number">{profile.heroStats.incidentReports}</span>
-                  <span className="stat-label">Incident</span>
-                  <span className="stat-label">Reports</span>
+                  <span className="stat-number">{profile.heroStats.sla}</span>
+                  <span className="stat-label">{profile.heroStats.slaLabel}</span>
+                  <span className="stat-sublabel">{profile.heroStats.slaSub}</span>
                 </div>
                 <div className="stat-divider" />
                 <div className="stat-item">
-                  <span className="stat-number">
-                    {repoCount !== null ? repoCount : '11+'}
-                  </span>
-                  <span className="stat-label">GitHub</span>
-                  <span className="stat-label">Repos</span>
+                  <span className="stat-number">{profile.heroStats.htb}</span>
+                  <span className="stat-label">{profile.heroStats.htbLabel}</span>
+                  <span className="stat-sublabel">{profile.heroStats.htbSub}</span>
                 </div>
                 <div className="stat-divider" />
                 <div className="stat-item">
-                  <BookOpen size={18} className="stat-icon" />
-                  <span className="stat-label">{profile.heroStats.labsLabel}</span>
-                  <span className="stat-sublabel">{profile.heroStats.labsSublabel}</span>
+                  <span className="stat-number">{profile.heroStats.reports}</span>
+                  <span className="stat-label">{profile.heroStats.reportsLabel}</span>
+                  <span className="stat-sublabel">{profile.heroStats.reportsSub}</span>
+                </div>
+                <div className="stat-divider" />
+                <div className="stat-item">
+                  <span className="stat-number">{profile.heroStats.builds}</span>
+                  <span className="stat-label">{profile.heroStats.buildsLabel}</span>
+                  <span className="stat-sublabel">{profile.heroStats.buildsSub}</span>
                 </div>
               </div>
 
@@ -580,11 +574,16 @@ export default function App() {
               Technical Skills
             </div>
             <div className="cp-skills-grid">
-              {skills.map((cat) => (
+              {skills.map((cat: any) => (
                 <div key={cat.category} className="cp-skill-cat">
                   <div className="cp-skill-cat-name">{cat.category}</div>
                   <div className="cp-tags">
-                    {cat.tags.map(t => <span key={t} className="cp-tag">{t}</span>)}
+                    {(cat.skills || (cat.tags || []).map((t: string) => ({ name: t, tip: '' }))).map((item: any, idx: number) => (
+                      <span key={idx} className="cp-tag" tabIndex={0}>
+                        {item.name || item}
+                        {item.tip && <span className="tip">{item.tip}</span>}
+                      </span>
+                    ))}
                   </div>
                 </div>
               ))}
@@ -612,15 +611,23 @@ export default function App() {
                       <span className={`cp-exp-badge cp-exp-badge--${exp.type}`}>{exp.badge}</span>
                     </div>
                   </div>
-                  <ul className="cp-exp-list">
-                    {exp.bullets.map((b, i) => <li key={i}>{b}</li>)}
-                  </ul>
-                  {exp.achievement && (
-                    <div className="cp-exp-achievement">
-                      <Trophy size={13} className="inline mr-1.5 text-yellow-500" />
-                      {exp.achievement}
+                  <div className="cp-exp-hint">
+                    <span>Hover to expand</span>
+                    <span className="text-[10px]">▾</span>
+                  </div>
+                  <div className="cp-exp-detail">
+                    <div>
+                      <ul className="cp-exp-list">
+                        {exp.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                      </ul>
+                      {exp.achievement && (
+                        <div className="cp-exp-achievement">
+                          <Trophy size={13} className="inline mr-1.5 text-yellow-500" />
+                          {exp.achievement}
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -686,10 +693,10 @@ export default function App() {
 
       <section id="projects">
         <motion.div
-           initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
-           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-           viewport={{ once: true, margin: "-100px" }}
-           transition={{ duration: 1, ease: [0.33, 1, 0.68, 1] }}
+           initial={{ opacity: 0, y: 25 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true, margin: "-80px" }}
+           transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
         >
           <h2 className="section-title">My <span>Projects</span></h2>
           <motion.div 
@@ -701,57 +708,77 @@ export default function App() {
               visible: {
                 opacity: 1,
                 transition: {
-                  staggerChildren: 0.15
+                  staggerChildren: 0.12
                 }
               }
             }}
-            className="projects-grid"
+            className="builds"
           >
-            {projects.map((p, i) => (
+            {projects.map((p: any, i: number) => (
               <motion.div
                 key={`${p.title}-${i}`}
                 variants={{
-                  hidden: { opacity: 0, y: 30, scale: 0.95 },
-                  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.33, 1, 0.68, 1] } }
+                  hidden: { opacity: 0, y: 25 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.33, 1, 0.68, 1] } }
                 }}
-                whileHover={{ y: -10, scale: 1.02, transition: { duration: 0.4, ease: "easeOut" } }}
-                className="proj-card group"
+                className="build"
+                tabIndex={0}
               >
-                <div className="proj-icon-wrap">
-                  {p.icon}
+                {/* Top bar: Badge on left, Links on right */}
+                <div className="build-top">
+                  <div className="build-badge">{p.badge || `0${i + 1} / SECURITY BUILD`}</div>
+                  <div className="build-links">
+                    {p.link && (
+                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="tlink">
+                        Live app ↗
+                      </a>
+                    )}
+                    {p.github && (
+                      <a href={p.github} target="_blank" rel="noopener noreferrer" className="tlink">
+                        Code ↗
+                      </a>
+                    )}
+                  </div>
                 </div>
-                <div className="proj-title">{p.title}</div>
-                <div className="proj-period">{p.period}</div>
-                <p className="proj-desc">{p.desc}</p>
-                <div className="proj-tech">{p.tech}</div>
-                {p.link && (
-                  <a href={p.link} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-mono transition-colors">
-                    <ExternalLink size={14} /> View Project
-                  </a>
-                )}
+
+                {/* Title */}
+                <h3 className="build-title">{p.title}</h3>
+
+                {/* Concise 2-line description (ALWAYS VISIBLE) */}
+                <p className="build-desc">{p.desc}</p>
+
+                {/* Hint: indicates interactive expand */}
+                <div className="build-hint" aria-hidden="true">
+                  <span>Hover to view Key Capabilities & Stack</span>
+                  <span className="build-hint-arrow">▾</span>
+                </div>
+
+                {/* Expandable detail on hover */}
+                <div className="build-detail">
+                  <div>
+                    {p.capabilities && p.capabilities.length > 0 && (
+                      <div className="build-caps">
+                        <div className="build-cap-heading">KEY CAPABILITIES</div>
+                        <ul className="build-cap-list">
+                          {p.capabilities.map((cap: string, cIdx: number) => (
+                            <li key={cIdx}>{cap}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {p.techTags && p.techTags.length > 0 && (
+                      <div className="build-tech">
+                        {p.techTags.map((tag: string, tIdx: number) => (
+                          <span key={tIdx}>{tag}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
               </motion.div>
             ))}
-
-            <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 30, scale: 0.95 },
-              visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.33, 1, 0.68, 1] } }
-            }}
-            whileHover={{ y: -10, scale: 1.02, transition: { duration: 0.4, ease: "easeOut" } }}
-            className="proj-card group"
-          >
-            <div className="proj-icon-wrap">
-              <Trophy size={22} />
-            </div>
-            <div className="proj-title">Awards & Achievements</div>
-            <div className="proj-period">2024 – 2025</div>
-            <ul className="tl-list mt-3">
-              <li className="text-[0.78rem] text-gray-400 mb-1">1st Place — Cybersecurity Quiz (TANSAM)</li>
-              <li className="text-[0.78rem] text-gray-400 mb-1">1st Place — Rhetoric Rumble Debate (RMD)</li>
-              <li className="text-[0.78rem] text-gray-400">Award of Excellence — TANSAM Internship</li>
-            </ul>
           </motion.div>
-        </motion.div>
         </motion.div>
       </section>
 
