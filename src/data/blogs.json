@@ -1,5 +1,16 @@
 [
   {
+    "id": 13,
+    "date": "31 Aug, 2026",
+    "author": "Shafeeq S",
+    "title": "Network Sniffer Detected: Linux Trojan Investigation",
+    "desc": "A SOC investigation uncovering a Linux Trojan disguised as Microsoft Office software, capturing network traffic through tcpdump, transferring PCAP data via GoFile, and establishing persistence through cron jobs.",
+    "cat": "Malware Analysis",
+    "image": "/blogs/network-sniffer-blog-thumbnail-1794972596905.png",
+    "link": "https://shafeeq-cybersecblogs.vercel.app/articles/network-sniffer-detected-linux-trojan-investigation",
+    "content": "## Case Overview\n\nInvestigated a High-severity SOC alert involving suspicious network-sniffing activity on a Linux endpoint named **Billy**.\n\nThe investigation uncovered a malicious Bash script disguised as Microsoft Office software that captured network traffic, transferred the resulting PCAP through GoFile, and established persistence using a cron job.\n\n## Investigation Highlights\n\n### 1. Alert & Initial Access Analysis\n- Investigated SOC198 – Network Sniffer Detected.\n- Identified suspicious access to `microsoft-office.zip`.\n- Correlated browser history and endpoint telemetry to establish the download sequence.\n\n### 2. Malware Analysis\n- Examined the malicious `microsoft-office.sh` Bash script.\n- Identified packet capture, external data transfer, and persistence capabilities.\n- Confirmed malware execution through endpoint process telemetry.\n\n### 3. Network & Data Transfer Analysis\n- Recovered `outfile.pcap` and confirmed successful packet capture.\n- Analyzed `cap.log` and identified a GoFile download-page URL.\n- Correlated forensic artifacts to support successful external data transfer.\n\n### 4. Persistence Investigation\n- Identified a malicious `@reboot` cron entry.\n- Mapped the persistence mechanism to **T1053.003 – Cron**.\n\n### 5. Containment & Eradication\n- Isolated the affected endpoint.\n- Preserved relevant forensic artifacts.\n- Removed the malicious Bash script and cron entry.\n- Verified successful persistence removal.\n\n## Investigation Result\n\n**Verdict:** True Positive\n\n**Severity:** High\n\n**Hostname:** `Billy`\n\n**Internal IP:** `172.16.17.193`\n\n**Malware:** `microsoft-office.sh`\n\n**SHA-256:**\n`86a3f2f66b0af4db199ca71dc2902fcee1086cecb29a7753546730b4330ece19`\n\n**MITRE ATT&CK:**\n- `T1040` – Network Sniffing\n- `T1053.003` – Cron\n\n**Case Status:** Contained & Eradicated\n\n## Key Takeaway\n\nDemonstrated the importance of correlating endpoint telemetry, malware behavior, packet captures, and persistence artifacts to reconstruct a complete attack chain.\n\nThe investigation also highlighted the importance of distinguishing confirmed forensic evidence from inferred activity when assessing potential credential exposure and external data transfer.\n\n**Tools & Skills:** Linux · Bash Analysis · tcpdump · PCAP Analysis · Threat Intelligence · GoFile · Cron Persistence · MITRE ATT&CK · Incident Response"
+  },
+  {
     "id": 12,
     "date": "18 Oct, 2026",
     "author": "Shafeeq S",
