@@ -1,29 +1,99 @@
 [
   {
-    "category": "SOC Operations & Incident Response",
+    "category": "Security Operations & Blue Team",
+    "blurb": "From the SOC floor to CTF rooms — detection, alert triage, and threat intelligence.",
+    "skills": [
+      {
+        "name": "SIEM Analysis",
+        "tip": "LetsDefend SOC workflows & log correlation across live attack simulations"
+      },
+      {
+        "name": "Threat Detection",
+        "tip": "ThreatLens kill-chain engine & rule-based indicator correlation"
+      },
+      {
+        "name": "Incident Response",
+        "tip": "TANSAM attack scenarios & triage playbooks during Siemens internship"
+      },
+      {
+        "name": "Alert Triage",
+        "tip": "93% SLA accuracy across 3,907 points on LetsDefend VIP+ platform"
+      },
+      {
+        "name": "MITRE ATT&CK",
+        "tip": "Technique mapping & kill chain correlation in ThreatLens SOC platform"
+      },
+      {
+        "name": "IOC Extraction",
+        "tip": "Automated artifact triage in MailSleuth & forensic investigation reports"
+      },
+      {
+        "name": "Wireshark",
+        "tip": "PCAP inspection, protocol anomaly analysis & traffic carving"
+      },
+      {
+        "name": "Phishing Analysis",
+        "tip": "Scikit-learn NLP detector at TANSAM & IEEE QRishing research paper"
+      },
+      {
+        "name": "Kali Linux",
+        "tip": "Daily driver for penetration testing, John the Ripper & traffic inspection"
+      },
+      {
+        "name": "LetsDefend",
+        "tip": "VIP+ Defender · 3,907 pts · 19,041 SLA score · 93% accuracy"
+      }
+    ],
     "tags": [
-      "Alert Triage",
-      "Log Correlation",
       "SIEM Analysis",
-      "Incident Response",
-      "IOC Extraction",
       "Threat Detection",
-      "Phishing Analysis"
+      "Incident Response",
+      "Alert Triage",
+      "MITRE ATT&CK",
+      "IOC Extraction",
+      "Wireshark",
+      "Phishing Analysis",
+      "Kali Linux",
+      "LetsDefend"
     ]
   },
   {
-    "category": "Threat Hunting & OSINT",
-    "tags": [
-      "Threat Hunting",
-      "Log Analysis",
-      "OSINT Techniques",
-      "IOC Research",
-      "Threat Intelligence",
-      "Email Header Analysis"
-    ]
-  },
-  {
-    "category": "Malware Analysis & Digital Forensics",
+    "category": "Malware Analysis & Forensics",
+    "blurb": "Dissecting malicious binaries, extracting persistence mechanisms, and reversing.",
+    "skills": [
+      {
+        "name": "Static Analysis",
+        "tip": "String extraction, PE headers, imports & hash verification"
+      },
+      {
+        "name": "Dynamic Analysis",
+        "tip": "Sandboxed behavioral execution, registry modifications & network tracking"
+      },
+      {
+        "name": "Procmon",
+        "tip": "Process monitoring & file system event tracing in live malware labs"
+      },
+      {
+        "name": "Process Hacker",
+        "tip": "Memory inspection, thread enumeration & DLL injection checks"
+      },
+      {
+        "name": "RegShot",
+        "tip": "Registry difference snapshots before and after malware detonation"
+      },
+      {
+        "name": "Fiddler",
+        "tip": "HTTP/HTTPS traffic interception & C2 beaconing analysis"
+      },
+      {
+        "name": "VirusTotal",
+        "tip": "Multi-engine scanning, behavior reports & CTI threat correlation"
+      },
+      {
+        "name": "Memory Forensics",
+        "tip": "Solved 57 flags in Sherlocks DFIR category at HTB Holmes CTF 2026"
+      }
+    ],
     "tags": [
       "Static Analysis",
       "Dynamic Analysis",
@@ -31,44 +101,109 @@
       "Process Hacker",
       "RegShot",
       "Fiddler",
-      "VirusTotal"
+      "VirusTotal",
+      "Memory Forensics"
     ]
   },
   {
-    "category": "Network Security & Traffic Analysis",
+    "category": "AI & Defensive Security",
+    "blurb": "LLM guardrails, attack surface modeling, and ML-powered threat engines.",
+    "skills": [
+      {
+        "name": "PromptShield",
+        "tip": "Defensive gateway blocking prompt injection & sensitive data leakage"
+      },
+      {
+        "name": "CyberTwin",
+        "tip": "AI digital twin for enterprise attack surface & blast radius mapping"
+      },
+      {
+        "name": "Scikit-learn",
+        "tip": "Phishing email classification model built during TANSAM Siemens internship"
+      },
+      {
+        "name": "FastAPI",
+        "tip": "High-throughput API gateway deployed on Azure Container Apps"
+      },
+      {
+        "name": "Gemini API",
+        "tip": "Real-time threat evaluation & payload classification engine"
+      },
+      {
+        "name": "NLP / Text Analysis",
+        "tip": "Email header & lure classification in defensive phishing systems"
+      },
+      {
+        "name": "Applied AI",
+        "tip": "CSRBOX & IBM SkillsBuild applied AI development program"
+      },
+      {
+        "name": "Docker",
+        "tip": "Containerized deployment of security APIs & testing sandbox"
+      }
+    ],
     "tags": [
-      "Wireshark",
-      "TCP/IP",
-      "DNS",
-      "HTTP/HTTPS",
-      "Network Protocols",
-      "Traffic Analysis",
-      "Port Scanning"
+      "PromptShield",
+      "CyberTwin",
+      "Scikit-learn",
+      "FastAPI",
+      "Gemini API",
+      "NLP / Text Analysis",
+      "Applied AI",
+      "Docker"
     ]
   },
   {
-    "category": "Security Frameworks & Platforms",
-    "tags": [
-      "NIST RMF",
-      "NIST CSF",
-      "ISO 27005",
-      "MITRE ATT&CK",
-      "Cyber Kill Chain",
-      "Kali Linux",
-      "VirtualBox",
-      "LetsDefend"
-    ]
-  },
-  {
-    "category": "Programming & Automation",
+    "category": "Systems, Networks & Automation",
+    "blurb": "Hardened environments, protocol analysis, and offensive/defensive scripting.",
+    "skills": [
+      {
+        "name": "Python",
+        "tip": "Primary language for threat detection engines, scrapers & automation"
+      },
+      {
+        "name": "Linux Hardening",
+        "tip": "UFW configuration, permissions, systemd services & log audits"
+      },
+      {
+        "name": "Windows Internals",
+        "tip": "Event log forensics, Sysmon telemetry & registry analysis"
+      },
+      {
+        "name": "Bash Scripting",
+        "tip": "SOC log parsing, automation scripts & environment setup"
+      },
+      {
+        "name": "TCP/IP & DNS",
+        "tip": "Network packet dissection, DNS tunneling & port analysis"
+      },
+      {
+        "name": "ServiceNow",
+        "tip": "Platform admin, ATF automated testing & ITSM incident workflows"
+      },
+      {
+        "name": "TypeScript",
+        "tip": "Core language powering ThreatLens SOC investigation dashboard"
+      },
+      {
+        "name": "GitHub Actions",
+        "tip": "CI/CD pipelines, automated testing & portfolio deployment"
+      },
+      {
+        "name": "Azure Cloud",
+        "tip": "Azure Container Apps deployment for PromptShield firewall"
+      }
+    ],
     "tags": [
       "Python",
-      "Java",
-      "C++",
-      "Linux",
-      "Windows",
+      "Linux Hardening",
+      "Windows Internals",
       "Bash Scripting",
-      "GitHub"
+      "TCP/IP & DNS",
+      "ServiceNow",
+      "TypeScript",
+      "GitHub Actions",
+      "Azure Cloud"
     ]
   }
 ]

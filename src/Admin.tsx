@@ -823,7 +823,8 @@ function ProfilePanel({ token }: { token: string }) {
 /* ═══════════════════════════════════════════════════════
    SKILLS PANEL
    ═══════════════════════════════════════════════════════ */
-interface SkillCategory { category: string; tags: string[]; }
+interface SkillItem { name: string; tip: string; }
+interface SkillCategory { category: string; blurb?: string; skills?: SkillItem[]; tags?: string[]; }
 
 function SkillsPanel({ token }: { token: string }) {
   const [items, setItems] = useState<SkillCategory[] | null>(null);
@@ -885,7 +886,7 @@ function SkillsPanel({ token }: { token: string }) {
               <button onClick={() => removeCategory(idx)} className="text-xs text-red-400 hover:text-red-300 shrink-0">Remove</button>
             </div>
             <textarea
-              value={cat.tags.join(', ')}
+              value={(cat.tags || []).join(', ')}
               onChange={e => updateTags(idx, e.target.value)}
               rows={2}
               placeholder="Tag 1, Tag 2, Tag 3"

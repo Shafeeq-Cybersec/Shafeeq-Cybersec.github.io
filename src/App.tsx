@@ -347,7 +347,7 @@ export default function App() {
                 hidden: { opacity: 0, y: 30, filter: 'blur(10px)' },
                 visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 1, ease: [0.23, 1, 0.32, 1] } }
               }}
-              className="text-white text-[clamp(2.2rem,8vw,4.5rem)] font-[800] leading-[1.1] tracking-[1px] mb-4 sm:whitespace-nowrap"
+              className="hero-name"
             >
               SHAFEEQ S
             </motion.h1>
@@ -357,11 +357,11 @@ export default function App() {
                 hidden: { opacity: 0 },
                 visible: { opacity: 1, transition: { duration: 0.8 } }
               }}
-              className="text-[18px] sm:text-[22px] md:text-[26px] mb-8"
+              className="hero-typer"
             >
-              <span className="text-[#9CA3AF]">I am a </span>
-              <span className="text-[#3B82F6] font-semibold">{typedText}</span>
-              <span className="inline-block w-[2px] h-[1.1em] bg-[#3B82F6] ml-1 align-middle animate-pulse"></span>
+              <span className="hero-typer-prefix">I am a </span>
+              <span className="hero-typer-role">{typedText}</span>
+              <span className="hero-cursor" />
             </motion.div>
 
             {/* Stats card — 4-stat hero strip */}
@@ -573,12 +573,24 @@ export default function App() {
               <Settings size={18} className="cp-block-icon" />
               Technical Skills
             </div>
-            <div className="cp-skills-grid">
-              {skills.map((cat) => (
-                <div key={cat.category} className="cp-skill-cat">
-                  <div className="cp-skill-cat-name">{cat.category}</div>
-                  <div className="cp-tags">
-                    {cat.tags.map(t => <span key={t} className="cp-tag">{t}</span>)}
+            <p className="text-xs text-gray-400 mb-5">
+              Hover any chip for where it earned its place — every tool here has a story from an internship, a build, or a lab room.
+            </p>
+            <div className="stack-grid">
+              {skills.map((cat: any) => (
+                <div key={cat.category} className="stack-card">
+                  <div className="stack-cat">
+                    <span>{cat.category}</span>
+                    <i>{cat.skills ? cat.skills.length : (cat.tags ? cat.tags.length : 0)}</i>
+                  </div>
+                  {cat.blurb && <p className="stack-blurb">{cat.blurb}</p>}
+                  <div className="stack-chips">
+                    {(cat.skills || (cat.tags || []).map((t: string) => ({ name: t, tip: '' }))).map((item: any, idx: number) => (
+                      <span key={idx} className="chip" tabIndex={0}>
+                        {item.name || item}
+                        {item.tip && <span className="tip">{item.tip}</span>}
+                      </span>
+                    ))}
                   </div>
                 </div>
               ))}
